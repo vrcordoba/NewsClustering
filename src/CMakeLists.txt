@@ -6,6 +6,8 @@ set(HEADER_FILES
    Analizador.h
    EntidadNombrada.h
    Noticia.h
+   ExclusionList.h
+   ExclusionListFromFile.h
 )
 
 set(SOURCE_FILES
@@ -13,6 +15,7 @@ set(SOURCE_FILES
    Analizador.cpp
    EntidadNombrada.cpp
    Noticia.cpp
+   ExclusionListFromFile.cpp
 )
 
 set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -g2")
