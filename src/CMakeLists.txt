@@ -8,6 +8,7 @@ set(HEADER_FILES
    Noticia.h
 
    News.h
+   Utf8Constants.h
    ExclusionList.h
    ExclusionListFromFile.h
 )

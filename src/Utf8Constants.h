@@ -6,15 +6,15 @@
 
 namespace Utf8Constants
 {
-   const char* currentLocale = "es_ES.UTF-8";
-   const std::uint32_t oneByteMaskShift = 7;
-   const std::uint32_t twoBytesMaskShift = 5;
-   const std::uint32_t threeBytesMaskShift = 4;
-   const std::uint32_t fourBytesMaskShift = 3;
-   const std::uint32_t oneByteCharacterMask = 0;
-   const std::uint32_t twoBytesCharacterMask = 6;
-   const std::uint32_t threeBytesCharacterMask = 14;
-   const std::uint32_t fourBytesCharacterMask = 30;
+   static const char* currentLocale = "es_ES.UTF-8";
+   static const std::uint32_t oneByteMaskShift = 7;
+   static const std::uint32_t twoBytesMaskShift = 5;
+   static const std::uint32_t threeBytesMaskShift = 4;
+   static const std::uint32_t fourBytesMaskShift = 3;
+   static const std::uint32_t oneByteCharacterMask = 0;
+   static const std::uint32_t twoBytesCharacterMask = 6;
+   static const std::uint32_t threeBytesCharacterMask = 14;
+   static const std::uint32_t fourBytesCharacterMask = 30;
 }
 
 #endif

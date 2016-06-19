@@ -85,7 +85,7 @@ TEST_F(NewsTestSuite, computeMostMentionedEntityNonAsciiWordsInExclusionList)
 
 TEST_F(NewsTestSuite, computeMostMentionedEntityNonAsciiWordsNotStartedByCapitalLetter)
 {
-   std::vector<std::string> newsText{u8"ñoñería", u8"ñoñería", u8"ungüento", u8"Ungüento", u8"ñoñería"};
+   std::vector<std::string> newsText{u8"ñoñería", u8"ñoñería", u8"ungüento", u8"Ungüento", u8"óscar", u8"óscar", u8"ñoñería"};
    News news(exclusionList);
 
    EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(1)
