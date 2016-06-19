@@ -6,6 +6,8 @@ set(HEADER_FILES
    Analizador.h
    EntidadNombrada.h
    Noticia.h
+
+   News.h
    ExclusionList.h
    ExclusionListFromFile.h
 )
@@ -15,6 +17,8 @@ set(SOURCE_FILES
    Analizador.cpp
    EntidadNombrada.cpp
    Noticia.cpp
+
+   News.cpp
    ExclusionListFromFile.cpp
 )
 

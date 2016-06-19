@@ -5,9 +5,10 @@
 #include <sstream>
 #include <iterator>
 #include <algorithm>
+#include "Utf8Constants.h"
 
 ExclusionListFromFile::ExclusionListFromFile(const std::string& exclusionListFile)
-   : currentLocale("es_ES.UTF-8"), excludedWords()
+   : excludedWords()
 {
    readExclusionListFromFile(exclusionListFile);
 }
@@ -25,29 +26,29 @@ bool ExclusionListFromFile::isWordInExclusionList(const std::string& word) const
 std::string ExclusionListFromFile::toLower(const std::string& word) const
 {
    std::string toLowerWord;
-   std::size_t numBitesInWord = word.size();
+   std::size_t numBytesInWord = word.size();
    std::size_t byte = 0;
-   while (byte < numBitesInWord)
+   while (byte < numBytesInWord)
    {
       // Following https://en.wikipedia.org/wiki/UTF-8#Description
       unsigned character = word[byte] & 0x000000FF;
-      if ((character >> 7) == 0)
+      if ((character >> Utf8Constants::oneByteMaskShift) == Utf8Constants::oneByteCharacterMask)
       {
          toLowerWord += std::tolower(word[byte]);
       }
-      else if ((character >> 5) == 6)
+      else if ((character >> Utf8Constants::twoBytesMaskShift) == Utf8Constants::twoBytesCharacterMask)
       {
-         toLowerWord += nonAsciiCharactersToLower(word.substr(byte, 2));
+         toLowerWord += nonAsciiCharacterToLower(word.substr(byte, 2));
          byte++;
       }
-      else if ((character >> 4) == 14)
+      else if ((character >> Utf8Constants::threeBytesMaskShift) == Utf8Constants::threeBytesCharacterMask)
       {
-         toLowerWord += nonAsciiCharactersToLower(word.substr(byte, 3));
+         toLowerWord += nonAsciiCharacterToLower(word.substr(byte, 3));
          byte += 2;
       }
-      else if ((character >> 3) == 30)
+      else if ((character >> Utf8Constants::fourBytesMaskShift) == Utf8Constants::fourBytesCharacterMask)
       {
-         toLowerWord += nonAsciiCharactersToLower(word.substr(byte, 4));
+         toLowerWord += nonAsciiCharacterToLower(word.substr(byte, 4));
          byte += 3;
       }
       else
@@ -59,13 +60,13 @@ std::string ExclusionListFromFile::toLower(const std::string& word) const
    return toLowerWord;
 }
 
-std::string ExclusionListFromFile::nonAsciiCharactersToLower(const std::string& character) const
+std::string ExclusionListFromFile::nonAsciiCharacterToLower(const std::string& multiByteRepresentation) const
 {
-   std::setlocale(LC_ALL, currentLocale.c_str());
+   std::setlocale(LC_ALL, Utf8Constants::currentLocale);
    wchar_t wideRepresentation;
-   std::mbtowc(&wideRepresentation, character.c_str(), character.size());
-   wchar_t lowerWideRepresentation = std::tolower(wideRepresentation, std::locale(currentLocale.c_str()));
-   std::string lowerMultiByteRepresentation(character.size(), '\0');
+   std::mbtowc(&wideRepresentation, multiByteRepresentation.c_str(), multiByteRepresentation.size());
+   wchar_t lowerWideRepresentation = std::tolower(wideRepresentation, std::locale(Utf8Constants::currentLocale));
+   std::string lowerMultiByteRepresentation(multiByteRepresentation.size(), '\0');
    std::wctomb(&lowerMultiByteRepresentation[0], lowerWideRepresentation);
    return lowerMultiByteRepresentation;
 }

@@ -14,3 +14,8 @@ add_executable(ExclusionListTestSuite
    ExclusionListTestSuite.cpp
    ../src/ExclusionListFromFile.cpp)
 target_link_libraries(ExclusionListTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
+
+add_executable(NewsTestSuite
+   NewsTestSuite.cpp
+   ../src/News.cpp)
+target_link_libraries(NewsTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
