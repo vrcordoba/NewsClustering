@@ -7,7 +7,7 @@
 #include <algorithm>
 
 ExclusionListFromFile::ExclusionListFromFile(const std::string& exclusionListFile)
-   : excludedWords()
+   : currentLocale("es_ES.UTF-8"), excludedWords()
 {
    readExclusionListFromFile(exclusionListFile);
 }
@@ -37,17 +37,17 @@ std::string ExclusionListFromFile::toLower(const std::string& word) const
       }
       else if ((character >> 5) == 6)
       {
-         toLowerWord += spanishNonAsciiCharactersToLower(word.substr(byte, 2));
+         toLowerWord += nonAsciiCharactersToLower(word.substr(byte, 2));
          byte++;
       }
       else if ((character >> 4) == 14)
       {
-         toLowerWord += spanishNonAsciiCharactersToLower(word.substr(byte, 3));
+         toLowerWord += nonAsciiCharactersToLower(word.substr(byte, 3));
          byte += 2;
       }
       else if ((character >> 3) == 30)
       {
-         toLowerWord += spanishNonAsciiCharactersToLower(word.substr(byte, 4));
+         toLowerWord += nonAsciiCharactersToLower(word.substr(byte, 4));
          byte += 3;
       }
       else
@@ -59,24 +59,15 @@ std::string ExclusionListFromFile::toLower(const std::string& word) const
    return toLowerWord;
 }
 
-std::string ExclusionListFromFile::spanishNonAsciiCharactersToLower(const std::string& character) const
+std::string ExclusionListFromFile::nonAsciiCharactersToLower(const std::string& character) const
 {
-   if (character == u8"\u00d1") //ñ
-      return u8"\u00f1";
-   else if(character == u8"\u00dc") //ü
-      return u8"\u00fc";
-   else if(character == u8"\u00c1") //á
-      return u8"\u00e1";
-   else if(character == u8"\u00c9") //é
-      return u8"\u00e9";
-   else if(character == u8"\u00cd") //í­
-      return u8"\u00ed";
-   else if(character == u8"\u00d3") //ó
-      return u8"\u00f3";
-   else if(character == u8"\u00da") //ú
-      return u8"\u00fa";
-   else
-      return character;
+   std::setlocale(LC_ALL, currentLocale.c_str());
+   wchar_t wideRepresentation;
+   std::mbtowc(&wideRepresentation, character.c_str(), character.size());
+   wchar_t lowerWideRepresentation = std::tolower(wideRepresentation, std::locale(currentLocale.c_str()));
+   std::string lowerMultiByteRepresentation(character.size(), '\0');
+   std::wctomb(&lowerMultiByteRepresentation[0], lowerWideRepresentation);
+   return lowerMultiByteRepresentation;
 }
 
 void ExclusionListFromFile::readExclusionListFromFile(const std::string& exclusionListFile)

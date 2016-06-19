@@ -16,8 +16,9 @@ public:
 private:
    void readExclusionListFromFile(const std::string& exclusionListFile);
 
+   const std::string currentLocale;
    std::string toLower(const std::string& word) const;
-   std::string spanishNonAsciiCharactersToLower(const std::string& character) const;
+   std::string nonAsciiCharactersToLower(const std::string& character) const;
    std::set<std::string> excludedWords;
 };
 
