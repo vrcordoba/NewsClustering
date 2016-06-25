@@ -1,8 +1,7 @@
 
-#include "ExclusionList.h"
-#include "ExclusionListFromFile.h"
-
 #include "gmock/gmock.h"
+
+#include "ExclusionListFromFile.h"
 
 TEST(ExclusionListTestSuite, emptyExclusionList)
 {

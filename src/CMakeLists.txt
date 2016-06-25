@@ -9,6 +9,10 @@ set(HEADER_FILES
 
    News.h
    Utf8Constants.h
+   StringUtilities.h
+   NewsReader.h
+   NewsReaderFromPlainText.h
+   InvalidDirectoryException.h
    ExclusionList.h
    ExclusionListFromFile.h
 )
@@ -20,6 +24,9 @@ set(SOURCE_FILES
    Noticia.cpp
 
    News.cpp
+   StringUtilities.cpp
+   NewsReaderFromPlainText.cpp
+   InvalidDirectoryException.cpp
    ExclusionListFromFile.cpp
 )
 

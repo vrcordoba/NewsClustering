@@ -1,7 +1,8 @@
 
+#include "gmock/gmock.h"
+
 #include <vector>
 #include <string>
-#include "gmock/gmock.h"
 #include "News.h"
 #include "ExclusionList.h"
 #include "ExclusionListMock.h"

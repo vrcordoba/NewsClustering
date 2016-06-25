@@ -12,10 +12,21 @@ include_directories(/usr/include/gmock)
 
 add_executable(ExclusionListTestSuite
    ExclusionListTestSuite.cpp
-   ../src/ExclusionListFromFile.cpp)
+   ../src/ExclusionListFromFile.cpp
+   ../src/StringUtilities.cpp)
 target_link_libraries(ExclusionListTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
 add_executable(NewsTestSuite
    NewsTestSuite.cpp
-   ../src/News.cpp)
+   ../src/News.cpp
+   ../src/StringUtilities.cpp)
 target_link_libraries(NewsTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
+
+add_executable(NewsReaderTestSuite
+   NewsReaderTestSuite.cpp
+   ../src/NewsReaderFromPlainText.cpp
+   ../src/ExclusionListFromFile.cpp
+   ../src/InvalidDirectoryException.cpp
+   ../src/News.cpp
+   ../src/StringUtilities.cpp)
+target_link_libraries(NewsReaderTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
