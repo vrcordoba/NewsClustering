@@ -19,6 +19,17 @@ TEST_F(NewsTestSuite, getMostMentionedEntityNoMentionedEntities)
    EXPECT_THAT(news.getMostMentionedEntity(), ::testing::Eq(""));
 }
 
+TEST_F(NewsTestSuite, computeMostMentionedEntityNonAlphabeticWords)
+{
+   std::vector<std::string> newsText{"3000", "3000", "3000", "400.000", ".", ".", ";", ","};
+   News news(exclusionList);
+
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(0);
+
+   news.setMentionedEntities(newsText);
+   EXPECT_THAT(news.getMostMentionedEntity(), ::testing::Eq(""));
+}
+
 TEST_F(NewsTestSuite, computeMostMentionedEntityWordsNotInExclusionList)
 {
    std::vector<std::string> newsText{"Hello", "Hello", "Goodbye", "Sayonara"};
