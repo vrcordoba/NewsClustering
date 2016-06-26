@@ -14,6 +14,8 @@ public:
    explicit News(const ExclusionList& exclusionList);
    ~News();
 
+   News& operator=(const News& otherNews);
+
    std::string getMostMentionedEntity();
 
    void setMentionedEntities(std::vector<std::string> wordsInNews);

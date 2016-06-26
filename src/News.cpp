@@ -14,6 +14,13 @@ News::~News()
 {
 }
 
+News& News::operator=(const News& otherNews)
+{
+   this->mostMentionedEntity = otherNews.mostMentionedEntity;
+   mentionedEntities = otherNews.mentionedEntities;
+   return *this;
+}
+
 std::string News::getMostMentionedEntity()
 {
    if (mostMentionedEntity.empty())

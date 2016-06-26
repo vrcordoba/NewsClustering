@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <cstring>
 #include "InvalidDirectoryException.h"
+#include "NewsCluster.h"
 
 NewsReaderFromPlainText::NewsReaderFromPlainText(const std::string& newsDirectory,
    const ExclusionList& exclusionList) : newsDirectory(newsDirectory),
@@ -19,13 +20,18 @@ NewsReaderFromPlainText::~NewsReaderFromPlainText()
 {
 }
 
-std::vector<News> NewsReaderFromPlainText::getNews()
+std::vector<NewsCluster> NewsReaderFromPlainText::getNews()
 {
-   std::vector<News> news;
+   std::vector<NewsCluster> newsVector;
    std::vector<std::string> newsFilesInDirectory = getFilesInDirectory();
    for (auto& newsFile : newsFilesInDirectory)
-      news.push_back(getNewsFromFile(newsDirectory + "/" + newsFile));
-   return news;
+   {
+      News news = getNewsFromFile(newsDirectory + "/" + newsFile);
+      NewsCluster newsCluster;
+      newsCluster.addNews(news);
+      newsVector.push_back(newsCluster);
+   }
+   return newsVector;
 }
 
 std::vector<std::string> NewsReaderFromPlainText::getFilesInDirectory()

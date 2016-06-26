@@ -5,6 +5,7 @@
 #include "NewsReaderFromPlainText.h"
 #include "InvalidDirectoryException.h"
 #include "News.h"
+#include "NewsCluster.h"
 
 TEST(NewsReaderTestSuite, wrongDirectory)
 {
@@ -24,10 +25,15 @@ TEST(NewsReaderTestSuite, directoryWithPhonyNews)
 {
    ExclusionListFromFile exclusionList("dummyData/litteSpanishStopList.txt");
    NewsReaderFromPlainText newsReader("dummyData/dummyNews", exclusionList);
-   std::vector<News> recoveredNews = newsReader.getNews();
+   std::vector<NewsCluster> recoveredNews = newsReader.getNews();
    EXPECT_THAT(recoveredNews.size(), ::testing::Eq(2));
-   EXPECT_THAT(recoveredNews[0].getMostMentionedEntity(), ::testing::Eq(std::string(u8"Titular")));
-   EXPECT_THAT(recoveredNews[1].getMostMentionedEntity(), ::testing::Eq(std::string(u8"Verano")));
+   std::set<std::string> expectedMostMentionedEntities{u8"Titular", u8"Verano"};
+   for (auto& news : recoveredNews)
+   {
+      std::set<std::string>::iterator it = expectedMostMentionedEntities.find(news.begin()->getMostMentionedEntity());
+      EXPECT_TRUE(it != expectedMostMentionedEntities.end());
+      expectedMostMentionedEntities.erase(it);
+   }
 }
 
 TEST(NewsReaderTestSuite, directoryWithRealNews)

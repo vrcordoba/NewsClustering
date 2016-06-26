@@ -6,6 +6,7 @@
 #include "NewsReader.h"
 #include "News.h"
 #include "ExclusionList.h"
+#include "NewsCluster.h"
 
 class NewsReaderFromPlainText final : public NewsReader
 {
@@ -13,7 +14,7 @@ public:
    NewsReaderFromPlainText(const std::string& newsDirectory, const ExclusionList& exclusionList);
    ~NewsReaderFromPlainText();
 
-   std::vector<News> getNews();
+   std::vector<NewsCluster> getNews();
 
 private:
    std::vector<std::string> getFilesInDirectory();

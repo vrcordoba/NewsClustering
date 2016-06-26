@@ -28,5 +28,13 @@ add_executable(NewsReaderTestSuite
    ../src/ExclusionListFromFile.cpp
    ../src/InvalidDirectoryException.cpp
    ../src/News.cpp
-   ../src/StringUtilities.cpp)
+   ../src/StringUtilities.cpp
+   ../src/NewsCluster.cpp)
 target_link_libraries(NewsReaderTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
+
+add_executable(NewsClusterTestSuite
+   NewsClusterTestSuite.cpp
+   ../src/NewsCluster.cpp
+   ../src/News.cpp
+   ../src/StringUtilities.cpp)
+target_link_libraries(NewsClusterTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)

@@ -2,14 +2,14 @@
 #define NEWSREADER_H_
 
 #include <vector>
-#include "News.h"
+#include "NewsCluster.h"
 
 class NewsReader
 {
 public:
    virtual ~NewsReader() {};
 
-   virtual std::vector<News> getNews() = 0;
+   virtual std::vector<NewsCluster> getNews() = 0;
 };
 
 #endif
