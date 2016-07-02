@@ -106,3 +106,17 @@ TEST_F(NewsTestSuite, computeMostMentionedEntityNonAsciiWordsNotStartedByCapital
    news.setMentionedEntities(newsText);
    EXPECT_THAT(news.getMostMentionedEntity(), ::testing::Eq(u8"Ungüento"));
 }
+
+TEST_F(NewsTestSuite, assignationOperator)
+{
+   std::vector<std::string> newsText{"Hello", "Hello", "Goodbye", "Sayonara"};
+   News news1(exclusionList);
+   News news2(exclusionList);
+
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(4)
+      .WillRepeatedly(::testing::Return(false));
+
+   news1.setMentionedEntities(newsText);
+   news2 = news1;
+   EXPECT_THAT(news2.getMostMentionedEntity(), ::testing::Eq("Hello"));
+}
