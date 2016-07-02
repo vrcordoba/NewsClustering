@@ -19,6 +19,8 @@ public:
    const_iterator begin() const;
    iterator end();
    const_iterator end() const;
+   bool empty() const;
+   std::size_t size() const;
 
 private:
    std::vector<News> newsVector;

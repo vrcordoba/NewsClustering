@@ -9,13 +9,7 @@
 TEST(NewsClusterTestSuite, emptyCluster)
 {
    NewsCluster newsCluster;
-   std::uint32_t clusterSize = 0;
-   for (auto& news : newsCluster)
-   {
-      news.getMostMentionedEntity();
-      clusterSize++;
-   }
-   ASSERT_THAT(clusterSize, ::testing::Eq(0));
+   ASSERT_THAT(newsCluster.empty(), ::testing::Eq(true));
 }
 
 TEST(NewsClusterTestSuite, addNews)
@@ -26,13 +20,8 @@ TEST(NewsClusterTestSuite, addNews)
 
    newsCluster.addNews(news);
 
-   std::uint32_t clusterSize = 0;
-   for (auto& news : newsCluster)
-   {
-      news.getMostMentionedEntity();
-      clusterSize++;
-   }
-   ASSERT_THAT(clusterSize, ::testing::Eq(1));
+   ASSERT_THAT(newsCluster.empty(), ::testing::Eq(false));
+   ASSERT_THAT(newsCluster.size(), ::testing::Eq(1));
 }
 
 TEST(NewsClusterTestSuite, mergeCluster)
@@ -47,19 +36,7 @@ TEST(NewsClusterTestSuite, mergeCluster)
 
    newsCluster1.mergeCluster(newsCluster2);
 
-   std::uint32_t clusterSize = 0;
-   for (auto& news : newsCluster1)
-   {
-      news.getMostMentionedEntity();
-      clusterSize++;
-   }
-   ASSERT_THAT(clusterSize, ::testing::Eq(4));
+   ASSERT_THAT(newsCluster1.size(), ::testing::Eq(4));
+   ASSERT_THAT(newsCluster2.size(), ::testing::Eq(0));
 
-   clusterSize = 0;
-   for (auto& news : newsCluster2)
-   {
-      news.getMostMentionedEntity();
-      clusterSize++;
-   }
-   ASSERT_THAT(clusterSize, ::testing::Eq(0));
 }

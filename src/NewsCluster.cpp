@@ -40,3 +40,13 @@ NewsCluster::const_iterator NewsCluster::end() const
 {
    return newsVector.cend();
 }
+
+bool NewsCluster::empty() const
+{
+   return newsVector.empty();
+}
+
+std::size_t NewsCluster::size() const
+{
+   return newsVector.cend() - newsVector.cbegin();
+}

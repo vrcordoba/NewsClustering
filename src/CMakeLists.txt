@@ -16,6 +16,8 @@ set(HEADER_FILES
    InvalidDirectoryException.h
    ExclusionList.h
    ExclusionListFromFile.h
+   ClusteringCriterion.h
+   MostMentionedEntityClusteringCriterion.h
 )
 
 set(SOURCE_FILES
@@ -30,6 +32,7 @@ set(SOURCE_FILES
    NewsReaderFromPlainText.cpp
    InvalidDirectoryException.cpp
    ExclusionListFromFile.cpp
+   MostMentionedEntityClusteringCriterion.cpp
 )
 
 set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -g2")

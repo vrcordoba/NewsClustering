@@ -38,3 +38,11 @@ add_executable(NewsClusterTestSuite
    ../src/News.cpp
    ../src/StringUtilities.cpp)
 target_link_libraries(NewsClusterTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
+
+add_executable(MostMentionedEntityClusteringCriterionTestSuite
+   MostMentionedEntityClusteringCriterionTestSuite.cpp
+   ../src/MostMentionedEntityClusteringCriterion.cpp
+   ../src/NewsCluster.cpp
+   ../src/News.cpp
+   ../src/StringUtilities.cpp)
+target_link_libraries(MostMentionedEntityClusteringCriterionTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
