@@ -8,6 +8,7 @@ set(HEADER_FILES
    Noticia.h
 
    News.h
+   NewspaperNews.h
    Utf8Constants.h
    StringUtilities.h
    NewsCluster.h
@@ -26,7 +27,7 @@ set(SOURCE_FILES
    EntidadNombrada.cpp
    Noticia.cpp
 
-   News.cpp
+   NewspaperNews.cpp
    StringUtilities.cpp
    NewsCluster.cpp
    NewsReaderFromPlainText.cpp

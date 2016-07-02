@@ -28,9 +28,10 @@ TEST(NewsReaderTestSuite, directoryWithPhonyNews)
    std::vector<NewsCluster> recoveredNews = newsReader.getNews();
    EXPECT_THAT(recoveredNews.size(), ::testing::Eq(2));
    std::set<std::string> expectedMostMentionedEntities{u8"Titular", u8"Verano"};
-   for (auto& news : recoveredNews)
+   for (auto& newsCluster : recoveredNews)
    {
-      std::set<std::string>::iterator it = expectedMostMentionedEntities.find(news.begin()->getMostMentionedEntity());
+      std::set<std::string>::iterator it = expectedMostMentionedEntities.find(
+         (*newsCluster.begin())->getMostMentionedEntity());
       EXPECT_TRUE(it != expectedMostMentionedEntities.end());
       expectedMostMentionedEntities.erase(it);
    }

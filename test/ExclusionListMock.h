@@ -4,7 +4,7 @@
 #include "ExclusionList.h"
 #include "gmock/gmock.h"
 
-class ExclusionListMock : public ExclusionList
+class ExclusionListMock final : public ExclusionList
 {
 public:
    MOCK_CONST_METHOD1(isWordInExclusionList, bool(const std::string& word));

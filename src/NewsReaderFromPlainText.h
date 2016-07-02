@@ -3,8 +3,9 @@
 
 #include <vector>
 #include <exception>
+#include <memory>
 #include "NewsReader.h"
-#include "News.h"
+#include "NewspaperNews.h"
 #include "ExclusionList.h"
 #include "NewsCluster.h"
 
@@ -18,7 +19,7 @@ public:
 
 private:
    std::vector<std::string> getFilesInDirectory();
-   News getNewsFromFile(const std::string& filename);
+   std::shared_ptr<News> getNewsFromFile(const std::string& filename);
 
    std::string newsDirectory;
    const ExclusionList& exclusionList;

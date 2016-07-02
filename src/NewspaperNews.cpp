@@ -1,34 +1,26 @@
 
-#include "News.h"
+#include "NewspaperNews.h"
 
-#include <locale>
 #include "ExclusionList.h"
 #include "StringUtilities.h"
 
-News::News(const ExclusionList& exclusionList) : exclusionList(exclusionList),
+NewspaperNews::NewspaperNews(const ExclusionList& exclusionList) : exclusionList(exclusionList),
    mostMentionedEntity(), mentionedEntities()
 {
 }
 
-News::~News()
+NewspaperNews::~NewspaperNews()
 {
 }
 
-News& News::operator=(const News& otherNews)
-{
-   this->mostMentionedEntity = otherNews.mostMentionedEntity;
-   mentionedEntities = otherNews.mentionedEntities;
-   return *this;
-}
-
-std::string News::getMostMentionedEntity()
+std::string NewspaperNews::getMostMentionedEntity()
 {
    if (mostMentionedEntity.empty())
       computeMostMentionedEntity();
    return mostMentionedEntity;
 }
 
-void News::computeMostMentionedEntity()
+void NewspaperNews::computeMostMentionedEntity()
 {
    std::uint32_t mostMentionedTimes = 0;
    for (auto& mentionedEntity : mentionedEntities)
@@ -41,7 +33,7 @@ void News::computeMostMentionedEntity()
    }
 }
 
-void News::setMentionedEntities(std::vector<std::string> wordsInNews)
+void NewspaperNews::setMentionedEntities(std::vector<std::string> wordsInNews)
 {
    for (auto& word : wordsInNews)
    {
@@ -54,3 +46,4 @@ void News::setMentionedEntities(std::vector<std::string> wordsInNews)
       }
    }
 }
+

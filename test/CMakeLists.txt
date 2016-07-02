@@ -16,33 +16,29 @@ add_executable(ExclusionListTestSuite
    ../src/StringUtilities.cpp)
 target_link_libraries(ExclusionListTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
-add_executable(NewsTestSuite
-   NewsTestSuite.cpp
-   ../src/News.cpp
+add_executable(NewspaperNewsTestSuite
+   NewspaperNewsTestSuite.cpp
+   ../src/NewspaperNews.cpp
    ../src/StringUtilities.cpp)
-target_link_libraries(NewsTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
+target_link_libraries(NewspaperNewsTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
 add_executable(NewsReaderTestSuite
    NewsReaderTestSuite.cpp
    ../src/NewsReaderFromPlainText.cpp
    ../src/ExclusionListFromFile.cpp
    ../src/InvalidDirectoryException.cpp
-   ../src/News.cpp
+   ../src/NewspaperNews.cpp
    ../src/StringUtilities.cpp
    ../src/NewsCluster.cpp)
 target_link_libraries(NewsReaderTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
 add_executable(NewsClusterTestSuite
    NewsClusterTestSuite.cpp
-   ../src/NewsCluster.cpp
-   ../src/News.cpp
-   ../src/StringUtilities.cpp)
+   ../src/NewsCluster.cpp)
 target_link_libraries(NewsClusterTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
 add_executable(MostMentionedEntityClusteringCriterionTestSuite
    MostMentionedEntityClusteringCriterionTestSuite.cpp
    ../src/MostMentionedEntityClusteringCriterion.cpp
-   ../src/NewsCluster.cpp
-   ../src/News.cpp
-   ../src/StringUtilities.cpp)
+   ../src/NewsCluster.cpp)
 target_link_libraries(MostMentionedEntityClusteringCriterionTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)

@@ -26,7 +26,7 @@ std::vector<NewsCluster> NewsReaderFromPlainText::getNews()
    std::vector<std::string> newsFilesInDirectory = getFilesInDirectory();
    for (auto& newsFile : newsFilesInDirectory)
    {
-      News news = getNewsFromFile(newsDirectory + "/" + newsFile);
+      std::shared_ptr<News> news = getNewsFromFile(newsDirectory + "/" + newsFile);
       NewsCluster newsCluster;
       newsCluster.addNews(news);
       newsVector.push_back(newsCluster);
@@ -53,7 +53,7 @@ std::vector<std::string> NewsReaderFromPlainText::getFilesInDirectory()
    return files;
 }
 
-News NewsReaderFromPlainText::getNewsFromFile(const std::string& filename)
+std::shared_ptr<News> NewsReaderFromPlainText::getNewsFromFile(const std::string& filename)
 {
    std::ifstream file(filename);
    std::vector<std::string> wordsInNews;
@@ -65,7 +65,7 @@ News NewsReaderFromPlainText::getNewsFromFile(const std::string& filename)
          std::back_inserter(wordsInLine));
       wordsInNews.insert(wordsInNews.end(), wordsInLine.begin(), wordsInLine.end());
    }
-   News news(exclusionList);
-   news.setMentionedEntities(wordsInNews);
+   std::shared_ptr<News> news(new NewspaperNews(exclusionList));
+   news->setMentionedEntities(wordsInNews);
    return news;
 }

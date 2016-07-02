@@ -3,14 +3,13 @@
 
 #include "MostMentionedEntityClusteringCriterion.h"
 #include "NewsCluster.h"
-#include "ExclusionListMock.h"
+#include "NewsMock.h"
 
 TEST(MostMentionedEntityClusteringCriterionTestSuite, firstClusterIsEmpty)
 {
    MostMentionedEntityClusteringCriterion criterion;
    NewsCluster firstCluster;
-   ExclusionListMock exclusionList;
-   News news(exclusionList);
+   std::shared_ptr<News> news = std::make_shared<NewsMock>();
    NewsCluster secondCluster;
    secondCluster.addNews(news);
 
@@ -20,9 +19,8 @@ TEST(MostMentionedEntityClusteringCriterionTestSuite, firstClusterIsEmpty)
 TEST(MostMentionedEntityClusteringCriterionTestSuite, secondClusterIsEmpty)
 {
    MostMentionedEntityClusteringCriterion criterion;
-   ExclusionListMock exclusionList;
-   News news(exclusionList);
    NewsCluster firstCluster;
+   std::shared_ptr<News> news = std::make_shared<NewsMock>();
    firstCluster.addNews(news);
    NewsCluster secondCluster;
 
@@ -32,20 +30,19 @@ TEST(MostMentionedEntityClusteringCriterionTestSuite, secondClusterIsEmpty)
 TEST(MostMentionedEntityClusteringCriterionTestSuite, differentClustersByCriterion)
 {
    MostMentionedEntityClusteringCriterion criterion;
-   ExclusionListMock exclusionList;
-   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(8).WillRepeatedly(::testing::Return(false));
 
    NewsCluster firstCluster;
-   News news1(exclusionList);
-   std::vector<std::string> newsText1{"Hello", "Hello", "Goodbye", "Sayonara"};
-   news1.setMentionedEntities(newsText1);
-   firstCluster.addNews(news1);
+   NewsMock* news1 = new NewsMock();
+   std::shared_ptr<News> firstNews(news1);
+   firstCluster.addNews(firstNews);
 
    NewsCluster secondCluster;
-   News news2(exclusionList);
-   std::vector<std::string> newsText2{"Hello", "Sayonara", "Goodbye", "Sayonara"};
-   news2.setMentionedEntities(newsText2);
-   secondCluster.addNews(news2);
+   NewsMock* news2 = new NewsMock();
+   std::shared_ptr<News> secondNews(news2);
+   secondCluster.addNews(secondNews);
+
+   EXPECT_CALL(*news1, getMostMentionedEntity()).Times(1).WillRepeatedly(::testing::Return("FirstNews"));
+   EXPECT_CALL(*news2, getMostMentionedEntity()).Times(1).WillRepeatedly(::testing::Return("SecondNews"));
 
    ASSERT_THAT(criterion.areBothInTheSameCluster(firstCluster, secondCluster), ::testing::Eq(false));
 }
@@ -53,20 +50,19 @@ TEST(MostMentionedEntityClusteringCriterionTestSuite, differentClustersByCriteri
 TEST(MostMentionedEntityClusteringCriterionTestSuite, sameClustersByCriterion)
 {
    MostMentionedEntityClusteringCriterion criterion;
-   ExclusionListMock exclusionList;
-   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(8).WillRepeatedly(::testing::Return(false));
 
    NewsCluster firstCluster;
-   News news1(exclusionList);
-   std::vector<std::string> newsText1{"Hello", "Sayonara", "Goodbye", "Sayonara"};
-   news1.setMentionedEntities(newsText1);
-   firstCluster.addNews(news1);
+   NewsMock* news1 = new NewsMock();
+   std::shared_ptr<News> firstNews(news1);
+   firstCluster.addNews(firstNews);
 
    NewsCluster secondCluster;
-   News news2(exclusionList);
-   std::vector<std::string> newsText2{"Hello", "Goodbye", "Sayonara", "Sayonara"};
-   news2.setMentionedEntities(newsText2);
-   secondCluster.addNews(news2);
+   NewsMock* news2 = new NewsMock();
+   std::shared_ptr<News> secondNews(news2);
+   secondCluster.addNews(secondNews);
+
+   EXPECT_CALL(*news1, getMostMentionedEntity()).Times(1).WillRepeatedly(::testing::Return("SameNews"));
+   EXPECT_CALL(*news2, getMostMentionedEntity()).Times(1).WillRepeatedly(::testing::Return("SameNews"));
 
    ASSERT_THAT(criterion.areBothInTheSameCluster(firstCluster, secondCluster), ::testing::Eq(true));
 }

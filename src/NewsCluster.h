@@ -2,6 +2,7 @@
 #define NEWSCLUSTER_H_
 
 #include <vector>
+#include <memory>
 #include "News.h"
 
 class NewsCluster final
@@ -10,11 +11,11 @@ public:
    NewsCluster();
    ~NewsCluster();
 
-   void addNews(News& news);
+   void addNews(const std::shared_ptr<News>& news);
    void mergeCluster(NewsCluster& otherNewsCluster);
 
-   typedef std::vector<News>::iterator iterator;
-   typedef std::vector<News>::const_iterator const_iterator;
+   typedef std::vector<std::shared_ptr<News>>::iterator iterator;
+   typedef std::vector<std::shared_ptr<News>>::const_iterator const_iterator;
    iterator begin();
    const_iterator begin() const;
    iterator end();
@@ -23,7 +24,7 @@ public:
    std::size_t size() const;
 
 private:
-   std::vector<News> newsVector;
+   std::vector<std::shared_ptr<News>> newsVector;
 };
 
 #endif

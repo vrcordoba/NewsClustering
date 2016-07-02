@@ -1,3 +1,4 @@
+
 #include "NewsCluster.h"
 
 NewsCluster::NewsCluster() : newsVector()
@@ -8,7 +9,7 @@ NewsCluster::~NewsCluster()
 {
 }
 
-void NewsCluster::addNews(News& news)
+void NewsCluster::addNews(const std::shared_ptr<News>& news)
 {
    newsVector.push_back(news);
 }

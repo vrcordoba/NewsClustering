@@ -1,10 +1,9 @@
 
 #include "gmock/gmock.h"
 
-#include <cstdint>
-#include "News.h"
+#include <memory>
 #include "NewsCluster.h"
-#include "ExclusionListMock.h"
+#include "NewsMock.h"
 
 TEST(NewsClusterTestSuite, emptyCluster)
 {
@@ -15,8 +14,7 @@ TEST(NewsClusterTestSuite, emptyCluster)
 TEST(NewsClusterTestSuite, addNews)
 {
    NewsCluster newsCluster;
-   ExclusionListMock exclusionList;
-   News news(exclusionList);
+   std::shared_ptr<News> news = std::make_shared<NewsMock>();
 
    newsCluster.addNews(news);
 
@@ -27,8 +25,10 @@ TEST(NewsClusterTestSuite, addNews)
 TEST(NewsClusterTestSuite, mergeCluster)
 {
    NewsCluster newsCluster1, newsCluster2;
-   ExclusionListMock exclusionList;
-   News newsA(exclusionList), newsB(exclusionList), newsC(exclusionList), newsD(exclusionList);
+   std::shared_ptr<News> newsA = std::make_shared<NewsMock>();
+   std::shared_ptr<News> newsB = std::make_shared<NewsMock>();
+   std::shared_ptr<News> newsC = std::make_shared<NewsMock>();
+   std::shared_ptr<News> newsD = std::make_shared<NewsMock>();
    newsCluster1.addNews(newsA);
    newsCluster1.addNews(newsB);
    newsCluster2.addNews(newsC);
