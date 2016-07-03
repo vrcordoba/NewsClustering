@@ -46,7 +46,7 @@ target_link_libraries(MostMentionedEntityClusteringCriterionTestSuite ${GTEST_LI
 add_executable(ClusterizerTestSuite
    ClusterizerTestSuite.cpp
    ../src/Clusterizer.cpp
-   ../src/NewsCluster.cpp))
+   ../src/NewsCluster.cpp)
 target_link_libraries(ClusterizerTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
 add_executable(RealClusterizerTestSuite
