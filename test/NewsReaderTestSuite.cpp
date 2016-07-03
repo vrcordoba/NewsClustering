@@ -2,29 +2,52 @@
 #include "gmock/gmock.h"
 
 #include <memory>
+#include "ExclusionListMock.h"
 #include "ExclusionListFromFile.h"
 #include "NewsReaderFromPlainText.h"
 #include "InvalidDirectoryException.h"
 #include "News.h"
 
-TEST(NewsReaderTestSuite, wrongDirectory)
+class NewsReaderTestSuite : public ::testing::Test
 {
-   ExclusionListFromFile exclusionList("dummyData/emptyStopList.txt");
+protected:
+   ExclusionListMock exclusionList;
+};
+
+TEST_F(NewsReaderTestSuite, wrongDirectory)
+{
    NewsReaderFromPlainText newsReader("/wrong_directory", exclusionList);
    ASSERT_THROW(newsReader.getNews(), InvalidDirectoryException);
 }
 
-TEST(NewsReaderTestSuite, emptyDirectory)
+TEST_F(NewsReaderTestSuite, emptyDirectory)
 {
-   ExclusionListFromFile exclusionList("dummyData/emptyStopList.txt");
    NewsReaderFromPlainText newsReader("dummyData/emptyDir", exclusionList);
    EXPECT_THAT(newsReader.getNews().size(), ::testing::Eq(0));
 }
 
-TEST(NewsReaderTestSuite, directoryWithPhonyNews)
+TEST_F(NewsReaderTestSuite, directoryWithPhonyNews)
 {
-   ExclusionListFromFile exclusionList("dummyData/litteSpanishStopList.txt");
    NewsReaderFromPlainText newsReader("dummyData/dummyNews", exclusionList);
+
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(16)
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(true))
+      .WillOnce(::testing::Return(true))
+      .WillOnce(::testing::Return(true))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(true))
+      .WillOnce(::testing::Return(true));
+
    std::vector<std::shared_ptr<News>> recoveredNews = newsReader.getNews();
    EXPECT_THAT(recoveredNews.size(), ::testing::Eq(2));
    std::set<std::string> expectedMostMentionedEntities{u8"Titular", u8"Verano"};
@@ -37,9 +60,9 @@ TEST(NewsReaderTestSuite, directoryWithPhonyNews)
    }
 }
 
-TEST(NewsReaderTestSuite, directoryWithRealNews)
+TEST_F(NewsReaderTestSuite, directoryWithRealNews)
 {
-   ExclusionListFromFile exclusionList("../data/ES_stopList.txt");
-   NewsReaderFromPlainText newsReader("../data/news", exclusionList);
+   ExclusionListFromFile realExclusionList("../data/ES_stopList.txt");
+   NewsReaderFromPlainText newsReader("../data/news", realExclusionList);
    EXPECT_THAT(newsReader.getNews().size(), ::testing::Eq(48));
 }
