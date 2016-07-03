@@ -45,6 +45,18 @@ target_link_libraries(MostMentionedEntityClusteringCriterionTestSuite ${GTEST_LI
 
 add_executable(ClusterizerTestSuite
    ClusterizerTestSuite.cpp
-  ../src/Clusterizer.cpp
-  ../src/NewsCluster.cpp)
+   ../src/Clusterizer.cpp
+   ../src/NewsCluster.cpp))
 target_link_libraries(ClusterizerTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
+
+add_executable(RealClusterizerTestSuite
+   RealClusterizerTestSuite.cpp
+   ../src/Clusterizer.cpp
+   ../src/MostMentionedEntityClusteringCriterion.cpp
+   ../src/NewsReaderFromPlainText.cpp
+   ../src/ExclusionListFromFile.cpp
+   ../src/InvalidDirectoryException.cpp
+   ../src/NewspaperNews.cpp
+   ../src/StringUtilities.cpp
+   ../src/NewsCluster.cpp)
+target_link_libraries(RealClusterizerTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
