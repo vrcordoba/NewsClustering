@@ -15,11 +15,11 @@ public:
    NewsReaderFromPlainText(const std::string& newsDirectory, const ExclusionList& exclusionList);
    ~NewsReaderFromPlainText();
 
-   std::vector<NewsCluster> getNews();
+   std::vector<NewsCluster> getNews() const;
 
 private:
-   std::vector<std::string> getFilesInDirectory();
-   std::shared_ptr<News> getNewsFromFile(const std::string& filename);
+   std::vector<std::string> getFilesInDirectory() const;
+   std::shared_ptr<News> getNewsFromFile(const std::string& filename) const;
 
    std::string newsDirectory;
    const ExclusionList& exclusionList;

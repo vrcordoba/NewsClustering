@@ -19,6 +19,7 @@ set(HEADER_FILES
    ExclusionListFromFile.h
    ClusteringCriterion.h
    MostMentionedEntityClusteringCriterion.h
+   Clusterizer.h
 )
 
 set(SOURCE_FILES
@@ -34,6 +35,7 @@ set(SOURCE_FILES
    InvalidDirectoryException.cpp
    ExclusionListFromFile.cpp
    MostMentionedEntityClusteringCriterion.cpp
+   Clusterizer.cpp
 )
 
 set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -g2")

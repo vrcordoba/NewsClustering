@@ -11,7 +11,7 @@ public:
    MostMentionedEntityClusteringCriterion();
    ~MostMentionedEntityClusteringCriterion();
 
-   bool areBothInTheSameCluster(NewsCluster& clusterA, NewsCluster& clusterB);
+   bool areBothInTheSameCluster(NewsCluster& clusterA, NewsCluster& clusterB) const;
 };
 
 #endif

@@ -9,7 +9,7 @@ class NewsReader
 public:
    virtual ~NewsReader() {};
 
-   virtual std::vector<NewsCluster> getNews() = 0;
+   virtual std::vector<NewsCluster> getNews() const = 0;
 };
 
 #endif

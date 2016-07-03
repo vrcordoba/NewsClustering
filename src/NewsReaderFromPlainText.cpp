@@ -20,7 +20,7 @@ NewsReaderFromPlainText::~NewsReaderFromPlainText()
 {
 }
 
-std::vector<NewsCluster> NewsReaderFromPlainText::getNews()
+std::vector<NewsCluster> NewsReaderFromPlainText::getNews() const
 {
    std::vector<NewsCluster> newsVector;
    std::vector<std::string> newsFilesInDirectory = getFilesInDirectory();
@@ -34,7 +34,7 @@ std::vector<NewsCluster> NewsReaderFromPlainText::getNews()
    return newsVector;
 }
 
-std::vector<std::string> NewsReaderFromPlainText::getFilesInDirectory()
+std::vector<std::string> NewsReaderFromPlainText::getFilesInDirectory() const
 {
    std::vector<std::string> files;
    DIR *dir;
@@ -53,7 +53,7 @@ std::vector<std::string> NewsReaderFromPlainText::getFilesInDirectory()
    return files;
 }
 
-std::shared_ptr<News> NewsReaderFromPlainText::getNewsFromFile(const std::string& filename)
+std::shared_ptr<News> NewsReaderFromPlainText::getNewsFromFile(const std::string& filename) const
 {
    std::ifstream file(filename);
    std::vector<std::string> wordsInNews;

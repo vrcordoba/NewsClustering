@@ -2,6 +2,7 @@
 #define EXCLUSIONLISTMOCK_H_
 
 #include "ExclusionList.h"
+
 #include "gmock/gmock.h"
 
 class ExclusionListMock final : public ExclusionList
