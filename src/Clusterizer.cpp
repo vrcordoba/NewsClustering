@@ -6,8 +6,6 @@
 #include "NewsReader.h"
 #include "ClusteringCriterion.h"
 
-#include <iostream>
-
 Clusterizer::Clusterizer() : clusteringCriterion(nullptr), newsReader(nullptr),
    newsClusters()
 {
@@ -27,11 +25,21 @@ void Clusterizer::setNewsReader(const NewsReader* newsReader)
    this->newsReader = newsReader;
 }
 
-void Clusterizer::createClusters()
+void Clusterizer::obtainClusters()
 {
    assert(newsReader != nullptr);
-   newsClusters = newsReader->getNews();
+   createClustersFromNews(newsReader->getNews());
    analyzeNews();
+}
+
+void Clusterizer::createClustersFromNews(const std::vector<std::shared_ptr<News>>& newsVector)
+{
+   for (auto& news : newsVector)
+   {
+      NewsCluster newsCluster;
+      newsCluster.addNews(news);
+      newsClusters.push_back(newsCluster);
+   }
 }
 
 void Clusterizer::analyzeNews()

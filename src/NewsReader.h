@@ -2,14 +2,15 @@
 #define NEWSREADER_H_
 
 #include <vector>
-#include "NewsCluster.h"
+#include <memory>
+#include "News.h"
 
 class NewsReader
 {
 public:
    virtual ~NewsReader() {};
 
-   virtual std::vector<NewsCluster> getNews() const = 0;
+   virtual std::vector<std::shared_ptr<News>> getNews() const = 0;
 };
 
 #endif

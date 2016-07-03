@@ -10,7 +10,7 @@
 class NewsReaderMock final : public NewsReader
 {
 public:
-   MOCK_CONST_METHOD0(getNews, std::vector<NewsCluster>());
+   MOCK_CONST_METHOD0(getNews, std::vector<std::shared_ptr<News>>());
 };
 
 #endif

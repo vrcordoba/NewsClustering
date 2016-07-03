@@ -2,12 +2,11 @@
 #define NEWSREADERFROMPLAINTEXT_H_
 
 #include <vector>
-#include <exception>
 #include <memory>
 #include "NewsReader.h"
-#include "NewspaperNews.h"
-#include "ExclusionList.h"
-#include "NewsCluster.h"
+#include "News.h"
+
+class ExclusionList;
 
 class NewsReaderFromPlainText final : public NewsReader
 {
@@ -15,7 +14,7 @@ public:
    NewsReaderFromPlainText(const std::string& newsDirectory, const ExclusionList& exclusionList);
    ~NewsReaderFromPlainText();
 
-   std::vector<NewsCluster> getNews() const;
+   std::vector<std::shared_ptr<News>> getNews() const;
 
 private:
    std::vector<std::string> getFilesInDirectory() const;
