@@ -105,3 +105,11 @@ TEST_F(NewspaperNewsTestSuite, computeMostMentionedEntityNonAsciiWordsNotStarted
    news.setMentionedEntities(newsText);
    EXPECT_THAT(news.getMostMentionedEntity(), ::testing::Eq(u8"Ungüento"));
 }
+
+TEST_F(NewspaperNewsTestSuite, newsTitle)
+{
+   NewspaperNews news(exclusionList);
+   std::string title(u8"Dummy title");
+   news.setTitle(title);
+   EXPECT_THAT(news.getTitle(), ::testing::Eq(title));
+}

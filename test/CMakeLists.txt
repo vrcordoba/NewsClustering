@@ -60,3 +60,10 @@ add_executable(RealClusterizerTestSuite
    ../src/StringUtilities.cpp
    ../src/NewsCluster.cpp)
 target_link_libraries(RealClusterizerTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
+
+add_executable(PlainTextClusterWriterTestSuite
+   PlainTextClusterWriterTestSuite.cpp
+   ../src/PlainTextClusterWriter.cpp
+   ../src/NewsCluster.cpp
+   ../src/InvalidDirectoryException.cpp)
+target_link_libraries(PlainTextClusterWriterTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)

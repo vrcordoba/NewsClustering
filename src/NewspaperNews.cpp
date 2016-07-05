@@ -5,7 +5,7 @@
 #include "StringUtilities.h"
 
 NewspaperNews::NewspaperNews(const ExclusionList& exclusionList) : exclusionList(exclusionList),
-   mostMentionedEntity(), mentionedEntities()
+   mostMentionedEntity(), mentionedEntities(), title()
 {
 }
 
@@ -33,7 +33,7 @@ void NewspaperNews::computeMostMentionedEntity()
    }
 }
 
-void NewspaperNews::setMentionedEntities(std::vector<std::string> wordsInNews)
+void NewspaperNews::setMentionedEntities(const std::vector<std::string>& wordsInNews)
 {
    for (auto& word : wordsInNews)
    {
@@ -45,5 +45,15 @@ void NewspaperNews::setMentionedEntities(std::vector<std::string> wordsInNews)
             mentionedEntities[word] = 1u;
       }
    }
+}
+
+std::string NewspaperNews::getTitle() const
+{
+   return title;
+}
+
+void NewspaperNews::setTitle(const std::string& title)
+{
+   this->title = title;
 }
 

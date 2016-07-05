@@ -16,7 +16,9 @@ public:
    ~NewspaperNews();
 
    std::string getMostMentionedEntity();
-   void setMentionedEntities(std::vector<std::string> wordsInNews);
+   std::string getTitle() const;
+   void setMentionedEntities(const std::vector<std::string>& wordsInNews);
+   void setTitle(const std::string& title);
 
 private:
    void computeMostMentionedEntity();
@@ -26,6 +28,7 @@ private:
    const ExclusionList& exclusionList;
    std::string mostMentionedEntity;
    std::map<std::string, std::uint32_t> mentionedEntities;
+   std::string title;
 };
 
 #endif

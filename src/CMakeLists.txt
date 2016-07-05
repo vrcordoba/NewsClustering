@@ -20,6 +20,8 @@ set(HEADER_FILES
    ClusteringCriterion.h
    MostMentionedEntityClusteringCriterion.h
    Clusterizer.h
+   ClusterWriter.h
+   PlainTextClusterWriter.h
 )
 
 set(SOURCE_FILES
@@ -36,6 +38,7 @@ set(SOURCE_FILES
    ExclusionListFromFile.cpp
    MostMentionedEntityClusteringCriterion.cpp
    Clusterizer.cpp
+   PlainTextClusterWriter.cpp
 )
 
 set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -g2")
