@@ -10,9 +10,10 @@ public:
    virtual ~News() {};
 
    virtual std::string getMostMentionedEntity() = 0;
-   virtual std::string getTitle() const = 0;
+   virtual std::string getHeadline() const = 0;
    virtual void setMentionedEntities(const std::vector<std::string>& wordsInNews) = 0;
-   virtual void setTitle(const std::string& title) = 0;
+   virtual void setHeadline(const std::string& headline) = 0;
+   virtual bool isContainedInHeadline(const std::string& word) const = 0;
 };
 
 #endif

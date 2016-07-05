@@ -40,7 +40,7 @@ void PlainTextClusterWriter::writeCluster(const NewsCluster& newsCluster)
 {
    for (auto& news : newsCluster)
    {
-      file << news->getTitle() << std::endl;
+      file << news->getHeadline() << std::endl;
    }
 }
 

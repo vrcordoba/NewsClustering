@@ -67,7 +67,7 @@ std::shared_ptr<News> NewsReaderFromPlainText::getNewsFromFile(const std::string
       wordsInNews.insert(wordsInNews.end(), wordsInLine.begin(), wordsInLine.end());
    }
    std::shared_ptr<News> news(new NewspaperNews(exclusionList));
-   news->setTitle(title);
+   news->setHeadline(title);
    news->setMentionedEntities(wordsInNews);
    return news;
 }

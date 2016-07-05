@@ -5,7 +5,7 @@
 #include "StringUtilities.h"
 
 NewspaperNews::NewspaperNews(const ExclusionList& exclusionList) : exclusionList(exclusionList),
-   mostMentionedEntity(), mentionedEntities(), title()
+   mostMentionedEntity(), mentionedEntities(), headline()
 {
 }
 
@@ -47,13 +47,18 @@ void NewspaperNews::setMentionedEntities(const std::vector<std::string>& wordsIn
    }
 }
 
-std::string NewspaperNews::getTitle() const
+std::string NewspaperNews::getHeadline() const
 {
-   return title;
+   return headline;
 }
 
-void NewspaperNews::setTitle(const std::string& title)
+void NewspaperNews::setHeadline(const std::string& headline)
 {
-   this->title = title;
+   this->headline = headline;
+}
+
+bool NewspaperNews::isContainedInHeadline(const std::string& word) const
+{
+   return (headline.find(word) != std::string::npos);
 }
 
