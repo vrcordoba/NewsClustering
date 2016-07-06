@@ -5,7 +5,7 @@
 #include "StringUtilities.h"
 
 NewspaperNews::NewspaperNews(const ExclusionList& exclusionList) : exclusionList(exclusionList),
-   mostMentionedEntity(), mentionedEntities(), headline()
+   mostMentionedEntity(), mentionedEntities(), headline(), relevantEntities()
 {
 }
 
@@ -35,6 +35,8 @@ void NewspaperNews::computeMostMentionedEntity()
 
 void NewspaperNews::setMentionedEntities(const std::vector<std::string>& wordsInNews)
 {
+   const float numRelevantWordsInNews = static_cast<float>(wordsInNews.size()) / 3.0f;
+   std::size_t numWordsProcessedSoFar = 0;
    for (auto& word : wordsInNews)
    {
       if (StringUtilities::isFirstCharacterCapitalLetter(word) and (not exclusionList.isWordInExclusionList(word)))
@@ -43,7 +45,11 @@ void NewspaperNews::setMentionedEntities(const std::vector<std::string>& wordsIn
             mentionedEntities[word] += 1u;
          else
             mentionedEntities[word] = 1u;
+
+         if (numWordsProcessedSoFar < numRelevantWordsInNews)
+            relevantEntities.insert(word);
       }
+      ++numWordsProcessedSoFar;
    }
 }
 
@@ -60,5 +66,10 @@ void NewspaperNews::setHeadline(const std::string& headline)
 bool NewspaperNews::isContainedInHeadline(const std::string& word) const
 {
    return (headline.find(word) != std::string::npos);
+}
+
+std::set<std::string> NewspaperNews::getRelevantEntities() const
+{
+   return relevantEntities;
 }
 

@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include <cstdint>
+#include <set>
 #include "News.h"
 
 class ExclusionList;
@@ -17,6 +18,7 @@ public:
 
    std::string getMostMentionedEntity();
    std::string getHeadline() const;
+   std::set<std::string> getRelevantEntities() const;
    void setMentionedEntities(const std::vector<std::string>& wordsInNews);
    void setHeadline(const std::string& headline);
    bool isContainedInHeadline(const std::string& word) const;
@@ -30,6 +32,7 @@ private:
    std::string mostMentionedEntity;
    std::map<std::string, std::uint32_t> mentionedEntities;
    std::string headline;
+   std::set<std::string> relevantEntities;
 };
 
 #endif

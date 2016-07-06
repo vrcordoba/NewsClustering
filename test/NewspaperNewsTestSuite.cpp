@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <set>
 #include "NewspaperNews.h"
 #include "ExclusionListMock.h"
 
@@ -128,4 +129,45 @@ TEST_F(NewspaperNewsTestSuite, wordIsContainedInHeadline)
    std::string headline(u8"La Policía intervino durante la manifestación");
    news.setHeadline(headline);
    EXPECT_TRUE(news.isContainedInHeadline("Policía"));
+}
+
+TEST_F(NewspaperNewsTestSuite, getRelevantEntitiesNoMentionedEntities)
+{
+   NewspaperNews news(exclusionList);
+   std::set<std::string> emptyRelevantEntities;
+   EXPECT_THAT(news.getRelevantEntities(), ::testing::Eq(emptyRelevantEntities));
+}
+
+TEST_F(NewspaperNewsTestSuite, getRelevantEntitiesSomeEntitiesInExclusionList)
+{
+   std::vector<std::string> newsText{u8"One", u8"Two", u8"Three", u8"Four", u8"Five", u8"Six"};
+   NewspaperNews news(exclusionList);
+
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(6)
+      .WillOnce(::testing::Return(true))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(true))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(true))
+      .WillOnce(::testing::Return(false));
+
+   news.setMentionedEntities(newsText);
+
+   std::set<std::string> expectedResult{u8"Two"};
+   EXPECT_THAT(news.getRelevantEntities(), ::testing::Eq(expectedResult));
+}
+
+TEST_F(NewspaperNewsTestSuite, getRelevantEntitiesSomeWordsNotMentionedEntities)
+{
+   std::vector<std::string> newsText{u8"One", u8"two", u8"Three", u8"four", u8"Five",
+      u8"six", u8"Seven", u8"eight", u8"Nine", u8"ten", u8"Eleven", u8"twelve"};
+   NewspaperNews news(exclusionList);
+
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(6)
+      .WillRepeatedly(::testing::Return(false));
+
+   news.setMentionedEntities(newsText);
+
+   std::set<std::string> expectedResult{u8"One", u8"Three"};
+   EXPECT_THAT(news.getRelevantEntities(), ::testing::Eq(expectedResult));
 }
