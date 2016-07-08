@@ -22,6 +22,7 @@ public:
    void setMentionedEntities(const std::vector<std::string>& wordsInNews);
    void setHeadline(const std::string& headline);
    bool isContainedInHeadline(const std::string& word) const;
+   bool isContainedInRelevantEntities(const std::string& word) const;
 
 private:
    void computeMostMentionedEntity();

@@ -13,7 +13,7 @@ TEST(MostMentionedEntityClusteringCriterionTestSuite, firstClusterIsEmpty)
    NewsCluster secondCluster;
    secondCluster.addNews(news);
 
-   ASSERT_THAT(criterion.areBothInTheSameCluster(firstCluster, secondCluster), ::testing::Eq(false));
+   EXPECT_THAT(criterion.areBothInTheSameCluster(firstCluster, secondCluster), ::testing::Eq(false));
 }
 
 TEST(MostMentionedEntityClusteringCriterionTestSuite, secondClusterIsEmpty)
@@ -24,7 +24,7 @@ TEST(MostMentionedEntityClusteringCriterionTestSuite, secondClusterIsEmpty)
    firstCluster.addNews(news);
    NewsCluster secondCluster;
 
-   ASSERT_THAT(criterion.areBothInTheSameCluster(firstCluster, secondCluster), ::testing::Eq(false));
+   EXPECT_THAT(criterion.areBothInTheSameCluster(firstCluster, secondCluster), ::testing::Eq(false));
 }
 
 TEST(MostMentionedEntityClusteringCriterionTestSuite, differentClustersByCriterion)
@@ -44,7 +44,7 @@ TEST(MostMentionedEntityClusteringCriterionTestSuite, differentClustersByCriteri
    EXPECT_CALL(*news1, getMostMentionedEntity()).Times(1).WillRepeatedly(::testing::Return("FirstNews"));
    EXPECT_CALL(*news2, getMostMentionedEntity()).Times(1).WillRepeatedly(::testing::Return("SecondNews"));
 
-   ASSERT_THAT(criterion.areBothInTheSameCluster(firstCluster, secondCluster), ::testing::Eq(false));
+   EXPECT_THAT(criterion.areBothInTheSameCluster(firstCluster, secondCluster), ::testing::Eq(false));
 }
 
 TEST(MostMentionedEntityClusteringCriterionTestSuite, sameClustersByCriterion)
@@ -64,5 +64,5 @@ TEST(MostMentionedEntityClusteringCriterionTestSuite, sameClustersByCriterion)
    EXPECT_CALL(*news1, getMostMentionedEntity()).Times(1).WillRepeatedly(::testing::Return("SameNews"));
    EXPECT_CALL(*news2, getMostMentionedEntity()).Times(1).WillRepeatedly(::testing::Return("SameNews"));
 
-   ASSERT_THAT(criterion.areBothInTheSameCluster(firstCluster, secondCluster), ::testing::Eq(true));
+   EXPECT_THAT(criterion.areBothInTheSameCluster(firstCluster, secondCluster), ::testing::Eq(true));
 }

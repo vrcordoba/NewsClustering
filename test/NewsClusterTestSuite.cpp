@@ -8,7 +8,7 @@
 TEST(NewsClusterTestSuite, emptyCluster)
 {
    NewsCluster newsCluster;
-   ASSERT_THAT(newsCluster.empty(), ::testing::Eq(true));
+   EXPECT_THAT(newsCluster.empty(), ::testing::Eq(true));
 }
 
 TEST(NewsClusterTestSuite, addNews)
@@ -18,8 +18,8 @@ TEST(NewsClusterTestSuite, addNews)
 
    newsCluster.addNews(news);
 
-   ASSERT_THAT(newsCluster.empty(), ::testing::Eq(false));
-   ASSERT_THAT(newsCluster.size(), ::testing::Eq(1));
+   EXPECT_THAT(newsCluster.empty(), ::testing::Eq(false));
+   EXPECT_THAT(newsCluster.size(), ::testing::Eq(1));
 }
 
 TEST(NewsClusterTestSuite, mergeCluster)
@@ -36,7 +36,7 @@ TEST(NewsClusterTestSuite, mergeCluster)
 
    newsCluster1.mergeCluster(newsCluster2);
 
-   ASSERT_THAT(newsCluster1.size(), ::testing::Eq(4));
-   ASSERT_THAT(newsCluster2.size(), ::testing::Eq(0));
+   EXPECT_THAT(newsCluster1.size(), ::testing::Eq(4));
+   EXPECT_THAT(newsCluster2.size(), ::testing::Eq(0));
 
 }

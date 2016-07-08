@@ -73,3 +73,8 @@ std::set<std::string> NewspaperNews::getRelevantEntities() const
    return relevantEntities;
 }
 
+bool NewspaperNews::isContainedInRelevantEntities(const std::string& word) const
+{
+   return (relevantEntities.find(word) != std::end(relevantEntities));
+}
+

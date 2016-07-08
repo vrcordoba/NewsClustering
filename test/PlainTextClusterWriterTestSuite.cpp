@@ -36,7 +36,7 @@ protected:
 
 TEST_F(PlainTextClusterWriterTestSuite, nonValidDirectory)
 {
-   ASSERT_THROW(PlainTextClusterWriter clusterWriter("/wrong_directory/ClusterWriterTest.txt"), InvalidDirectoryException);
+   EXPECT_THROW(PlainTextClusterWriter clusterWriter("/wrong_directory/ClusterWriterTest.txt"), InvalidDirectoryException);
 }
 
 TEST_F(PlainTextClusterWriterTestSuite, noClustersToPrint)

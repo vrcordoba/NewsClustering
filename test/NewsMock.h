@@ -16,6 +16,7 @@ public:
    MOCK_METHOD1(setMentionedEntities, void(const std::vector<std::string>&));
    MOCK_METHOD1(setHeadline, void(const std::string&));
    MOCK_CONST_METHOD1(isContainedInHeadline, bool(const std::string& word));
+   MOCK_CONST_METHOD1(isContainedInRelevantEntities, bool(const std::string& word));
 };
 
 #endif

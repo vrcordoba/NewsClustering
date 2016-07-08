@@ -59,7 +59,11 @@ std::shared_ptr<News> NewsReaderFromPlainText::getNewsFromFile(const std::string
    for (std::string line; std::getline(file, line); )
    {
       if (title.empty())
+      {
+         line.erase(std::find_if(line.rbegin(), line.rend(),
+            std::not1(std::ptr_fun<int, int>(std::isspace))).base(), line.end());
          title = line;
+      }
       std::istringstream iss(line);
       std::vector<std::string> wordsInLine;
       std::copy(std::istream_iterator<std::string>(iss), std::istream_iterator<std::string>(),

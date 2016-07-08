@@ -171,3 +171,29 @@ TEST_F(NewspaperNewsTestSuite, getRelevantEntitiesSomeWordsNotMentionedEntities)
    std::set<std::string> expectedResult{u8"One", u8"Three"};
    EXPECT_THAT(news.getRelevantEntities(), ::testing::Eq(expectedResult));
 }
+
+TEST_F(NewspaperNewsTestSuite, isNotContainedInRelevantEntities)
+{
+   std::vector<std::string> mentionedEntities{"One", "Two", "Three",
+      "Four", "Five", "Six"};
+   NewspaperNews news(exclusionList);
+
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(6)
+      .WillRepeatedly(::testing::Return(false));
+   news.setMentionedEntities(mentionedEntities);
+
+   EXPECT_FALSE(news.isContainedInRelevantEntities("Three"));
+}
+
+TEST_F(NewspaperNewsTestSuite, isContainedInRelevantEntities)
+{
+   std::vector<std::string> mentionedEntities{"One", "Two", "Three",
+      "Four", "Five", "Six"};
+   NewspaperNews news(exclusionList);
+
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(6)
+      .WillRepeatedly(::testing::Return(false));
+   news.setMentionedEntities(mentionedEntities);
+
+   EXPECT_TRUE(news.isContainedInRelevantEntities("Two"));
+}

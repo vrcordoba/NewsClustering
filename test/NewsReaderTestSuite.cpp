@@ -17,7 +17,7 @@ protected:
 TEST_F(NewsReaderTestSuite, wrongDirectory)
 {
    NewsReaderFromPlainText newsReader("/wrong_directory", exclusionList);
-   ASSERT_THROW(newsReader.getNews(), InvalidDirectoryException);
+   EXPECT_THROW(newsReader.getNews(), InvalidDirectoryException);
 }
 
 TEST_F(NewsReaderTestSuite, emptyDirectory)

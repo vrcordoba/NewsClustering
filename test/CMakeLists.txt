@@ -53,6 +53,7 @@ add_executable(RealClusterizerTestSuite
    RealClusterizerTestSuite.cpp
    ../src/Clusterizer.cpp
    ../src/MostMentionedEntityClusteringCriterion.cpp
+   ../src/ThematicSimilarityClusteringCriterion.cpp
    ../src/NewsReaderFromPlainText.cpp
    ../src/ExclusionListFromFile.cpp
    ../src/InvalidDirectoryException.cpp
@@ -67,3 +68,10 @@ add_executable(PlainTextClusterWriterTestSuite
    ../src/NewsCluster.cpp
    ../src/InvalidDirectoryException.cpp)
 target_link_libraries(PlainTextClusterWriterTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
+
+add_executable(ThematicSimilarityClusteringCriterionTestSuite
+   ThematicSimilarityClusteringCriterionTestSuite.cpp
+   ../src/ThematicSimilarityClusteringCriterion.cpp
+   ../src/MostMentionedEntityClusteringCriterion.cpp
+   ../src/NewsCluster.cpp)
+target_link_libraries(ThematicSimilarityClusteringCriterionTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)

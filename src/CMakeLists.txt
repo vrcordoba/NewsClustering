@@ -19,6 +19,7 @@ set(HEADER_FILES
    ExclusionListFromFile.h
    ClusteringCriterion.h
    MostMentionedEntityClusteringCriterion.h
+   ThematicSimilarityClusteringCriterion.h
    Clusterizer.h
    ClusterWriter.h
    PlainTextClusterWriter.h
@@ -37,6 +38,7 @@ set(SOURCE_FILES
    InvalidDirectoryException.cpp
    ExclusionListFromFile.cpp
    MostMentionedEntityClusteringCriterion.cpp
+   ThematicSimilarityClusteringCriterion.cpp
    Clusterizer.cpp
    PlainTextClusterWriter.cpp
 )
