@@ -3,10 +3,6 @@ cmake_minimum_required(VERSION 2.8.11)
 project(NewsClustering)
 
 set(HEADER_FILES
-   Analizador.h
-   EntidadNombrada.h
-   Noticia.h
-
    News.h
    NewspaperNews.h
    Utf8Constants.h
@@ -26,10 +22,7 @@ set(HEADER_FILES
 )
 
 set(SOURCE_FILES
-   Main.cpp
-   Analizador.cpp
-   EntidadNombrada.cpp
-   Noticia.cpp
+   main.cpp
 
    NewspaperNews.cpp
    StringUtilities.cpp
