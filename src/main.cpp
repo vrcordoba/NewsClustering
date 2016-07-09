@@ -1,24 +1,24 @@
 
 #include "Clusterizer.h"
 #include "ClusterizerOptionParser.h"
-#include "ExclusionListFromFile.h"
-#include "ThematicSimilarityClusteringCriterion.h"
-#include "NewsReaderFromPlainText.h"
-#include "PlainTextClusterWriter.h"
+#include "ClusterizerFactory.h"
+#include "ClusteringCriterion.h"
+#include "NewsReader.h"
+#include "ClusterWriter.h"
 
 int main(int argc, char** argv)
 {
    ClusterizerOptionParser optionsParser(argc, argv);
-   ExclusionListFromFile exclusionList("../data/ES_stopList.txt");
-   ThematicSimilarityClusteringCriterion mostMentionedEntityCriterion;
-   NewsReaderFromPlainText newsReaderFromPlainText("../data/news", exclusionList);
+   ClusterizerFactory clusterizerFactory = ClusterizerFactory::getInstance(
+      optionsParser.getClusterizerOptions());
+   ClusteringCriterion* clusteringCriterion = clusterizerFactory.getClusteringCriterion();
+   NewsReader* newsReader = clusterizerFactory.getNewsReader();
+
    Clusterizer clusterizer;
-
-   clusterizer.setCriterion(&mostMentionedEntityCriterion);
-   clusterizer.setNewsReader(&newsReaderFromPlainText);
-
+   clusterizer.setCriterion(clusteringCriterion);
+   clusterizer.setNewsReader(newsReader);
    clusterizer.obtainClusters();
 
-   PlainTextClusterWriter writer("/tmp/clusterResult.txt");
-   writer.write(clusterizer.getClusters());
+   ClusterWriter* writer = clusterizerFactory.getClusterWriter();
+   writer->write(clusterizer.getClusters());
 }

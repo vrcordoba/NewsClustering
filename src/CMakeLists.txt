@@ -21,6 +21,7 @@ set(HEADER_FILES
    PlainTextClusterWriter.h
    ClusterizerOptions.h
    ClusterizerOptionParser.h
+   ClusterizerFactory.h
 )
 
 set(SOURCE_FILES
@@ -37,6 +38,7 @@ set(SOURCE_FILES
    Clusterizer.cpp
    PlainTextClusterWriter.cpp
    ClusterizerOptionParser.cpp
+   ClusterizerFactory.cpp
 )
 
 set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -g2")

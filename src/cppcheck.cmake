@@ -3,6 +3,7 @@
 file(GLOB_RECURSE ALL_SOURCE_FILES
    *.cpp
 )
+string(REGEX REPLACE "CMakeFiles/[^;]+;?" "" ALL_SOURCE_FILES "${ALL_SOURCE_FILES}") 
 
 add_custom_target(
    cppcheck
