@@ -75,3 +75,8 @@ add_executable(ThematicSimilarityClusteringCriterionTestSuite
    ../src/MostMentionedEntityClusteringCriterion.cpp
    ../src/NewsCluster.cpp)
 target_link_libraries(ThematicSimilarityClusteringCriterionTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
+
+add_executable(ClusterizerOptionParserTestSuite
+   ClusterizerOptionParserTestSuite.cpp
+   ../src/ClusterizerOptionParser.cpp)
+target_link_libraries(ClusterizerOptionParserTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock) 

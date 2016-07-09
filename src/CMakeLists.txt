@@ -19,6 +19,8 @@ set(HEADER_FILES
    Clusterizer.h
    ClusterWriter.h
    PlainTextClusterWriter.h
+   ClusterizerOptions.h
+   ClusterizerOptionParser.h
 )
 
 set(SOURCE_FILES
@@ -34,6 +36,7 @@ set(SOURCE_FILES
    ThematicSimilarityClusteringCriterion.cpp
    Clusterizer.cpp
    PlainTextClusterWriter.cpp
+   ClusterizerOptionParser.cpp
 )
 
 set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -g2")
