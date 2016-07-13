@@ -5,28 +5,28 @@
 #include "ExclusionListMock.h"
 #include "ExclusionListFromFile.h"
 #include "NewsReaderFromPlainText.h"
-#include "InvalidDirectoryException.h"
 #include "News.h"
+#include "InvalidLocationException.h"
 
-class NewsReaderTestSuite : public ::testing::Test
+class NewsReaderFromPlainTextTestSuite : public ::testing::Test
 {
 protected:
    ExclusionListMock exclusionList;
 };
 
-TEST_F(NewsReaderTestSuite, wrongDirectory)
+TEST_F(NewsReaderFromPlainTextTestSuite, wrongDirectory)
 {
    NewsReaderFromPlainText newsReader("/wrong_directory", exclusionList);
-   EXPECT_THROW(newsReader.getNews(), InvalidDirectoryException);
+   EXPECT_THROW(newsReader.getNews(), InvalidLocationException);
 }
 
-TEST_F(NewsReaderTestSuite, emptyDirectory)
+TEST_F(NewsReaderFromPlainTextTestSuite, emptyDirectory)
 {
    NewsReaderFromPlainText newsReader("dummyData/emptyDir", exclusionList);
    EXPECT_THAT(newsReader.getNews().size(), ::testing::Eq(0));
 }
 
-TEST_F(NewsReaderTestSuite, directoryWithPhonyNews)
+TEST_F(NewsReaderFromPlainTextTestSuite, directoryWithPhonyNews)
 {
    NewsReaderFromPlainText newsReader("dummyData/dummyNews", exclusionList);
 
@@ -60,7 +60,7 @@ TEST_F(NewsReaderTestSuite, directoryWithPhonyNews)
    }
 }
 
-TEST_F(NewsReaderTestSuite, directoryWithRealNews)
+TEST_F(NewsReaderFromPlainTextTestSuite, directoryWithRealNews)
 {
    ExclusionListFromFile realExclusionList("../data/ES_stopList.txt");
    NewsReaderFromPlainText newsReader("../data/news", realExclusionList);

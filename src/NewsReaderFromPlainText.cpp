@@ -7,7 +7,7 @@
 #include <iterator>
 #include <algorithm>
 #include <cstring>
-#include "InvalidDirectoryException.h"
+#include "InvalidLocationException.h"
 #include "NewspaperNews.h"
 
 NewsReaderFromPlainText::NewsReaderFromPlainText(const std::string& newsDirectory,
@@ -47,7 +47,7 @@ std::vector<std::string> NewsReaderFromPlainText::getFilesInDirectory() const
       closedir(dir);
    }
    else
-      throw InvalidDirectoryException(newsDirectory);
+      throw InvalidLocationException(newsDirectory);
    return files;
 }
 

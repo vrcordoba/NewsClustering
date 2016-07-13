@@ -1,0 +1,11 @@
+{
+   "tuits": [{
+      "id": 123,
+      "usuario": "@yo",
+      "tuit": "Me da Repelús pero mucho Repelús tu Ñoñería . Buen Titular para captar tu atención . Tras el Titular no hay nada más . La Noticia no dice nada ."
+   }, {
+      "id": 456,
+      "usuario": "@tu",
+      "tuit": "Canción del Verano . La canción de este Verano es la Cigüeña come un Entremés"
+   }]
+}

@@ -23,16 +23,16 @@ add_executable(NewspaperNewsTestSuite
    ../src/News.cpp)
 target_link_libraries(NewspaperNewsTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
-add_executable(NewsReaderTestSuite
-   NewsReaderTestSuite.cpp
+add_executable(NewsReaderFromPlainTextTestSuite
+   NewsReaderFromPlainTextTestSuite.cpp
    ../src/NewsReaderFromPlainText.cpp
    ../src/ExclusionListFromFile.cpp
-   ../src/InvalidDirectoryException.cpp
+   ../src/InvalidLocationException.cpp
    ../src/NewspaperNews.cpp
    ../src/StringUtilities.cpp
    ../src/NewsCluster.cpp
    ../src/News.cpp)
-target_link_libraries(NewsReaderTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
+target_link_libraries(NewsReaderFromPlainTextTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
 add_executable(NewsClusterTestSuite
    NewsClusterTestSuite.cpp
@@ -61,7 +61,7 @@ add_executable(RealClusterizerTestSuite
    ../src/ThematicSimilarityClusteringCriterion.cpp
    ../src/NewsReaderFromPlainText.cpp
    ../src/ExclusionListFromFile.cpp
-   ../src/InvalidDirectoryException.cpp
+   ../src/InvalidLocationException.cpp
    ../src/NewspaperNews.cpp
    ../src/StringUtilities.cpp
    ../src/NewsCluster.cpp
@@ -72,7 +72,7 @@ add_executable(PlainTextClusterWriterTestSuite
    PlainTextClusterWriterTestSuite.cpp
    ../src/PlainTextClusterWriter.cpp
    ../src/NewsCluster.cpp
-   ../src/InvalidDirectoryException.cpp
+   ../src/InvalidLocationException.cpp
    ../src/News.cpp)
 target_link_libraries(PlainTextClusterWriterTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
@@ -95,3 +95,14 @@ add_executable(TwitterNewsTestSuite
    ../src/StringUtilities.cpp
    ../src/News.cpp)
 target_link_libraries(TwitterNewsTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
+
+add_executable(NewsReaderFromTuitTestSuite
+   NewsReaderFromTuitTestSuite.cpp
+   ../src/NewsReaderFromTuit.cpp
+   ../src/JsonCpp/jsoncpp.cpp
+   ../src/TwitterNews.cpp
+   ../src/StringUtilities.cpp
+   ../src/News.cpp
+   ../src/InvalidLocationException.cpp
+   ../src/ExclusionListFromFile.cpp)
+target_link_libraries(NewsReaderFromTuitTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)

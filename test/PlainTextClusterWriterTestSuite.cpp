@@ -5,7 +5,7 @@
 #include <memory>
 #include <cstdio>
 #include "PlainTextClusterWriter.h"
-#include "InvalidDirectoryException.h"
+#include "InvalidLocationException.h"
 #include "NewsMock.h"
 
 class PlainTextClusterWriterTestSuite : public ::testing::Test
@@ -36,7 +36,8 @@ protected:
 
 TEST_F(PlainTextClusterWriterTestSuite, nonValidDirectory)
 {
-   EXPECT_THROW(PlainTextClusterWriter clusterWriter("/wrong_directory/ClusterWriterTest.txt"), InvalidDirectoryException);
+   EXPECT_THROW(PlainTextClusterWriter clusterWriter("/wrong_directory/ClusterWriterTest.txt"),
+      InvalidLocationException);
 }
 
 TEST_F(PlainTextClusterWriterTestSuite, noClustersToPrint)

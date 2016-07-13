@@ -10,7 +10,7 @@ set(HEADER_FILES
    NewsCluster.h
    NewsReader.h
    NewsReaderFromPlainText.h
-   InvalidDirectoryException.h
+   InvalidLocationException.h
    ExclusionList.h
    ExclusionListFromFile.h
    ClusteringCriterion.h
@@ -23,6 +23,7 @@ set(HEADER_FILES
    ClusterizerOptionParser.h
    ClusterizerFactory.h
    TwitterNews.h
+   NewsReaderFromTuit.h
 
    JsonCpp/json/json-forwards.h
    JsonCpp/json/json.h
@@ -36,7 +37,7 @@ set(SOURCE_FILES
    StringUtilities.cpp
    NewsCluster.cpp
    NewsReaderFromPlainText.cpp
-   InvalidDirectoryException.cpp
+   InvalidLocationException.cpp
    ExclusionListFromFile.cpp
    MostMentionedEntityClusteringCriterion.cpp
    ThematicSimilarityClusteringCriterion.cpp
@@ -45,6 +46,7 @@ set(SOURCE_FILES
    ClusterizerOptionParser.cpp
    ClusterizerFactory.cpp
    TwitterNews.cpp
+   NewsReaderFromTuit.cpp
 
    JsonCpp/jsoncpp.cpp
 )

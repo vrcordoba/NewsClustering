@@ -3,7 +3,7 @@
 
 #include <ostream>
 #include <iomanip>
-#include "InvalidDirectoryException.h"
+#include "InvalidLocationException.h"
 
 PlainTextClusterWriter::PlainTextClusterWriter(const std::string& destination)
 {
@@ -11,7 +11,7 @@ PlainTextClusterWriter::PlainTextClusterWriter(const std::string& destination)
    if (!file.is_open())
    {
       file.clear();
-      throw InvalidDirectoryException(destination);
+      throw InvalidLocationException(destination);
    }
 }
 
