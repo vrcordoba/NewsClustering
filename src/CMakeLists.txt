@@ -22,11 +22,16 @@ set(HEADER_FILES
    ClusterizerOptions.h
    ClusterizerOptionParser.h
    ClusterizerFactory.h
+   TwitterNews.h
+
+   JsonCpp/json/json-forwards.h
+   JsonCpp/json/json.h
 )
 
 set(SOURCE_FILES
    main.cpp
 
+   News.cpp
    NewspaperNews.cpp
    StringUtilities.cpp
    NewsCluster.cpp
@@ -39,6 +44,9 @@ set(SOURCE_FILES
    PlainTextClusterWriter.cpp
    ClusterizerOptionParser.cpp
    ClusterizerFactory.cpp
+   TwitterNews.cpp
+
+   JsonCpp/jsoncpp.cpp
 )
 
 set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -g2")

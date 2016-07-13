@@ -2,8 +2,10 @@
 
 file(GLOB_RECURSE ALL_SOURCE_FILES
    *.cpp
+   *.h
 )
-string(REGEX REPLACE "CMakeFiles/[^;]+;?" "" ALL_SOURCE_FILES "${ALL_SOURCE_FILES}") 
+string(REGEX REPLACE "CMakeFiles/[^;]+;?" "" ALL_SOURCE_FILES "${ALL_SOURCE_FILES}")
+string(REGEX REPLACE "JsonCpp/[^;]+;?" "" ALL_SOURCE_FILES "${ALL_SOURCE_FILES}")
 
 add_custom_target(
    cppcheck

@@ -5,32 +5,12 @@
 #include "StringUtilities.h"
 
 NewspaperNews::NewspaperNews(const ExclusionList& exclusionList) : exclusionList(exclusionList),
-   mostMentionedEntity(), mentionedEntities(), headline(), relevantEntities()
+   relevantEntities()
 {
 }
 
 NewspaperNews::~NewspaperNews()
 {
-}
-
-std::string NewspaperNews::getMostMentionedEntity()
-{
-   if (mostMentionedEntity.empty())
-      computeMostMentionedEntity();
-   return mostMentionedEntity;
-}
-
-void NewspaperNews::computeMostMentionedEntity()
-{
-   std::uint32_t mostMentionedTimes = 0;
-   for (auto& mentionedEntity : mentionedEntities)
-   {
-      if (mentionedEntity.second > mostMentionedTimes)
-      {
-         mostMentionedTimes = mentionedEntity.second;
-         mostMentionedEntity = mentionedEntity.first;
-      }
-   }
 }
 
 void NewspaperNews::setMentionedEntities(const std::vector<std::string>& wordsInNews)
@@ -51,21 +31,6 @@ void NewspaperNews::setMentionedEntities(const std::vector<std::string>& wordsIn
       }
       ++numWordsProcessedSoFar;
    }
-}
-
-std::string NewspaperNews::getHeadline() const
-{
-   return headline;
-}
-
-void NewspaperNews::setHeadline(const std::string& headline)
-{
-   this->headline = headline;
-}
-
-bool NewspaperNews::isContainedInHeadline(const std::string& word) const
-{
-   return (headline.find(word) != std::string::npos);
 }
 
 std::set<std::string> NewspaperNews::getRelevantEntities() const

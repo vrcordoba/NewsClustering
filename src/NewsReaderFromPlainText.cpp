@@ -65,10 +65,8 @@ std::shared_ptr<News> NewsReaderFromPlainText::getNewsFromFile(const std::string
          title = line;
       }
       std::istringstream iss(line);
-      std::vector<std::string> wordsInLine;
       std::copy(std::istream_iterator<std::string>(iss), std::istream_iterator<std::string>(),
-         std::back_inserter(wordsInLine));
-      wordsInNews.insert(wordsInNews.end(), wordsInLine.begin(), wordsInLine.end());
+         std::back_inserter(wordsInNews));
    }
    std::shared_ptr<News> news(new NewspaperNews(exclusionList));
    news->setHeadline(title);
