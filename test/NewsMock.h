@@ -1,11 +1,13 @@
 #ifndef NEWSMOCK_H_
 #define NEWSMOCK_H_
 
+#include "gmock/gmock.h"
+
 #include <vector>
 #include <string>
 #include <set>
 #include "News.h"
-#include "gmock/gmock.h"
+#include "NewsDiscriminator.h"
 
 class NewsMock final : public News
 {
@@ -20,6 +22,8 @@ public:
    // to handle NewspaperNews and TwitterNews
    MOCK_CONST_METHOD0(getRelevantEntities, std::set<std::string>());
    MOCK_CONST_METHOD1(isContainedInRelevantEntities, bool(const std::string& word));
+
+   MOCK_CONST_METHOD1(accept, void(NewsDiscriminator* newsDiscriminator));
 };
 
 #endif

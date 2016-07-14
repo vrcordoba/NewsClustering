@@ -20,7 +20,8 @@ add_executable(NewspaperNewsTestSuite
    NewspaperNewsTestSuite.cpp
    ../src/NewspaperNews.cpp
    ../src/StringUtilities.cpp
-   ../src/News.cpp)
+   ../src/News.cpp
+   ../src/NewsDiscriminator.cpp)
 target_link_libraries(NewspaperNewsTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
 add_executable(NewsReaderFromPlainTextTestSuite
@@ -31,7 +32,8 @@ add_executable(NewsReaderFromPlainTextTestSuite
    ../src/NewspaperNews.cpp
    ../src/StringUtilities.cpp
    ../src/NewsCluster.cpp
-   ../src/News.cpp)
+   ../src/News.cpp
+   ../src/NewsDiscriminator.cpp)
 target_link_libraries(NewsReaderFromPlainTextTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
 add_executable(NewsClusterTestSuite
@@ -65,7 +67,8 @@ add_executable(RealClusterizerTestSuite
    ../src/NewspaperNews.cpp
    ../src/StringUtilities.cpp
    ../src/NewsCluster.cpp
-   ../src/News.cpp)
+   ../src/News.cpp
+   ../src/NewsDiscriminator.cpp)
 target_link_libraries(RealClusterizerTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
 add_executable(PlainTextClusterWriterTestSuite
@@ -93,7 +96,8 @@ add_executable(TwitterNewsTestSuite
    TwitterNewsTestSuite.cpp
    ../src/TwitterNews.cpp
    ../src/StringUtilities.cpp
-   ../src/News.cpp)
+   ../src/News.cpp
+   ../src/NewsDiscriminator.cpp)
 target_link_libraries(TwitterNewsTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
 add_executable(NewsReaderFromTuitTestSuite
@@ -104,5 +108,15 @@ add_executable(NewsReaderFromTuitTestSuite
    ../src/StringUtilities.cpp
    ../src/News.cpp
    ../src/InvalidLocationException.cpp
-   ../src/ExclusionListFromFile.cpp)
+   ../src/ExclusionListFromFile.cpp
+   ../src/NewsDiscriminator.cpp)
 target_link_libraries(NewsReaderFromTuitTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
+
+add_executable(NewsDiscriminatorTestSuite
+   NewsDiscriminatorTestSuite.cpp
+   ../src/NewsDiscriminator.cpp
+   ../src/NewspaperNews.cpp
+   ../src/TwitterNews.cpp
+   ../src/StringUtilities.cpp
+   ../src/News.cpp)
+target_link_libraries(NewsDiscriminatorTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)

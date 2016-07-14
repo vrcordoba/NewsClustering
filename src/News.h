@@ -6,6 +6,8 @@
 #include <set>
 #include <map>
 
+class NewsDiscriminator;
+
 class News
 {
 public:
@@ -23,6 +25,8 @@ public:
    // to handle NewspaperNews and TwitterNews
    virtual std::set<std::string> getRelevantEntities() const;
    virtual bool isContainedInRelevantEntities(const std::string& word) const;
+
+   virtual void accept(NewsDiscriminator* newsDiscriminator) const = 0;
 
 protected:
    std::map<std::string, std::uint32_t> mentionedEntities;

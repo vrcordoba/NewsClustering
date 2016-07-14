@@ -4,6 +4,7 @@
 #include "News.h"
 
 class ExclusionList;
+class NewsDiscriminator;
 
 class TwitterNews final : public News
 {
@@ -12,6 +13,8 @@ public:
    ~TwitterNews();
 
    void setMentionedEntities(const std::vector<std::string>& wordsInNews);
+
+   void accept(NewsDiscriminator* newsDiscriminator) const;
 
 private:
    const ExclusionList& exclusionList;

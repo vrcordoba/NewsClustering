@@ -24,6 +24,8 @@ set(HEADER_FILES
    ClusterizerFactory.h
    TwitterNews.h
    NewsReaderFromTuit.h
+   NewsDiscriminator.h
+   NewsVisitor.h
 
    JsonCpp/json/json-forwards.h
    JsonCpp/json/json.h
@@ -47,6 +49,7 @@ set(SOURCE_FILES
    ClusterizerFactory.cpp
    TwitterNews.cpp
    NewsReaderFromTuit.cpp
+   NewsDiscriminator.cpp
 
    JsonCpp/jsoncpp.cpp
 )

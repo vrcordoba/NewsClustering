@@ -8,6 +8,7 @@
 #include "News.h"
 
 class ExclusionList;
+class NewsDiscriminator;
 
 class NewspaperNews final : public News
 {
@@ -19,6 +20,8 @@ public:
 
    std::set<std::string> getRelevantEntities() const;
    bool isContainedInRelevantEntities(const std::string& word) const;
+
+   void accept(NewsDiscriminator* newsDiscriminator) const;
 
 private:
    const ExclusionList& exclusionList;
