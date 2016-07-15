@@ -14,7 +14,7 @@ public:
    Clusterizer();
    ~Clusterizer();
 
-   void setCriterion(const ClusteringCriterion* clusteringCriterion);
+   void setCriterion(ClusteringCriterion* clusteringCriterion);
    void setNewsReader(const NewsReader* newsReader);
 
    void obtainClusters();
@@ -24,7 +24,7 @@ private:
    void createClustersFromNews(const std::vector<std::shared_ptr<News>>& newsVector);
    void analyzeNews();
 
-   const ClusteringCriterion* clusteringCriterion;
+   ClusteringCriterion* clusteringCriterion;
    const NewsReader* newsReader;
    std::vector<NewsCluster> newsClusters;
 };

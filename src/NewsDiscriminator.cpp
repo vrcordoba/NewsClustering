@@ -13,23 +13,15 @@ NewsDiscriminator::~NewsDiscriminator()
 NewsDiscriminator::DiscriminatorResult NewsDiscriminator::discriminateType(
    const std::shared_ptr<News>& firstNews, const std::shared_ptr<News>& secondNews)
 {
-   DiscriminatorResult result;
    firstNews->accept(this);
    secondNews->accept(this);
-   if (newspaperNews == firstReceived)
-   {
-      if (newspaperNews == secondReceived)
-         result = bothFromNewspaper;
-      else
-         result = firstFromNewspaperSecondFromTwitter;
-   }
-   else
-   {
-      if (newspaperNews == secondReceived)
-         result = firstFromTwitterSecondFromNewspaper;
-      else
-         result = bothFromTwitter;
-   }
+   DiscriminatorResult result = bothFromNewspaper;
+   if (newspaperNews == firstReceived and twitterNews == secondReceived)
+      result = firstFromNewspaperSecondFromTwitter;
+   else if (twitterNews == firstReceived and newspaperNews == secondReceived)
+      result = firstFromTwitterSecondFromNewspaper;
+   else if (twitterNews == firstReceived and twitterNews == secondReceived)
+      result = bothFromTwitter;
    firstReceived = notDetermined;
    secondReceived = notDetermined;
    return result;

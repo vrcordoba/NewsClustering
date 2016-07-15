@@ -15,7 +15,7 @@ Clusterizer::~Clusterizer()
 {
 }
 
-void Clusterizer::setCriterion(const ClusteringCriterion* clusteringCriterion)
+void Clusterizer::setCriterion(ClusteringCriterion* clusteringCriterion)
 {
    this->clusteringCriterion = clusteringCriterion;
 }

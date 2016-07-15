@@ -90,6 +90,11 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite,
    EXPECT_CALL(*newsB, isContainedInHeadline("NewsD")).Times(1).WillOnce(::testing::Return(true));
    EXPECT_CALL(*newsD, isContainedInHeadline("NewsB")).Times(0);
 
+   EXPECT_CALL(*newsA, accept(::testing::_)).Times(2);
+   EXPECT_CALL(*newsB, accept(::testing::_)).Times(2);
+   EXPECT_CALL(*newsC, accept(::testing::_)).Times(2);
+   EXPECT_CALL(*newsD, accept(::testing::_)).Times(2);
+
    EXPECT_TRUE(criterion.areBothInTheSameCluster(firstCluster, secondCluster));
 }
 
@@ -133,6 +138,11 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite,
    EXPECT_CALL(*newsC, isContainedInHeadline("NewsB")).Times(1).WillOnce(::testing::Return(false));
    EXPECT_CALL(*newsB, isContainedInHeadline("NewsD")).Times(1).WillOnce(::testing::Return(false));
    EXPECT_CALL(*newsD, isContainedInHeadline("NewsB")).Times(1).WillOnce(::testing::Return(true));
+
+   EXPECT_CALL(*newsA, accept(::testing::_)).Times(2);
+   EXPECT_CALL(*newsB, accept(::testing::_)).Times(2);
+   EXPECT_CALL(*newsC, accept(::testing::_)).Times(2);
+   EXPECT_CALL(*newsD, accept(::testing::_)).Times(2);
 
    EXPECT_TRUE(criterion.areBothInTheSameCluster(firstCluster, secondCluster));
 }
@@ -188,6 +198,11 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite,
       .WillOnce(::testing::Return(true))
       .WillRepeatedly(::testing::Return(false));
 
+   EXPECT_CALL(*newsA, accept(::testing::_)).Times(2);
+   EXPECT_CALL(*newsB, accept(::testing::_)).Times(2);
+   EXPECT_CALL(*newsC, accept(::testing::_)).Times(2);
+   EXPECT_CALL(*newsD, accept(::testing::_)).Times(2);
+
    EXPECT_TRUE(criterion.areBothInTheSameCluster(firstCluster, secondCluster));
 }
 
@@ -241,6 +256,11 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite,
       .WillOnce(::testing::Return(true))
       .WillRepeatedly(::testing::Return(false));
    EXPECT_CALL(*newsD, isContainedInRelevantEntities(::testing::_)).Times(6).WillRepeatedly(::testing::Return(false));
+
+   EXPECT_CALL(*newsA, accept(::testing::_)).Times(2);
+   EXPECT_CALL(*newsB, accept(::testing::_)).Times(2);
+   EXPECT_CALL(*newsC, accept(::testing::_)).Times(2);
+   EXPECT_CALL(*newsD, accept(::testing::_)).Times(2);
 
    EXPECT_TRUE(criterion.areBothInTheSameCluster(firstCluster, secondCluster));
 }
@@ -297,6 +317,11 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite,
       .WillOnce(::testing::Return(true))
       .WillRepeatedly(::testing::Return(false));
 
+   EXPECT_CALL(*newsA, accept(::testing::_)).Times(2);
+   EXPECT_CALL(*newsB, accept(::testing::_)).Times(2);
+   EXPECT_CALL(*newsC, accept(::testing::_)).Times(2);
+   EXPECT_CALL(*newsD, accept(::testing::_)).Times(2);
+
    EXPECT_FALSE(criterion.areBothInTheSameCluster(firstCluster, secondCluster));
 }
 
@@ -344,6 +369,11 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite, notInThesameClusters)
    EXPECT_CALL(*newsA, isContainedInRelevantEntities(::testing::_)).Times(6).WillRepeatedly(::testing::Return(false));
    EXPECT_CALL(*newsB, isContainedInRelevantEntities(::testing::_)).Times(6).WillRepeatedly(::testing::Return(false));
    EXPECT_CALL(*newsD, isContainedInRelevantEntities(::testing::_)).Times(6).WillRepeatedly(::testing::Return(false));
+
+   EXPECT_CALL(*newsA, accept(::testing::_)).Times(2);
+   EXPECT_CALL(*newsB, accept(::testing::_)).Times(2);
+   EXPECT_CALL(*newsC, accept(::testing::_)).Times(2);
+   EXPECT_CALL(*newsD, accept(::testing::_)).Times(2);
 
    EXPECT_FALSE(criterion.areBothInTheSameCluster(firstCluster, secondCluster));
 }

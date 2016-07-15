@@ -8,7 +8,7 @@ class ClusteringCriterion
 public:
    virtual ~ClusteringCriterion() {};
 
-   virtual bool areBothInTheSameCluster(NewsCluster& clusterA, NewsCluster& clusterB) const = 0;
+   virtual bool areBothInTheSameCluster(NewsCluster& clusterA, NewsCluster& clusterB) = 0;
 };
 
 #endif

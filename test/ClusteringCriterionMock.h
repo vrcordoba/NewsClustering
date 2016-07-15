@@ -10,7 +10,7 @@ class NewsCluster;
 class ClusteringCriterionMock final : public ClusteringCriterion
 {
 public:
-   MOCK_CONST_METHOD2(areBothInTheSameCluster, bool(NewsCluster& clusterA, NewsCluster& clusterB));
+   MOCK_METHOD2(areBothInTheSameCluster, bool(NewsCluster& clusterA, NewsCluster& clusterB));
 };
 
 #endif

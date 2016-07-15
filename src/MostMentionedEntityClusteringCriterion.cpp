@@ -12,7 +12,7 @@ MostMentionedEntityClusteringCriterion::~MostMentionedEntityClusteringCriterion(
 }
 
 bool MostMentionedEntityClusteringCriterion::areBothInTheSameCluster(
-   NewsCluster& clusterA, NewsCluster& clusterB) const
+   NewsCluster& clusterA, NewsCluster& clusterB)
 {
    if (clusterA.empty() or clusterB.empty())
       return false;
