@@ -13,6 +13,7 @@ public:
    ~TwitterNews();
 
    void setMentionedEntities(const std::vector<std::string>& wordsInNews);
+   void setSubject(const std::string& subject);
 
    void accept(NewsDiscriminator* newsDiscriminator) const;
 

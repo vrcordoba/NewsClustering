@@ -107,28 +107,28 @@ TEST_F(NewspaperNewsTestSuite, computeMostMentionedEntityNonAsciiWordsNotStarted
    EXPECT_THAT(news.getMostMentionedEntity(), ::testing::Eq(u8"Ungüento"));
 }
 
-TEST_F(NewspaperNewsTestSuite, newsHeadline)
+TEST_F(NewspaperNewsTestSuite, newsSubject)
 {
    NewspaperNews news(exclusionList);
-   std::string headline(u8"Dummy title");
-   news.setHeadline(headline);
-   EXPECT_THAT(news.getHeadline(), ::testing::Eq(headline));
+   std::string subject(u8"Dummy title");
+   news.setSubject(subject);
+   EXPECT_THAT(news.getSubject(), ::testing::Eq(subject));
 }
 
-TEST_F(NewspaperNewsTestSuite, wordIsNotContainedInHeadline)
+TEST_F(NewspaperNewsTestSuite, wordIsNotContainedInSubject)
 {
    NewspaperNews news(exclusionList);
-   std::string headline(u8"La Policía intervino durante la manifestación");
-   news.setHeadline(headline);
-   EXPECT_FALSE(news.isContainedInHeadline("Policías"));
+   std::string subject(u8"La Policía intervino durante la manifestación");
+   news.setSubject(subject);
+   EXPECT_FALSE(news.isContainedInSubject("Policías"));
 }
 
-TEST_F(NewspaperNewsTestSuite, wordIsContainedInHeadline)
+TEST_F(NewspaperNewsTestSuite, wordIsContainedInSubject)
 {
    NewspaperNews news(exclusionList);
-   std::string headline(u8"La Policía intervino durante la manifestación");
-   news.setHeadline(headline);
-   EXPECT_TRUE(news.isContainedInHeadline("Policía"));
+   std::string subject(u8"La Policía intervino durante la manifestación");
+   news.setSubject(subject);
+   EXPECT_TRUE(news.isContainedInSubject("Policía"));
 }
 
 TEST_F(NewspaperNewsTestSuite, getRelevantEntitiesNoMentionedEntities)

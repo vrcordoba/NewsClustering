@@ -46,8 +46,8 @@ bool ThematicSimilarityClusteringCriterion::areBothInTheSameCluster(NewsCluster&
 bool ThematicSimilarityClusteringCriterion::areBothInTheSameClusterBothNewspaper(
    const std::shared_ptr<News>& newsA, const std::shared_ptr<News>& newsB) const
 {
-   if (newsA->isContainedInHeadline(newsB->getMostMentionedEntity()) or
-      newsB->isContainedInHeadline(newsA->getMostMentionedEntity()))
+   if (newsA->isContainedInSubject(newsB->getMostMentionedEntity()) or
+      newsB->isContainedInSubject(newsA->getMostMentionedEntity()))
       return true;
 
    if (enoughRatioOfRelevantEntities(newsA, newsB) or
@@ -66,7 +66,7 @@ bool ThematicSimilarityClusteringCriterion::areBothInTheSameClusterBothTwitter(
 bool ThematicSimilarityClusteringCriterion::areBothInTheSameClusterNewspaperTwitter(
    const std::shared_ptr<News>& newspaper, const std::shared_ptr<News>& twitter) const
 {
-   return twitter->isContainedInHeadline(newspaper->getMostMentionedEntity());
+   return twitter->isContainedInSubject(newspaper->getMostMentionedEntity());
 }
 
 bool ThematicSimilarityClusteringCriterion::doTheyHaveTheSameMostMentionedEntity(

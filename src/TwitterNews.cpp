@@ -1,6 +1,9 @@
 
 #include "TwitterNews.h"
 
+#include <iterator>
+#include <algorithm>
+#include <sstream>
 #include "ExclusionList.h"
 #include "StringUtilities.h"
 #include "NewsDiscriminator.h"
@@ -41,4 +44,14 @@ bool TwitterNews::shareMentionedEntities(const TwitterNews* otherTwitterNews) co
          return true;
    }
    return false;
+}
+
+void TwitterNews::setSubject(const std::string& subject)
+{
+   News::setSubject(subject);
+   std::istringstream iss(subject);
+   std::vector<std::string> wordsInTuit;
+   std::copy(std::istream_iterator<std::string>(iss), std::istream_iterator<std::string>(),
+      std::back_inserter(wordsInTuit));
+   setMentionedEntities(wordsInTuit);
 }

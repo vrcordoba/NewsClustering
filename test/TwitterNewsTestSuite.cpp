@@ -97,38 +97,52 @@ TEST_F(TwitterNewsTestSuite, computeMostMentionedEntityNonAsciiWordsInExclusionL
 
 TEST_F(TwitterNewsTestSuite, computeMostMentionedEntityNonAsciiWordsNotStartedByCapitalLetter)
 {
-   std::vector<std::string> newsText{u8"ñoñería", u8"ñoñería", u8"ungüento", u8"Ungüento", u8"óscar", u8"óscar", u8"ñoñería"};
+   std::string newsText = u8"ñoñería ñoñería ungüento Ungüento óscar óscar ñoñería";
    TwitterNews news(exclusionList);
 
    EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(1)
       .WillRepeatedly(::testing::Return(false));
 
-   news.setMentionedEntities(newsText);
+   news.setSubject(newsText);
    EXPECT_THAT(news.getMostMentionedEntity(), ::testing::Eq(u8"Ungüento"));
 }
 
-TEST_F(TwitterNewsTestSuite, newsHeadline)
+TEST_F(TwitterNewsTestSuite, newsSubject)
 {
    TwitterNews news(exclusionList);
-   std::string headline(u8"Dummy title");
-   news.setHeadline(headline);
-   EXPECT_THAT(news.getHeadline(), ::testing::Eq(headline));
+   std::string subject(u8"Dummy title");
+
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(1)
+      .WillRepeatedly(::testing::Return(false));
+
+   news.setSubject(subject);
+   EXPECT_THAT(news.getSubject(), ::testing::Eq(subject));
 }
 
-TEST_F(TwitterNewsTestSuite, wordIsNotContainedInHeadline)
+TEST_F(TwitterNewsTestSuite, wordIsNotContainedInSubject)
 {
    TwitterNews news(exclusionList);
-   std::string headline(u8"La Policía intervino durante la manifestación");
-   news.setHeadline(headline);
-   EXPECT_FALSE(news.isContainedInHeadline("Policías"));
+   std::string subject(u8"La Policía intervino durante la manifestación");
+
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(2)
+      .WillOnce(::testing::Return(true))
+      .WillOnce(::testing::Return(false));
+
+   news.setSubject(subject);
+   EXPECT_FALSE(news.isContainedInSubject("Policías"));
 }
 
-TEST_F(TwitterNewsTestSuite, wordIsContainedInHeadline)
+TEST_F(TwitterNewsTestSuite, wordIsContainedInSubject)
 {
    TwitterNews news(exclusionList);
-   std::string headline(u8"La Policía intervino durante la manifestación");
-   news.setHeadline(headline);
-   EXPECT_TRUE(news.isContainedInHeadline("Policía"));
+   std::string subject(u8"La Policía intervino durante la manifestación");
+
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(2)
+      .WillOnce(::testing::Return(true))
+      .WillOnce(::testing::Return(false));
+
+   news.setSubject(subject);
+   EXPECT_TRUE(news.isContainedInSubject("Policía"));
 }
 
 TEST_F(TwitterNewsTestSuite, shareMentionedEntities)

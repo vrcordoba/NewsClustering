@@ -1,6 +1,4 @@
 
-#include <iterator>
-#include <algorithm>
 #include <fstream>
 #include "NewsReaderFromTuit.h"
 #include "ExclusionList.h"
@@ -36,13 +34,8 @@ void NewsReaderFromTuit::getTuitsFromFile(const Json::Value& rootElement,
    for (Json::ArrayIndex index = 0; index < tuits.size(); ++index)
    {
       std::string tuit = tuits[index]["tuit"].asString();
-      std::istringstream iss(tuit);
-      std::vector<std::string> wordsInTuit;
-      std::copy(std::istream_iterator<std::string>(iss), std::istream_iterator<std::string>(),
-         std::back_inserter(wordsInTuit));
       std::shared_ptr<News> news(new TwitterNews(exclusionList));
-      news->setHeadline(tuit);
-      news->setMentionedEntities(wordsInTuit);
+      news->setSubject(tuit);
       tuitsVector.push_back(news);
    }
 }

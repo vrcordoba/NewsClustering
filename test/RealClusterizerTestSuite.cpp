@@ -146,7 +146,7 @@ TEST_F(RealClusterizerTestSuite, thematicSimilarityCriterionNewsReaderFromPlainT
    {
       for (auto& news : newsCluster)
       {
-         EXPECT_TRUE(expectedResult[i].find(news->getHeadline()) != std::end(expectedResult[i]));
+         EXPECT_TRUE(expectedResult[i].find(news->getSubject()) != std::end(expectedResult[i]));
       }
       ++i;
    }

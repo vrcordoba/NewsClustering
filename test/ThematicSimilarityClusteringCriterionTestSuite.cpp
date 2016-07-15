@@ -53,7 +53,7 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite,
 }
 
 TEST(ThematicSimilarityClusteringCriterionTestSuite,
-   sameClustersMostMentionedEntityOfFirstInHeadlineOfSecond)
+   sameClustersMostMentionedEntityOfFirstInSubjectOfSecond)
 {
    ThematicSimilarityClusteringCriterion criterion;
 
@@ -84,14 +84,14 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite,
    EXPECT_CALL(*newsC, getRelevantEntities()).Times(2).WillRepeatedly(::testing::Return(emptyRelevantEntities));
    EXPECT_CALL(*newsD, getRelevantEntities()).Times(1).WillRepeatedly(::testing::Return(emptyRelevantEntities));
 
-   EXPECT_CALL(*newsA, isContainedInHeadline("NewsC")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsC, isContainedInHeadline("NewsA")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsA, isContainedInHeadline("NewsD")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsD, isContainedInHeadline("NewsA")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsB, isContainedInHeadline("NewsC")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsC, isContainedInHeadline("NewsB")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsB, isContainedInHeadline("NewsD")).Times(1).WillOnce(::testing::Return(true));
-   EXPECT_CALL(*newsD, isContainedInHeadline("NewsB")).Times(0);
+   EXPECT_CALL(*newsA, isContainedInSubject("NewsC")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsC, isContainedInSubject("NewsA")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsA, isContainedInSubject("NewsD")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsD, isContainedInSubject("NewsA")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsB, isContainedInSubject("NewsC")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsC, isContainedInSubject("NewsB")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsB, isContainedInSubject("NewsD")).Times(1).WillOnce(::testing::Return(true));
+   EXPECT_CALL(*newsD, isContainedInSubject("NewsB")).Times(0);
 
    EXPECT_CALL(*newsA, accept(::testing::_)).Times(2);
    EXPECT_CALL(*newsB, accept(::testing::_)).Times(2);
@@ -102,7 +102,7 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite,
 }
 
 TEST(ThematicSimilarityClusteringCriterionTestSuite,
-   sameClustersMostMentionedEntityOfSecondInHeadlineOfFirst)
+   sameClustersMostMentionedEntityOfSecondInSubjectOfFirst)
 {
    ThematicSimilarityClusteringCriterion criterion;
 
@@ -133,14 +133,14 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite,
    EXPECT_CALL(*newsC, getRelevantEntities()).Times(2).WillRepeatedly(::testing::Return(emptyRelevantEntities));
    EXPECT_CALL(*newsD, getRelevantEntities()).Times(1).WillRepeatedly(::testing::Return(emptyRelevantEntities));
 
-   EXPECT_CALL(*newsA, isContainedInHeadline("NewsC")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsC, isContainedInHeadline("NewsA")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsA, isContainedInHeadline("NewsD")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsD, isContainedInHeadline("NewsA")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsB, isContainedInHeadline("NewsC")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsC, isContainedInHeadline("NewsB")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsB, isContainedInHeadline("NewsD")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsD, isContainedInHeadline("NewsB")).Times(1).WillOnce(::testing::Return(true));
+   EXPECT_CALL(*newsA, isContainedInSubject("NewsC")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsC, isContainedInSubject("NewsA")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsA, isContainedInSubject("NewsD")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsD, isContainedInSubject("NewsA")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsB, isContainedInSubject("NewsC")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsC, isContainedInSubject("NewsB")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsB, isContainedInSubject("NewsD")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsD, isContainedInSubject("NewsB")).Times(1).WillOnce(::testing::Return(true));
 
    EXPECT_CALL(*newsA, accept(::testing::_)).Times(2);
    EXPECT_CALL(*newsB, accept(::testing::_)).Times(2);
@@ -182,14 +182,14 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite,
    EXPECT_CALL(*newsC, getRelevantEntities()).Times(2).WillRepeatedly(::testing::Return(someRelevantEntities));
    EXPECT_CALL(*newsD, getRelevantEntities()).Times(1).WillRepeatedly(::testing::Return(someRelevantEntities));
 
-   EXPECT_CALL(*newsA, isContainedInHeadline("NewsC")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsC, isContainedInHeadline("NewsA")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsA, isContainedInHeadline("NewsD")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsD, isContainedInHeadline("NewsA")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsB, isContainedInHeadline("NewsC")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsC, isContainedInHeadline("NewsB")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsB, isContainedInHeadline("NewsD")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsD, isContainedInHeadline("NewsB")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsA, isContainedInSubject("NewsC")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsC, isContainedInSubject("NewsA")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsA, isContainedInSubject("NewsD")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsD, isContainedInSubject("NewsA")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsB, isContainedInSubject("NewsC")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsC, isContainedInSubject("NewsB")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsB, isContainedInSubject("NewsD")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsD, isContainedInSubject("NewsB")).Times(1).WillOnce(::testing::Return(false));
 
    EXPECT_CALL(*newsC, isContainedInRelevantEntities(::testing::_)).Times(6).WillRepeatedly(::testing::Return(false));
    EXPECT_CALL(*newsA, isContainedInRelevantEntities(::testing::_)).Times(6).WillRepeatedly(::testing::Return(false));
@@ -241,14 +241,14 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite,
    EXPECT_CALL(*newsC, getRelevantEntities()).Times(2).WillRepeatedly(::testing::Return(someRelevantEntities));
    EXPECT_CALL(*newsD, getRelevantEntities()).Times(2).WillRepeatedly(::testing::Return(someRelevantEntities));
 
-   EXPECT_CALL(*newsA, isContainedInHeadline("NewsC")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsC, isContainedInHeadline("NewsA")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsA, isContainedInHeadline("NewsD")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsD, isContainedInHeadline("NewsA")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsB, isContainedInHeadline("NewsC")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsC, isContainedInHeadline("NewsB")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsB, isContainedInHeadline("NewsD")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsD, isContainedInHeadline("NewsB")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsA, isContainedInSubject("NewsC")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsC, isContainedInSubject("NewsA")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsA, isContainedInSubject("NewsD")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsD, isContainedInSubject("NewsA")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsB, isContainedInSubject("NewsC")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsC, isContainedInSubject("NewsB")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsB, isContainedInSubject("NewsD")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsD, isContainedInSubject("NewsB")).Times(1).WillOnce(::testing::Return(false));
 
    EXPECT_CALL(*newsC, isContainedInRelevantEntities(::testing::_)).Times(6).WillRepeatedly(::testing::Return(false));
    EXPECT_CALL(*newsA, isContainedInRelevantEntities(::testing::_)).Times(6).WillRepeatedly(::testing::Return(false));
@@ -300,14 +300,14 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite,
    EXPECT_CALL(*newsC, getRelevantEntities()).Times(2).WillRepeatedly(::testing::Return(someRelevantEntities));
    EXPECT_CALL(*newsD, getRelevantEntities()).Times(2).WillRepeatedly(::testing::Return(someRelevantEntities));
 
-   EXPECT_CALL(*newsA, isContainedInHeadline("NewsC")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsC, isContainedInHeadline("NewsA")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsA, isContainedInHeadline("NewsD")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsD, isContainedInHeadline("NewsA")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsB, isContainedInHeadline("NewsC")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsC, isContainedInHeadline("NewsB")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsB, isContainedInHeadline("NewsD")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsD, isContainedInHeadline("NewsB")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsA, isContainedInSubject("NewsC")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsC, isContainedInSubject("NewsA")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsA, isContainedInSubject("NewsD")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsD, isContainedInSubject("NewsA")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsB, isContainedInSubject("NewsC")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsC, isContainedInSubject("NewsB")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsB, isContainedInSubject("NewsD")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsD, isContainedInSubject("NewsB")).Times(1).WillOnce(::testing::Return(false));
 
    EXPECT_CALL(*newsC, isContainedInRelevantEntities(::testing::_)).Times(8).WillRepeatedly(::testing::Return(false));
    EXPECT_CALL(*newsA, isContainedInRelevantEntities(::testing::_)).Times(8).WillRepeatedly(::testing::Return(false));
@@ -359,14 +359,14 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite, notInTheSameClusters)
    EXPECT_CALL(*newsC, getRelevantEntities()).Times(2).WillRepeatedly(::testing::Return(someRelevantEntities));
    EXPECT_CALL(*newsD, getRelevantEntities()).Times(2).WillRepeatedly(::testing::Return(someRelevantEntities));
 
-   EXPECT_CALL(*newsA, isContainedInHeadline("NewsC")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsC, isContainedInHeadline("NewsA")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsA, isContainedInHeadline("NewsD")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsD, isContainedInHeadline("NewsA")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsB, isContainedInHeadline("NewsC")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsC, isContainedInHeadline("NewsB")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsB, isContainedInHeadline("NewsD")).Times(1).WillOnce(::testing::Return(false));
-   EXPECT_CALL(*newsD, isContainedInHeadline("NewsB")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsA, isContainedInSubject("NewsC")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsC, isContainedInSubject("NewsA")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsA, isContainedInSubject("NewsD")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsD, isContainedInSubject("NewsA")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsB, isContainedInSubject("NewsC")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsC, isContainedInSubject("NewsB")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsB, isContainedInSubject("NewsD")).Times(1).WillOnce(::testing::Return(false));
+   EXPECT_CALL(*newsD, isContainedInSubject("NewsB")).Times(1).WillOnce(::testing::Return(false));
 
    EXPECT_CALL(*newsC, isContainedInRelevantEntities(::testing::_)).Times(6).WillRepeatedly(::testing::Return(false));
    EXPECT_CALL(*newsA, isContainedInRelevantEntities(::testing::_)).Times(6).WillRepeatedly(::testing::Return(false));
@@ -443,10 +443,10 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite, newspaperTwitterNotInTheSam
    NewsCluster secondCluster;
    secondCluster.addNews(newsPtr2);
 
-   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(5)
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(10)
       .WillRepeatedly(::testing::Return(false));
 
-   newsPtr1->setHeadline(newsText1);
+   newsPtr1->setSubject(newsText1);
    newsPtr2->setMentionedEntities(newsText2);
 
    ThematicSimilarityClusteringCriterion criterion;
@@ -467,11 +467,11 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite, newspaperTwitterInTheSameCl
    NewsCluster secondCluster;
    secondCluster.addNews(newsPtr2);
 
-   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(6)
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(11)
       .WillRepeatedly(::testing::Return(false));
 
    newsPtr1->setMentionedEntities(newsText1);
-   newsPtr2->setHeadline(newsText2);
+   newsPtr2->setSubject(newsText2);
 
    ThematicSimilarityClusteringCriterion criterion;
    EXPECT_TRUE(criterion.areBothInTheSameCluster(firstCluster, secondCluster));

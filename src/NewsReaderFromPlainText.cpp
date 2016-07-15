@@ -55,21 +55,21 @@ std::shared_ptr<News> NewsReaderFromPlainText::getNewsFromFile(const std::string
 {
    std::ifstream file(filename);
    std::vector<std::string> wordsInNews;
-   std::string title;
+   std::string subject;
    for (std::string line; std::getline(file, line); )
    {
-      if (title.empty())
+      if (subject.empty())
       {
          line.erase(std::find_if(line.rbegin(), line.rend(),
             std::not1(std::ptr_fun<int, int>(std::isspace))).base(), line.end());
-         title = line;
+         subject = line;
       }
       std::istringstream iss(line);
       std::copy(std::istream_iterator<std::string>(iss), std::istream_iterator<std::string>(),
          std::back_inserter(wordsInNews));
    }
    std::shared_ptr<News> news(new NewspaperNews(exclusionList));
-   news->setHeadline(title);
+   news->setSubject(subject);
    news->setMentionedEntities(wordsInNews);
    return news;
 }

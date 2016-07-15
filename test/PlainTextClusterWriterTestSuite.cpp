@@ -68,9 +68,9 @@ TEST_F(PlainTextClusterWriterTestSuite, onlyOneClusterSeveralNews)
    std::vector<NewsCluster> newsClusters{newsCluster};
    PlainTextClusterWriter clusterWriter(destinationFile);
 
-   EXPECT_CALL(*newsA, getHeadline()).Times(1).WillOnce(::testing::Return("This are the first news"));
-   EXPECT_CALL(*newsB, getHeadline()).Times(1).WillOnce(::testing::Return("This are the second news"));
-   EXPECT_CALL(*newsC, getHeadline()).Times(1).WillOnce(::testing::Return("This are the third news"));
+   EXPECT_CALL(*newsA, getSubject()).Times(1).WillOnce(::testing::Return("This are the first news"));
+   EXPECT_CALL(*newsB, getSubject()).Times(1).WillOnce(::testing::Return("This are the second news"));
+   EXPECT_CALL(*newsC, getSubject()).Times(1).WillOnce(::testing::Return("This are the third news"));
 
    clusterWriter.write(newsClusters);
 
@@ -111,12 +111,12 @@ TEST_F(PlainTextClusterWriterTestSuite, severalClusterSeveralNewsInEachCluster)
       thirdNewsCluster};
    PlainTextClusterWriter clusterWriter(destinationFile);
 
-   EXPECT_CALL(*newsA, getHeadline()).Times(1).WillOnce(::testing::Return("This are the first news"));
-   EXPECT_CALL(*newsB, getHeadline()).Times(1).WillOnce(::testing::Return("This are the second news"));
-   EXPECT_CALL(*newsC, getHeadline()).Times(1).WillOnce(::testing::Return("This are the third news"));
-   EXPECT_CALL(*newsD, getHeadline()).Times(1).WillOnce(::testing::Return("This are the fourth news"));
-   EXPECT_CALL(*newsE, getHeadline()).Times(1).WillOnce(::testing::Return("This are the fifth news"));
-   EXPECT_CALL(*newsF, getHeadline()).Times(1).WillOnce(::testing::Return("This are the sixth news"));
+   EXPECT_CALL(*newsA, getSubject()).Times(1).WillOnce(::testing::Return("This are the first news"));
+   EXPECT_CALL(*newsB, getSubject()).Times(1).WillOnce(::testing::Return("This are the second news"));
+   EXPECT_CALL(*newsC, getSubject()).Times(1).WillOnce(::testing::Return("This are the third news"));
+   EXPECT_CALL(*newsD, getSubject()).Times(1).WillOnce(::testing::Return("This are the fourth news"));
+   EXPECT_CALL(*newsE, getSubject()).Times(1).WillOnce(::testing::Return("This are the fifth news"));
+   EXPECT_CALL(*newsF, getSubject()).Times(1).WillOnce(::testing::Return("This are the sixth news"));
 
    clusterWriter.write(newsClusters);
 

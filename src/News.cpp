@@ -1,7 +1,7 @@
 
 #include "News.h"
 
-News::News() : mentionedEntities(), mostMentionedEntity(), headline()
+News::News() : mentionedEntities(), mostMentionedEntity(), subject()
 {
 }
 
@@ -29,23 +29,21 @@ void News::computeMostMentionedEntity()
    }
 }
 
-std::string News::getHeadline() const
+std::string News::getSubject() const
 {
-   return headline;
+   return subject;
 }
 
-void News::setHeadline(const std::string& headline)
+void News::setSubject(const std::string& subject)
 {
-   this->headline = headline;
+   this->subject = subject;
 }
 
-bool News::isContainedInHeadline(const std::string& word) const
+bool News::isContainedInSubject(const std::string& word) const
 {
-   return (headline.find(word) != std::string::npos);
+   return (subject.find(word) != std::string::npos);
 }
 
-// TODO: Remove these methods when ThematicSimilarityClusteringCriterion is adapted
-// to handle NewspaperNews and TwitterNews
 std::set<std::string> News::getRelevantEntities() const
 {
    std::set<std::string> emptySet;

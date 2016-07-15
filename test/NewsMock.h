@@ -13,13 +13,10 @@ class NewsMock final : public News
 {
 public:
    MOCK_METHOD0(getMostMentionedEntity, std::string());
-   MOCK_CONST_METHOD0(getHeadline, std::string());
+   MOCK_CONST_METHOD0(getSubject, std::string());
    MOCK_METHOD1(setMentionedEntities, void(const std::vector<std::string>&));
-   MOCK_METHOD1(setHeadline, void(const std::string&));
-   MOCK_CONST_METHOD1(isContainedInHeadline, bool(const std::string& word));
-
-   // TODO: Remove these methods when ThematicSimilarityClusteringCriterion is adapted
-   // to handle NewspaperNews and TwitterNews
+   MOCK_METHOD1(setSubject, void(const std::string&));
+   MOCK_CONST_METHOD1(isContainedInSubject, bool(const std::string& word));
    MOCK_CONST_METHOD0(getRelevantEntities, std::set<std::string>());
    MOCK_CONST_METHOD1(isContainedInRelevantEntities, bool(const std::string& word));
 

@@ -65,16 +65,16 @@ TEST_F(NewsReaderFromTuitTestSuite, fileWithRealNews)
 
    std::vector<std::shared_ptr<News>> recoveredNews = newsReader.getNews();
    EXPECT_THAT(recoveredNews.size(), ::testing::Eq(3));
-   std::set<std::string> expectedHeadlines{
+   std::set<std::string> expectedSubjects{
       u8"Liberan a los dos sospechosos detenidos por el asesinato de un niño de 11 años en Liverpool",
       u8"Detienen a seis jóvenes más en relación con el asesinato de el niño de Liverpool",
       u8"Siguen los interrogatorios a los detenidos por el asesinato de el niño de Liverpool"
    };
    for (auto& news : recoveredNews)
    {
-      std::set<std::string>::iterator it = expectedHeadlines.find(
-         news->getHeadline());
-      EXPECT_TRUE(it != expectedHeadlines.end());
-      expectedHeadlines.erase(it);
+      std::set<std::string>::iterator it = expectedSubjects.find(
+         news->getSubject());
+      EXPECT_TRUE(it != expectedSubjects.end());
+      expectedSubjects.erase(it);
    }
 }

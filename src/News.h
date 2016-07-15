@@ -5,6 +5,7 @@
 #include <vector>
 #include <set>
 #include <map>
+#include <cstdint>
 
 class NewsDiscriminator;
 
@@ -17,12 +18,10 @@ public:
    virtual void setMentionedEntities(const std::vector<std::string>& wordsInNews) = 0;
 
    virtual std::string getMostMentionedEntity();
-   virtual std::string getHeadline() const;
-   virtual void setHeadline(const std::string& headline);
-   virtual bool isContainedInHeadline(const std::string& word) const;
+   virtual std::string getSubject() const;
+   virtual void setSubject(const std::string& subject);
+   virtual bool isContainedInSubject(const std::string& word) const;
 
-   // TODO: Remove these methods when ThematicSimilarityClusteringCriterion is adapted
-   // to handle NewspaperNews and TwitterNews
    virtual std::set<std::string> getRelevantEntities() const;
    virtual bool isContainedInRelevantEntities(const std::string& word) const;
 
@@ -35,7 +34,7 @@ private:
    void computeMostMentionedEntity();
 
    std::string mostMentionedEntity;
-   std::string headline;
+   std::string subject;
 };
 
 #endif
