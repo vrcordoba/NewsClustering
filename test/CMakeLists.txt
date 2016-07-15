@@ -88,6 +88,7 @@ add_executable(ThematicSimilarityClusteringCriterionTestSuite
    ../src/News.cpp
    ../src/NewsDiscriminator.cpp
    ../src/TwitterNews.cpp
+   ../src/NewspaperNews.cpp
    ../src/StringUtilities.cpp)
 target_link_libraries(ThematicSimilarityClusteringCriterionTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 

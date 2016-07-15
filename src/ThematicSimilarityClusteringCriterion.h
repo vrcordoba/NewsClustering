@@ -22,8 +22,8 @@ private:
       const std::shared_ptr<News>& newsB) const;
    bool areBothInTheSameClusterBothTwitter(const std::shared_ptr<News>& newsA,
       const std::shared_ptr<News>& newsB) const;
-   bool areBothInTheSameClusterNewspaperTwitter(const std::shared_ptr<News>& newsA,
-      const std::shared_ptr<News>& newsB) const;
+   bool areBothInTheSameClusterNewspaperTwitter(const std::shared_ptr<News>& newspaper,
+      const std::shared_ptr<News>& twitter) const;
    bool doTheyHaveTheSameMostMentionedEntity(NewsCluster& clusterA, NewsCluster& clusterB) const;
    bool enoughRatioOfRelevantEntities(const std::shared_ptr<News>& newsA,
       const std::shared_ptr<News>& newsB) const;

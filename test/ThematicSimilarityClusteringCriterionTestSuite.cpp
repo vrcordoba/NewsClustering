@@ -6,6 +6,7 @@
 #include "NewsCluster.h"
 #include "NewsMock.h"
 #include "TwitterNews.h"
+#include "NewspaperNews.h"
 #include "ExclusionListMock.h"
 
 TEST(ThematicSimilarityClusteringCriterionTestSuite, firstClusterIsEmpty)
@@ -423,6 +424,54 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite, bothTwitterNewsInTheSameClu
 
    newsPtr1->setMentionedEntities(newsText1);
    newsPtr2->setMentionedEntities(newsText2);
+
+   ThematicSimilarityClusteringCriterion criterion;
+   EXPECT_TRUE(criterion.areBothInTheSameCluster(firstCluster, secondCluster));
+}
+
+TEST(ThematicSimilarityClusteringCriterionTestSuite, newspaperTwitterNotInTheSameClusters)
+{
+   ExclusionListMock exclusionList;
+   TwitterNews* news1 = new TwitterNews(exclusionList);
+   std::string newsText1 = "One Two Three Four Five";
+   std::shared_ptr<News> newsPtr1(news1);
+   NewspaperNews* news2 = new NewspaperNews(exclusionList);
+   std::vector<std::string> newsText2{"Six", "Seven", "Eight", "Nine", "Ten"};
+   std::shared_ptr<News> newsPtr2(news2);
+   NewsCluster firstCluster;
+   firstCluster.addNews(newsPtr1);
+   NewsCluster secondCluster;
+   secondCluster.addNews(newsPtr2);
+
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(5)
+      .WillRepeatedly(::testing::Return(false));
+
+   newsPtr1->setHeadline(newsText1);
+   newsPtr2->setMentionedEntities(newsText2);
+
+   ThematicSimilarityClusteringCriterion criterion;
+   EXPECT_FALSE(criterion.areBothInTheSameCluster(firstCluster, secondCluster));
+}
+
+TEST(ThematicSimilarityClusteringCriterionTestSuite, newspaperTwitterInTheSameClusters)
+{
+   ExclusionListMock exclusionList;
+   NewspaperNews* news1 = new NewspaperNews(exclusionList);
+   std::vector<std::string> newsText1{"Six", "Seven", "Eight", "Nine", "Ten", "Ten"};
+   TwitterNews* news2 = new TwitterNews(exclusionList);
+   std::string newsText2 = "One Two Three Four Ten";
+   std::shared_ptr<News> newsPtr1(news1);
+   std::shared_ptr<News> newsPtr2(news2);
+   NewsCluster firstCluster;
+   firstCluster.addNews(newsPtr1);
+   NewsCluster secondCluster;
+   secondCluster.addNews(newsPtr2);
+
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(6)
+      .WillRepeatedly(::testing::Return(false));
+
+   newsPtr1->setMentionedEntities(newsText1);
+   newsPtr2->setHeadline(newsText2);
 
    ThematicSimilarityClusteringCriterion criterion;
    EXPECT_TRUE(criterion.areBothInTheSameCluster(firstCluster, secondCluster));

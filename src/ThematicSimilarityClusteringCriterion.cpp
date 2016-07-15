@@ -20,11 +20,11 @@ bool ThematicSimilarityClusteringCriterion::areBothInTheSameCluster(NewsCluster&
    if (doTheyHaveTheSameMostMentionedEntity(clusterA, clusterB))
       return true;
 
-   bool result = false;
    for (auto& newsA : clusterA)
    {
       for (auto& newsB : clusterB)
       {
+         bool result;
          NewsDiscriminator::DiscriminatorResult discriminatorResult =
             newsDiscriminator.discriminateType(newsA, newsB);
          if (NewsDiscriminator::bothFromNewspaper == discriminatorResult)
@@ -40,7 +40,7 @@ bool ThematicSimilarityClusteringCriterion::areBothInTheSameCluster(NewsCluster&
             return true;
       }
    }
-   return result;
+   return false;
 }
 
 bool ThematicSimilarityClusteringCriterion::areBothInTheSameClusterBothNewspaper(
@@ -64,9 +64,9 @@ bool ThematicSimilarityClusteringCriterion::areBothInTheSameClusterBothTwitter(
 }
 
 bool ThematicSimilarityClusteringCriterion::areBothInTheSameClusterNewspaperTwitter(
-   const std::shared_ptr<News>& newsA, const std::shared_ptr<News>& newsB) const
+   const std::shared_ptr<News>& newspaper, const std::shared_ptr<News>& twitter) const
 {
-   return false;
+   return twitter->isContainedInHeadline(newspaper->getMostMentionedEntity());
 }
 
 bool ThematicSimilarityClusteringCriterion::doTheyHaveTheSameMostMentionedEntity(
