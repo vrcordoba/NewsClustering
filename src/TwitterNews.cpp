@@ -31,3 +31,14 @@ void TwitterNews::accept(NewsDiscriminator* newsDiscriminator) const
 {
    newsDiscriminator->visit(this);
 }
+
+bool TwitterNews::shareMentionedEntities(const TwitterNews* otherTwitterNews) const
+{
+   for (auto& mentionedEntity : mentionedEntities)
+   {
+      if (otherTwitterNews->mentionedEntities.find(mentionedEntity.first)
+         != std::end(otherTwitterNews->mentionedEntities))
+         return true;
+   }
+   return false;
+}

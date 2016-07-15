@@ -1,6 +1,7 @@
 
 #include "ThematicSimilarityClusteringCriterion.h"
 #include "NewsCluster.h"
+#include "TwitterNews.h"
 
 ThematicSimilarityClusteringCriterion::ThematicSimilarityClusteringCriterion() :
    newsDiscriminator()
@@ -58,7 +59,8 @@ bool ThematicSimilarityClusteringCriterion::areBothInTheSameClusterBothNewspaper
 bool ThematicSimilarityClusteringCriterion::areBothInTheSameClusterBothTwitter(
    const std::shared_ptr<News>& newsA, const std::shared_ptr<News>& newsB) const
 {
-   return false;
+   return static_cast<TwitterNews*>(newsA.get())->shareMentionedEntities(
+      static_cast<TwitterNews*>(newsB.get()));
 }
 
 bool ThematicSimilarityClusteringCriterion::areBothInTheSameClusterNewspaperTwitter(

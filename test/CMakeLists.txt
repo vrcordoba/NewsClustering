@@ -68,7 +68,8 @@ add_executable(RealClusterizerTestSuite
    ../src/StringUtilities.cpp
    ../src/NewsCluster.cpp
    ../src/News.cpp
-   ../src/NewsDiscriminator.cpp)
+   ../src/NewsDiscriminator.cpp
+   ../src/TwitterNews.cpp)
 target_link_libraries(RealClusterizerTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
 add_executable(PlainTextClusterWriterTestSuite
@@ -85,7 +86,9 @@ add_executable(ThematicSimilarityClusteringCriterionTestSuite
    ../src/MostMentionedEntityClusteringCriterion.cpp
    ../src/NewsCluster.cpp
    ../src/News.cpp
-   ../src/NewsDiscriminator.cpp)
+   ../src/NewsDiscriminator.cpp
+   ../src/TwitterNews.cpp
+   ../src/StringUtilities.cpp)
 target_link_libraries(ThematicSimilarityClusteringCriterionTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
 add_executable(ClusterizerOptionParserTestSuite

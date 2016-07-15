@@ -5,6 +5,8 @@
 #include "ThematicSimilarityClusteringCriterion.h"
 #include "NewsCluster.h"
 #include "NewsMock.h"
+#include "TwitterNews.h"
+#include "ExclusionListMock.h"
 
 TEST(ThematicSimilarityClusteringCriterionTestSuite, firstClusterIsEmpty)
 {
@@ -266,7 +268,7 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite,
 }
 
 TEST(ThematicSimilarityClusteringCriterionTestSuite,
-   notInThesameClustersLowRatioOfRelevantEntities)
+   notInTheSameClustersLowRatioOfRelevantEntities)
 {
    ThematicSimilarityClusteringCriterion criterion;
 
@@ -325,7 +327,7 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite,
    EXPECT_FALSE(criterion.areBothInTheSameCluster(firstCluster, secondCluster));
 }
 
-TEST(ThematicSimilarityClusteringCriterionTestSuite, notInThesameClusters)
+TEST(ThematicSimilarityClusteringCriterionTestSuite, notInTheSameClusters)
 {
    ThematicSimilarityClusteringCriterion criterion;
 
@@ -376,4 +378,52 @@ TEST(ThematicSimilarityClusteringCriterionTestSuite, notInThesameClusters)
    EXPECT_CALL(*newsD, accept(::testing::_)).Times(2);
 
    EXPECT_FALSE(criterion.areBothInTheSameCluster(firstCluster, secondCluster));
+}
+
+TEST(ThematicSimilarityClusteringCriterionTestSuite, bothTwitterNewsNotInTheSameClusters)
+{
+   ExclusionListMock exclusionList;
+   TwitterNews* news1 = new TwitterNews(exclusionList);
+   std::vector<std::string> newsText1{"One", "Two", "Three", "Four", "Five"};
+   std::shared_ptr<News> newsPtr1(news1);
+   TwitterNews* news2 = new TwitterNews(exclusionList);
+   std::vector<std::string> newsText2{"Six", "Seven", "Eight", "Nine", "Ten"};
+   std::shared_ptr<News> newsPtr2(news2);
+   NewsCluster firstCluster;
+   firstCluster.addNews(newsPtr1);
+   NewsCluster secondCluster;
+   secondCluster.addNews(newsPtr2);
+
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(10)
+      .WillRepeatedly(::testing::Return(false));
+
+   newsPtr1->setMentionedEntities(newsText1);
+   newsPtr2->setMentionedEntities(newsText2);
+
+   ThematicSimilarityClusteringCriterion criterion;
+   EXPECT_FALSE(criterion.areBothInTheSameCluster(firstCluster, secondCluster));
+}
+
+TEST(ThematicSimilarityClusteringCriterionTestSuite, bothTwitterNewsInTheSameClusters)
+{
+   ExclusionListMock exclusionList;
+   TwitterNews* news1 = new TwitterNews(exclusionList);
+   std::vector<std::string> newsText1{"One", "Two", "Three", "Four", "Five"};
+   std::shared_ptr<News> newsPtr1(news1);
+   TwitterNews* news2 = new TwitterNews(exclusionList);
+   std::vector<std::string> newsText2{"Six", "Seven", "Eight", "Two", "Ten"};
+   std::shared_ptr<News> newsPtr2(news2);
+   NewsCluster firstCluster;
+   firstCluster.addNews(newsPtr1);
+   NewsCluster secondCluster;
+   secondCluster.addNews(newsPtr2);
+
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(10)
+      .WillRepeatedly(::testing::Return(false));
+
+   newsPtr1->setMentionedEntities(newsText1);
+   newsPtr2->setMentionedEntities(newsText2);
+
+   ThematicSimilarityClusteringCriterion criterion;
+   EXPECT_TRUE(criterion.areBothInTheSameCluster(firstCluster, secondCluster));
 }

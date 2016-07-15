@@ -130,3 +130,37 @@ TEST_F(TwitterNewsTestSuite, wordIsContainedInHeadline)
    news.setHeadline(headline);
    EXPECT_TRUE(news.isContainedInHeadline("Policía"));
 }
+
+TEST_F(TwitterNewsTestSuite, shareMentionedEntities)
+{
+   TwitterNews news1(exclusionList);
+   std::vector<std::string> newsText1{"One", "Two", "Three", "Four", "Five"};
+   TwitterNews news2(exclusionList);
+   std::vector<std::string> newsText2{"Six", "Seven", "Eight", "Three", "Ten"};
+
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(10)
+      .WillRepeatedly(::testing::Return(false));
+
+   news1.setMentionedEntities(newsText1);
+   news2.setMentionedEntities(newsText2);
+
+   EXPECT_TRUE(news1.shareMentionedEntities(&news2));
+   EXPECT_TRUE(news2.shareMentionedEntities(&news1));
+}
+
+TEST_F(TwitterNewsTestSuite, doNotShareMentionedEntities)
+{
+   TwitterNews news1(exclusionList);
+   std::vector<std::string> newsText1{"One", "Two", "Three", "Four", "Five"};
+   TwitterNews news2(exclusionList);
+   std::vector<std::string> newsText2{"Six", "Seven", "Eight", "Nine", "Ten"};
+
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(10)
+      .WillRepeatedly(::testing::Return(false));
+
+   news1.setMentionedEntities(newsText1);
+   news2.setMentionedEntities(newsText2);
+
+   EXPECT_FALSE(news1.shareMentionedEntities(&news2));
+   EXPECT_FALSE(news2.shareMentionedEntities(&news1));
+}

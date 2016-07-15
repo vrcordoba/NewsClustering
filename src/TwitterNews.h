@@ -16,6 +16,8 @@ public:
 
    void accept(NewsDiscriminator* newsDiscriminator) const;
 
+   bool shareMentionedEntities(const TwitterNews* otherTwitterNews) const;
+
 private:
    const ExclusionList& exclusionList;
 };
