@@ -19,10 +19,10 @@ NewsReaderFromTuit::~NewsReaderFromTuit()
 
 std::vector<std::shared_ptr<News>> NewsReaderFromTuit::getNews() const
 {
-   Json::Reader fileReader;
+   Json::CharReaderBuilder builder;
    Json::Value rootElement;
    std::ifstream tuitStream(tuitsFile, std::ifstream::binary);
-   if (not fileReader.parse(tuitStream, rootElement, false))
+   if (not Json::parseFromStream(builder, tuitStream, &rootElement, nullptr))
       throw InvalidLocationException(tuitsFile);
    std::vector<std::shared_ptr<News>> tuitsVector;
    getTuitsFromFile(rootElement, tuitsVector);
