@@ -4,8 +4,8 @@
 #include "ExclusionListFromFile.h"
 #include "MostMentionedEntityClusteringCriterion.h"
 #include "ThematicSimilarityClusteringCriterion.h"
-#include "NewsReaderFromPlainText.h"
-#include "NewsReaderFromTuit.h"
+#include "NewsReader.h"
+#include "TuitReader.h"
 #include "PlainTextClusterWriter.h"
 
 ClusterizerFactory::ClusterizerFactory(const ClusterizerOptions& clusterizerOptions)
@@ -37,21 +37,21 @@ ClusteringCriterion* ClusterizerFactory::getClusteringCriterion()
    return clusteringCriterion;
 }
 
-NewsReader* ClusterizerFactory::getNewsReader()
+Reader* ClusterizerFactory::getNewsReader()
 {
    if (nullptr == exclusionList)
       exclusionList = new ExclusionListFromFile(clusterizerOptions.exclusionListFile);
    if (nullptr == newsReader and not clusterizerOptions.newsDirectory.empty())
-      newsReader = new NewsReaderFromPlainText(clusterizerOptions.newsDirectory, *exclusionList);
+      newsReader = new NewsReader(clusterizerOptions.newsDirectory, *exclusionList);
    return newsReader;
 }
 
-NewsReader* ClusterizerFactory::getTuitsReader()
+Reader* ClusterizerFactory::getTuitsReader()
 {
    if (nullptr == exclusionList)
       exclusionList = new ExclusionListFromFile(clusterizerOptions.exclusionListFile);
    if (nullptr == tuitsReader and not clusterizerOptions.tuitsFile.empty())
-      tuitsReader = new NewsReaderFromTuit(clusterizerOptions.tuitsFile, *exclusionList);
+      tuitsReader = new TuitReader(clusterizerOptions.tuitsFile, *exclusionList);
    return tuitsReader;
 }
 

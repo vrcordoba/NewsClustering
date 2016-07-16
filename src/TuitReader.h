@@ -1,10 +1,10 @@
-#ifndef NEWSREADERFROMTUIT_H_
-#define NEWSREADERFROMTUIT_H_
+#ifndef TUITREADER_H_
+#define TUITREADER_H_
 
 #include <vector>
 #include <memory>
 #include <string>
-#include "NewsReader.h"
+#include "Reader.h"
 
 class ExclusionList;
 
@@ -13,11 +13,11 @@ namespace Json
 class Value;
 }
 
-class NewsReaderFromTuit final : public NewsReader
+class TuitReader final : public Reader
 {
 public:
-   NewsReaderFromTuit(const std::string& tuitsFile, const ExclusionList& exclusionList);
-   ~NewsReaderFromTuit();
+   TuitReader(const std::string& tuitsFile, const ExclusionList& exclusionList);
+   ~TuitReader();
 
    std::vector<std::shared_ptr<News>> getNews() const;
 

@@ -5,7 +5,7 @@
 
 class ExclusionList;
 class ClusteringCriterion;
-class NewsReader;
+class Reader;
 class ClusterWriter;
 
 class ClusterizerFactory final
@@ -19,8 +19,8 @@ public:
    ~ClusterizerFactory();
 
    ClusteringCriterion* getClusteringCriterion();
-   NewsReader* getNewsReader();
-   NewsReader* getTuitsReader();
+   Reader* getNewsReader();
+   Reader* getTuitsReader();
    ClusterWriter* getClusterWriter();
 
 private:
@@ -29,8 +29,8 @@ private:
    const ClusterizerOptions clusterizerOptions;
    ExclusionList* exclusionList;
    ClusteringCriterion* clusteringCriterion;
-   NewsReader* newsReader;
-   NewsReader* tuitsReader;
+   Reader* newsReader;
+   Reader* tuitsReader;
    ClusterWriter* clusterWriter;
 };
 

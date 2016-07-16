@@ -8,8 +8,8 @@ set(HEADER_FILES
    Utf8Constants.h
    StringUtilities.h
    NewsCluster.h
+   Reader.h
    NewsReader.h
-   NewsReaderFromPlainText.h
    InvalidLocationException.h
    ExclusionList.h
    ExclusionListFromFile.h
@@ -23,7 +23,7 @@ set(HEADER_FILES
    ClusterizerOptionParser.h
    ClusterizerFactory.h
    TwitterNews.h
-   NewsReaderFromTuit.h
+   TuitReader.h
    NewsDiscriminator.h
    NewsVisitor.h
 
@@ -38,7 +38,7 @@ set(SOURCE_FILES
    NewspaperNews.cpp
    StringUtilities.cpp
    NewsCluster.cpp
-   NewsReaderFromPlainText.cpp
+   NewsReader.cpp
    InvalidLocationException.cpp
    ExclusionListFromFile.cpp
    MostMentionedEntityClusteringCriterion.cpp
@@ -48,7 +48,7 @@ set(SOURCE_FILES
    ClusterizerOptionParser.cpp
    ClusterizerFactory.cpp
    TwitterNews.cpp
-   NewsReaderFromTuit.cpp
+   TuitReader.cpp
    NewsDiscriminator.cpp
 
    JsonCpp/jsoncpp.cpp

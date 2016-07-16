@@ -1,21 +1,21 @@
 
 #include <fstream>
-#include "NewsReaderFromTuit.h"
+#include "TuitReader.h"
 #include "ExclusionList.h"
 #include "TwitterNews.h"
 #include "InvalidLocationException.h"
 #include "JsonCpp/json/json.h"
 
-NewsReaderFromTuit::NewsReaderFromTuit(const std::string& tuitsFile,
+TuitReader::TuitReader(const std::string& tuitsFile,
    const ExclusionList& exclusionList) : tuitsFile(tuitsFile), exclusionList(exclusionList)
 {
 }
 
-NewsReaderFromTuit::~NewsReaderFromTuit()
+TuitReader::~TuitReader()
 {
 }
 
-std::vector<std::shared_ptr<News>> NewsReaderFromTuit::getNews() const
+std::vector<std::shared_ptr<News>> TuitReader::getNews() const
 {
    Json::CharReaderBuilder builder;
    Json::Value rootElement;
@@ -27,7 +27,7 @@ std::vector<std::shared_ptr<News>> NewsReaderFromTuit::getNews() const
    return tuitsVector;
 }
 
-void NewsReaderFromTuit::getTuitsFromFile(const Json::Value& rootElement,
+void TuitReader::getTuitsFromFile(const Json::Value& rootElement,
    std::vector<std::shared_ptr<News>>& tuitsVector) const
 {
    const Json::Value tuits = rootElement["tuits"];

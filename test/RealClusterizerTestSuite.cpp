@@ -9,9 +9,9 @@
 #include "MostMentionedEntityClusteringCriterion.h"
 #include "ThematicSimilarityClusteringCriterion.h"
 #include "ExclusionListFromFile.h"
-#include "NewsReaderFromPlainText.h"
-#include "NewsReaderFromTuit.h"
 #include "NewsCluster.h"
+#include "NewsReader.h"
+#include "TuitReader.h"
 
 class RealClusterizerTestSuite : public ::testing::Test
 {
@@ -81,9 +81,9 @@ protected:
 TEST_F(RealClusterizerTestSuite, mostMentionedEntityCriterionOnlyNewspaperNews)
 {
    MostMentionedEntityClusteringCriterion mostMentionedEntityCriterion;
-   NewsReaderFromPlainText newsReaderFromPlainText("../data/news", exclusionList);
+   NewsReader newsReader("../data/news", exclusionList);
    clusterizer.setCriterion(&mostMentionedEntityCriterion);
-   clusterizer.setNewsReader(&newsReaderFromPlainText);
+   clusterizer.setNewsReader(&newsReader);
 
    clusterizer.obtainClusters();
 
@@ -101,9 +101,9 @@ TEST_F(RealClusterizerTestSuite, mostMentionedEntityCriterionOnlyNewspaperNews)
 TEST_F(RealClusterizerTestSuite, mostMentionedEntityCriterionOnlyTwitterNews)
 {
    MostMentionedEntityClusteringCriterion mostMentionedEntityCriterion;
-   NewsReaderFromTuit newsReaderFromTuit("../data/tuits.txt", exclusionList);
+   TuitReader tuitReader("../data/tuits.txt", exclusionList);
    clusterizer.setCriterion(&mostMentionedEntityCriterion);
-   clusterizer.setTuitsReader(&newsReaderFromTuit);
+   clusterizer.setTuitsReader(&tuitReader);
 
    clusterizer.obtainClusters();
 
@@ -117,11 +117,11 @@ TEST_F(RealClusterizerTestSuite, mostMentionedEntityCriterionOnlyTwitterNews)
 TEST_F(RealClusterizerTestSuite, mostMentionedEntityCriterionNewspaperAndTwitterNews)
 {
    MostMentionedEntityClusteringCriterion mostMentionedEntityCriterion;
-   NewsReaderFromPlainText newsReaderFromPlainText("../data/news", exclusionList);
-   NewsReaderFromTuit newsReaderFromTuit("../data/tuits.txt", exclusionList);
+   NewsReader newsReader("../data/news", exclusionList);
+   TuitReader tuitReader("../data/tuits.txt", exclusionList);
    clusterizer.setCriterion(&mostMentionedEntityCriterion);
-   clusterizer.setNewsReader(&newsReaderFromPlainText);
-   clusterizer.setTuitsReader(&newsReaderFromTuit);
+   clusterizer.setNewsReader(&newsReader);
+   clusterizer.setTuitsReader(&tuitReader);
 
    clusterizer.obtainClusters();
 
@@ -140,9 +140,9 @@ TEST_F(RealClusterizerTestSuite, mostMentionedEntityCriterionNewspaperAndTwitter
 TEST_F(RealClusterizerTestSuite, thematicSimilarityCriterionOnlyNewspaperNews)
 {
    ThematicSimilarityClusteringCriterion mostMentionedEntityCriterion;
-   NewsReaderFromPlainText newsReaderFromPlainText("../data/news", exclusionList);
+   NewsReader newsReader("../data/news", exclusionList);
    clusterizer.setCriterion(&mostMentionedEntityCriterion);
-   clusterizer.setNewsReader(&newsReaderFromPlainText);
+   clusterizer.setNewsReader(&newsReader);
 
    clusterizer.obtainClusters();
 
@@ -221,9 +221,9 @@ TEST_F(RealClusterizerTestSuite, thematicSimilarityCriterionOnlyNewspaperNews)
 TEST_F(RealClusterizerTestSuite, thematicSimilarityCriterionOnlyTwitterNews)
 {
    ThematicSimilarityClusteringCriterion mostMentionedEntityCriterion;
-   NewsReaderFromTuit newsReaderFromTuit("../data/tuits.txt", exclusionList);
+   TuitReader tuitReader("../data/tuits.txt", exclusionList);
    clusterizer.setCriterion(&mostMentionedEntityCriterion);
-   clusterizer.setTuitsReader(&newsReaderFromTuit);
+   clusterizer.setTuitsReader(&tuitReader);
 
    clusterizer.obtainClusters();
 
@@ -243,11 +243,11 @@ TEST_F(RealClusterizerTestSuite, thematicSimilarityCriterionOnlyTwitterNews)
 TEST_F(RealClusterizerTestSuite, thematicSimilarityCriterionNewspaperAndTwitterNews)
 {
    ThematicSimilarityClusteringCriterion mostMentionedEntityCriterion;
-   NewsReaderFromPlainText newsReaderFromPlainText("../data/news", exclusionList);
-   NewsReaderFromTuit newsReaderFromTuit("../data/tuits.txt", exclusionList);
+   NewsReader newsReader("../data/news", exclusionList);
+   TuitReader tuitReader("../data/tuits.txt", exclusionList);
    clusterizer.setCriterion(&mostMentionedEntityCriterion);
-   clusterizer.setNewsReader(&newsReaderFromPlainText);
-   clusterizer.setTuitsReader(&newsReaderFromTuit);
+   clusterizer.setNewsReader(&newsReader);
+   clusterizer.setTuitsReader(&tuitReader);
 
    clusterizer.obtainClusters();
 

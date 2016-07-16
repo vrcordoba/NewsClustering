@@ -2,33 +2,33 @@
 #include "gmock/gmock.h"
 
 #include <memory>
+#include "NewsReader.h"
 #include "ExclusionListMock.h"
 #include "ExclusionListFromFile.h"
-#include "NewsReaderFromPlainText.h"
 #include "News.h"
 #include "InvalidLocationException.h"
 
-class NewsReaderFromPlainTextTestSuite : public ::testing::Test
+class NewsReaderTestSuite : public ::testing::Test
 {
 protected:
    ExclusionListMock exclusionList;
 };
 
-TEST_F(NewsReaderFromPlainTextTestSuite, wrongDirectory)
+TEST_F(NewsReaderTestSuite, wrongDirectory)
 {
-   NewsReaderFromPlainText newsReader("/wrong_directory", exclusionList);
+   NewsReader newsReader("/wrong_directory", exclusionList);
    EXPECT_THROW(newsReader.getNews(), InvalidLocationException);
 }
 
-TEST_F(NewsReaderFromPlainTextTestSuite, emptyDirectory)
+TEST_F(NewsReaderTestSuite, emptyDirectory)
 {
-   NewsReaderFromPlainText newsReader("dummyData/emptyDir", exclusionList);
+   NewsReader newsReader("dummyData/emptyDir", exclusionList);
    EXPECT_THAT(newsReader.getNews().size(), ::testing::Eq(0));
 }
 
-TEST_F(NewsReaderFromPlainTextTestSuite, directoryWithPhonyNews)
+TEST_F(NewsReaderTestSuite, directoryWithPhonyNews)
 {
-   NewsReaderFromPlainText newsReader("dummyData/dummyNews", exclusionList);
+   NewsReader newsReader("dummyData/dummyNews", exclusionList);
 
    EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(16)
       .WillOnce(::testing::Return(false))
@@ -60,9 +60,9 @@ TEST_F(NewsReaderFromPlainTextTestSuite, directoryWithPhonyNews)
    }
 }
 
-TEST_F(NewsReaderFromPlainTextTestSuite, directoryWithRealNews)
+TEST_F(NewsReaderTestSuite, directoryWithRealNews)
 {
    ExclusionListFromFile realExclusionList("../data/ES_stopList.txt");
-   NewsReaderFromPlainText newsReader("../data/news", realExclusionList);
+   NewsReader newsReader("../data/news", realExclusionList);
    EXPECT_THAT(newsReader.getNews().size(), ::testing::Eq(48));
 }

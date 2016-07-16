@@ -3,8 +3,8 @@
 
 #include <cassert>
 #include <algorithm>
-#include "NewsReader.h"
 #include "ClusteringCriterion.h"
+#include "Reader.h"
 
 Clusterizer::Clusterizer() : clusteringCriterion(nullptr), newsReader(nullptr),
    tuitsReader(nullptr), newsClusters()
@@ -20,12 +20,12 @@ void Clusterizer::setCriterion(ClusteringCriterion* clusteringCriterion)
    this->clusteringCriterion = clusteringCriterion;
 }
 
-void Clusterizer::setNewsReader(const NewsReader* newsReader)
+void Clusterizer::setNewsReader(const Reader* newsReader)
 {
    this->newsReader = newsReader;
 }
 
-void Clusterizer::setTuitsReader(const NewsReader* tuitsReader)
+void Clusterizer::setTuitsReader(const Reader* tuitsReader)
 {
    this->tuitsReader = tuitsReader;
 }

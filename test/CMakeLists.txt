@@ -24,9 +24,9 @@ add_executable(NewspaperNewsTestSuite
    ../src/NewsDiscriminator.cpp)
 target_link_libraries(NewspaperNewsTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
-add_executable(NewsReaderFromPlainTextTestSuite
-   NewsReaderFromPlainTextTestSuite.cpp
-   ../src/NewsReaderFromPlainText.cpp
+add_executable(NewsReaderTestSuite
+   NewsReaderTestSuite.cpp
+   ../src/NewsReader.cpp
    ../src/ExclusionListFromFile.cpp
    ../src/InvalidLocationException.cpp
    ../src/NewspaperNews.cpp
@@ -34,7 +34,7 @@ add_executable(NewsReaderFromPlainTextTestSuite
    ../src/NewsCluster.cpp
    ../src/News.cpp
    ../src/NewsDiscriminator.cpp)
-target_link_libraries(NewsReaderFromPlainTextTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
+target_link_libraries(NewsReaderTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
 add_executable(NewsClusterTestSuite
    NewsClusterTestSuite.cpp
@@ -61,7 +61,7 @@ add_executable(RealClusterizerTestSuite
    ../src/Clusterizer.cpp
    ../src/MostMentionedEntityClusteringCriterion.cpp
    ../src/ThematicSimilarityClusteringCriterion.cpp
-   ../src/NewsReaderFromPlainText.cpp
+   ../src/NewsReader.cpp
    ../src/ExclusionListFromFile.cpp
    ../src/InvalidLocationException.cpp
    ../src/NewspaperNews.cpp
@@ -70,7 +70,7 @@ add_executable(RealClusterizerTestSuite
    ../src/News.cpp
    ../src/NewsDiscriminator.cpp
    ../src/TwitterNews.cpp
-   ../src/NewsReaderFromTuit.cpp
+   ../src/TuitReader.cpp
    ../src/JsonCpp/jsoncpp.cpp)
 target_link_libraries(RealClusterizerTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
@@ -107,9 +107,9 @@ add_executable(TwitterNewsTestSuite
    ../src/NewsDiscriminator.cpp)
 target_link_libraries(TwitterNewsTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
-add_executable(NewsReaderFromTuitTestSuite
-   NewsReaderFromTuitTestSuite.cpp
-   ../src/NewsReaderFromTuit.cpp
+add_executable(TuitReaderTestSuite
+   TuitReaderTestSuite.cpp
+   ../src/TuitReader.cpp
    ../src/JsonCpp/jsoncpp.cpp
    ../src/TwitterNews.cpp
    ../src/StringUtilities.cpp
@@ -117,7 +117,7 @@ add_executable(NewsReaderFromTuitTestSuite
    ../src/InvalidLocationException.cpp
    ../src/ExclusionListFromFile.cpp
    ../src/NewsDiscriminator.cpp)
-target_link_libraries(NewsReaderFromTuitTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
+target_link_libraries(TuitReaderTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
 add_executable(NewsDiscriminatorTestSuite
    NewsDiscriminatorTestSuite.cpp

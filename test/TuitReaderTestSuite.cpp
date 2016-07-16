@@ -1,32 +1,32 @@
 
 #include "gmock/gmock.h"
 
-#include "NewsReaderFromTuit.h"
+#include "TuitReader.h"
 #include "InvalidLocationException.h"
 #include "ExclusionListMock.h"
 #include "ExclusionListFromFile.h"
 
-class NewsReaderFromTuitTestSuite : public ::testing::Test
+class TuitReaderTestSuite : public ::testing::Test
 {
 protected:
    ExclusionListMock exclusionList;
 };
 
-TEST_F(NewsReaderFromTuitTestSuite, wrongFile)
+TEST_F(TuitReaderTestSuite, wrongFile)
 {
-   NewsReaderFromTuit newsReader("/wrong_file.json", exclusionList);
+   TuitReader newsReader("/wrong_file.json", exclusionList);
    EXPECT_THROW(newsReader.getNews(), InvalidLocationException);
 }
 
-TEST_F(NewsReaderFromTuitTestSuite, emptyFile)
+TEST_F(TuitReaderTestSuite, emptyFile)
 {
-   NewsReaderFromTuit newsReader("dummyData/dummyJsonNews/empty.json", exclusionList);
+   TuitReader newsReader("dummyData/dummyJsonNews/empty.json", exclusionList);
    EXPECT_THAT(newsReader.getNews().size(), ::testing::Eq(0));
 }
 
-TEST_F(NewsReaderFromTuitTestSuite, fileWithPhonyNews)
+TEST_F(TuitReaderTestSuite, fileWithPhonyNews)
 {
-   NewsReaderFromTuit newsReader("dummyData/dummyJsonNews/dummy.json", exclusionList);
+   TuitReader newsReader("dummyData/dummyJsonNews/dummy.json", exclusionList);
 
    EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(16)
       .WillOnce(::testing::Return(false))
@@ -58,10 +58,10 @@ TEST_F(NewsReaderFromTuitTestSuite, fileWithPhonyNews)
    }
 }
 
-TEST_F(NewsReaderFromTuitTestSuite, fileWithRealNews)
+TEST_F(TuitReaderTestSuite, fileWithRealNews)
 {
    ExclusionListFromFile realExclusionList("../data/ES_stopList.txt");
-   NewsReaderFromTuit newsReader("../data/tuits.txt", realExclusionList);
+   TuitReader newsReader("../data/tuits.txt", realExclusionList);
 
    std::vector<std::shared_ptr<News>> recoveredNews = newsReader.getNews();
    EXPECT_THAT(recoveredNews.size(), ::testing::Eq(3));

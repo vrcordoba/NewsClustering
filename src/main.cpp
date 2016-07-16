@@ -3,8 +3,8 @@
 #include "ClusterizerOptionParser.h"
 #include "ClusterizerFactory.h"
 #include "ClusteringCriterion.h"
-#include "NewsReader.h"
 #include "ClusterWriter.h"
+#include "Reader.h"
 
 int main(int argc, char** argv)
 {
@@ -12,8 +12,8 @@ int main(int argc, char** argv)
    ClusterizerFactory clusterizerFactory = ClusterizerFactory::getInstance(
       optionsParser.getClusterizerOptions());
    ClusteringCriterion* clusteringCriterion = clusterizerFactory.getClusteringCriterion();
-   NewsReader* newsReader = clusterizerFactory.getNewsReader();
-   NewsReader* tuitsReader = clusterizerFactory.getTuitsReader();
+   Reader* newsReader = clusterizerFactory.getNewsReader();
+   Reader* tuitsReader = clusterizerFactory.getTuitsReader();
 
    Clusterizer clusterizer;
    clusterizer.setCriterion(clusteringCriterion);

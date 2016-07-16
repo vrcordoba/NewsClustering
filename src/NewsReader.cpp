@@ -1,5 +1,5 @@
 
-#include "NewsReaderFromPlainText.h"
+#include "NewsReader.h"
 
 #include <dirent.h>
 #include <fstream>
@@ -10,17 +10,17 @@
 #include "InvalidLocationException.h"
 #include "NewspaperNews.h"
 
-NewsReaderFromPlainText::NewsReaderFromPlainText(const std::string& newsDirectory,
+NewsReader::NewsReader(const std::string& newsDirectory,
    const ExclusionList& exclusionList) : newsDirectory(newsDirectory),
    exclusionList(exclusionList)
 {
 }
 
-NewsReaderFromPlainText::~NewsReaderFromPlainText()
+NewsReader::~NewsReader()
 {
 }
 
-std::vector<std::shared_ptr<News>> NewsReaderFromPlainText::getNews() const
+std::vector<std::shared_ptr<News>> NewsReader::getNews() const
 {
    std::vector<std::shared_ptr<News>> newsVector;
    std::vector<std::string> newsFilesInDirectory = getFilesInDirectory();
@@ -32,7 +32,7 @@ std::vector<std::shared_ptr<News>> NewsReaderFromPlainText::getNews() const
    return newsVector;
 }
 
-std::vector<std::string> NewsReaderFromPlainText::getFilesInDirectory() const
+std::vector<std::string> NewsReader::getFilesInDirectory() const
 {
    std::vector<std::string> files;
    DIR *dir;
@@ -51,7 +51,7 @@ std::vector<std::string> NewsReaderFromPlainText::getFilesInDirectory() const
    return files;
 }
 
-std::shared_ptr<News> NewsReaderFromPlainText::getNewsFromFile(const std::string& filename) const
+std::shared_ptr<News> NewsReader::getNewsFromFile(const std::string& filename) const
 {
    std::ifstream file(filename);
    std::vector<std::string> wordsInNews;

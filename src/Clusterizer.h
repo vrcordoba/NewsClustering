@@ -6,7 +6,7 @@
 #include "NewsCluster.h"
 
 class ClusteringCriterion;
-class NewsReader;
+class Reader;
 
 class Clusterizer final
 {
@@ -15,8 +15,8 @@ public:
    ~Clusterizer();
 
    void setCriterion(ClusteringCriterion* clusteringCriterion);
-   void setNewsReader(const NewsReader* newsReader);
-   void setTuitsReader(const NewsReader* tuitsReader);
+   void setNewsReader(const Reader* newsReader);
+   void setTuitsReader(const Reader* tuitsReader);
 
    void obtainClusters();
    std::vector<NewsCluster> getClusters() const;
@@ -26,8 +26,8 @@ private:
    void analyzeNews();
 
    ClusteringCriterion* clusteringCriterion;
-   const NewsReader* newsReader;
-   const NewsReader* tuitsReader;
+   const Reader* newsReader;
+   const Reader* tuitsReader;
    std::vector<NewsCluster> newsClusters;
 };
 
