@@ -5,6 +5,8 @@
 #include <memory>
 #include "Reader.h"
 #include "News.h"
+#include "NewsReaderFromPlainText.h"
+#include "NewsReaderFromJson.h"
 
 class ExclusionList;
 
@@ -17,11 +19,19 @@ public:
    std::vector<std::shared_ptr<News>> getNews() const;
 
 private:
-   std::vector<std::string> getFilesInDirectory() const;
-   std::shared_ptr<News> getNewsFromFile(const std::string& filename) const;
+   std::vector<std::string> getFilesInDirectory(const char* extension) const;
+   void getNewsFromPlainText(const std::vector<std::string>& plainTextFiles,
+      std::vector<std::shared_ptr<News>>& newsVector) const;
+   void getNewsFromJson(const std::vector<std::string>& jsonFiles,
+      std::vector<std::shared_ptr<News>>& newsVector) const;
 
    std::string newsDirectory;
    const ExclusionList& exclusionList;
+   const NewsReaderFromPlainText newsReaderFromPlainText;
+   const NewsReaderFromJson newsReaderFromJson;
+
+   const char* const plainTextExtension = ".txt";
+   const char* const jsonExtension = ".json";
 };
 
 #endif

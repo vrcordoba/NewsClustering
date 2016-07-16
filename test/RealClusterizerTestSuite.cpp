@@ -98,6 +98,22 @@ TEST_F(RealClusterizerTestSuite, mostMentionedEntityCriterionOnlyNewspaperNews)
    checkMostMentionedEntities(obtainedResult, expectedMentionedEntities);
 }
 
+TEST_F(RealClusterizerTestSuite, mostMentionedEntityCriterionOnlyJsonNews)
+{
+   MostMentionedEntityClusteringCriterion mostMentionedEntityCriterion;
+   NewsReader newsReader("../data/news_json", exclusionList);
+   clusterizer.setCriterion(&mostMentionedEntityCriterion);
+   clusterizer.setNewsReader(&newsReader);
+
+   clusterizer.obtainClusters();
+
+   std::vector<NewsCluster> obtainedResult = clusterizer.getClusters();
+   EXPECT_THAT(obtainedResult.size(), ::testing::Eq(3));
+
+   std::set<std::string> expectedMentionedEntities{u8"Rhys", u8"Liverpool", u8"Jones"};
+   checkMostMentionedEntities(obtainedResult, expectedMentionedEntities);
+}
+
 TEST_F(RealClusterizerTestSuite, mostMentionedEntityCriterionOnlyTwitterNews)
 {
    MostMentionedEntityClusteringCriterion mostMentionedEntityCriterion;
@@ -133,6 +149,25 @@ TEST_F(RealClusterizerTestSuite, mostMentionedEntityCriterionNewspaperAndTwitter
       u8"Pérez", u8"Nacional", u8"Iglesia", u8"PJD", u8"Justicia", u8"Nacional",
       u8"Gobierno", u8"Marruecos", u8"Istiqlal", u8"Bhutto", u8"Pakistán", u8"Sharif",
       u8"Fatah", u8"Bared", u8"Líbano", u8"Cuba", u8"México", u8"Dean",
+      u8"Detienen", u8"Liberan"};
+   checkMostMentionedEntities(obtainedResult, expectedMentionedEntities);
+}
+
+TEST_F(RealClusterizerTestSuite, mostMentionedEntityCriterionJsonNewsAndTwitterNews)
+{
+   MostMentionedEntityClusteringCriterion mostMentionedEntityCriterion;
+   NewsReader newsReader("../data/news_json", exclusionList);
+   TuitReader tuitReader("../data/tuits.txt", exclusionList);
+   clusterizer.setCriterion(&mostMentionedEntityCriterion);
+   clusterizer.setNewsReader(&newsReader);
+   clusterizer.setTuitsReader(&tuitReader);
+
+   clusterizer.obtainClusters();
+
+   std::vector<NewsCluster> obtainedResult = clusterizer.getClusters();
+   EXPECT_THAT(obtainedResult.size(), ::testing::Eq(5));
+
+   std::set<std::string> expectedMentionedEntities{u8"Rhys", u8"Liverpool", u8"Jones",
       u8"Detienen", u8"Liberan"};
    checkMostMentionedEntities(obtainedResult, expectedMentionedEntities);
 }
@@ -213,6 +248,28 @@ TEST_F(RealClusterizerTestSuite, thematicSimilarityCriterionOnlyNewspaperNews)
          u8"' Dean ' provoca otros tres muertos antes de extinguir se en el interior de México",
          u8"Dean pasa a ser tormenta tropical",
          u8"Dean pierde fuerza a el adentrar se en México"
+      }
+   };
+   checkThematicSimilarity(obtainedResult, expectedResult);
+}
+
+TEST_F(RealClusterizerTestSuite, thematicSimilarityCriterionOnlyJsonNews)
+{
+   ThematicSimilarityClusteringCriterion mostMentionedEntityCriterion;
+   NewsReader newsReader("../data/news_json", exclusionList);
+   clusterizer.setCriterion(&mostMentionedEntityCriterion);
+   clusterizer.setNewsReader(&newsReader);
+
+   clusterizer.obtainClusters();
+
+   std::vector<NewsCluster> obtainedResult = clusterizer.getClusters();
+   EXPECT_THAT(obtainedResult.size(), ::testing::Eq(1));
+
+   std::vector<std::set<std::string>> expectedResult{
+      {
+         u8"Liberan a los dos sospechosos detenidos por el asesinato de un niño de 11 años en Liverpool",
+         u8"Detienen a seis jóvenes más en relación con el asesinato de el niño de Liverpool",
+         u8"Siguen los interrogatorios a los detenidos por el asesinato de el niño de Liverpool"
       }
    };
    checkThematicSimilarity(obtainedResult, expectedResult);
@@ -321,6 +378,55 @@ TEST_F(RealClusterizerTestSuite, thematicSimilarityCriterionNewspaperAndTwitterN
          u8"' Dean ' provoca otros tres muertos antes de extinguir se en el interior de México",
          u8"Dean pasa a ser tormenta tropical",
          u8"Dean pierde fuerza a el adentrar se en México"
+      }
+   };
+   std::size_t i = 0;
+   for (auto& newsCluster : obtainedResult)
+   {
+      for (auto& news : newsCluster)
+      {
+         std::multiset<std::string>::iterator it = expectedResult[i].find(news->getSubject());
+         EXPECT_TRUE(it != std::end(expectedResult[i]));
+         expectedResult[i].erase(it);
+      }
+      ++i;
+   }
+   for (auto& result : expectedResult)
+   {
+      if (not result.empty())
+      {
+         EXPECT_TRUE(false);
+         for (auto& notObtained : result)
+         {
+            std::cout << notObtained << " ";
+         }
+         std::cout << "not obtained" << std::endl;
+      }
+   }
+}
+
+TEST_F(RealClusterizerTestSuite, thematicSimilarityCriterionJsonNewsAndTwitterNews)
+{
+   ThematicSimilarityClusteringCriterion mostMentionedEntityCriterion;
+   NewsReader newsReader("../data/news_json", exclusionList);
+   TuitReader tuitReader("../data/tuits.txt", exclusionList);
+   clusterizer.setCriterion(&mostMentionedEntityCriterion);
+   clusterizer.setNewsReader(&newsReader);
+   clusterizer.setTuitsReader(&tuitReader);
+
+   clusterizer.obtainClusters();
+
+   std::vector<NewsCluster> obtainedResult = clusterizer.getClusters();
+   EXPECT_THAT(obtainedResult.size(), ::testing::Eq(1));
+
+   std::vector<std::multiset<std::string>> expectedResult{
+      {
+         u8"Liberan a los dos sospechosos detenidos por el asesinato de un niño de 11 años en Liverpool",
+         u8"Detienen a seis jóvenes más en relación con el asesinato de el niño de Liverpool",
+         u8"Siguen los interrogatorios a los detenidos por el asesinato de el niño de Liverpool",
+         u8"Liberan a los dos sospechosos detenidos por el asesinato de un niño de 11 años en Liverpool",
+         u8"Detienen a seis jóvenes más en relación con el asesinato de el niño de Liverpool",
+         u8"Siguen los interrogatorios a los detenidos por el asesinato de el niño de Liverpool"
       }
    };
    std::size_t i = 0;

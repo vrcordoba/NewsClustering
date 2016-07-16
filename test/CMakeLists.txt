@@ -33,7 +33,11 @@ add_executable(NewsReaderTestSuite
    ../src/StringUtilities.cpp
    ../src/NewsCluster.cpp
    ../src/News.cpp
-   ../src/NewsDiscriminator.cpp)
+   ../src/NewsDiscriminator.cpp
+   ../src/NewsReaderFromPlainText.cpp
+   ../src/NewsReaderFromJson.cpp
+   ../src/JsonCpp/jsoncpp.cpp
+   ../src/TwitterNews.cpp)
 target_link_libraries(NewsReaderTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
 add_executable(NewsClusterTestSuite
@@ -71,7 +75,9 @@ add_executable(RealClusterizerTestSuite
    ../src/NewsDiscriminator.cpp
    ../src/TwitterNews.cpp
    ../src/TuitReader.cpp
-   ../src/JsonCpp/jsoncpp.cpp)
+   ../src/JsonCpp/jsoncpp.cpp
+   ../src/NewsReaderFromPlainText.cpp
+   ../src/NewsReaderFromJson.cpp)
 target_link_libraries(RealClusterizerTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
 add_executable(PlainTextClusterWriterTestSuite

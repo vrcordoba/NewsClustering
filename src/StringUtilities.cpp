@@ -2,6 +2,9 @@
 #include "StringUtilities.h"
 
 #include <locale>
+#include <sstream>
+#include <iterator>
+#include <algorithm>
 #include "Utf8Constants.h"
 
 namespace StringUtilities
@@ -85,6 +88,13 @@ bool isNonAsciiCharacterUpper(const std::string& multiByteRepresentation)
    wchar_t wideRepresentation;
    std::mbtowc(&wideRepresentation, multiByteRepresentation.c_str(), multiByteRepresentation.size());
    return std::isupper(wideRepresentation, std::locale(Utf8Constants::currentLocale));
+}
+
+void breakTextIntoWords(const std::string& text, std::vector<std::string>& words)
+{
+   std::istringstream iss(text);
+   std::copy(std::istream_iterator<std::string>(iss), std::istream_iterator<std::string>(),
+      std::back_inserter(words));
 }
 
 }

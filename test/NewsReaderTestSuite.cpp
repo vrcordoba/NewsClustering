@@ -60,9 +60,50 @@ TEST_F(NewsReaderTestSuite, directoryWithPhonyNews)
    }
 }
 
+TEST_F(NewsReaderTestSuite, directoryWithPhonyJsonNews)
+{
+   NewsReader newsReader("dummyData/dummyJsonNews", exclusionList);
+
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(16)
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(true))
+      .WillOnce(::testing::Return(true))
+      .WillOnce(::testing::Return(true))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(false))
+      .WillOnce(::testing::Return(true))
+      .WillOnce(::testing::Return(true));
+
+   std::vector<std::shared_ptr<News>> recoveredNews = newsReader.getNews();
+   EXPECT_THAT(recoveredNews.size(), ::testing::Eq(2));
+   std::set<std::string> expectedMostMentionedEntities{u8"Titular", u8"Verano"};
+   for (auto& news : recoveredNews)
+   {
+      std::set<std::string>::iterator it = expectedMostMentionedEntities.find(
+         news->getMostMentionedEntity());
+      EXPECT_TRUE(it != expectedMostMentionedEntities.end());
+      expectedMostMentionedEntities.erase(it);
+   }
+}
+
 TEST_F(NewsReaderTestSuite, directoryWithRealNews)
 {
    ExclusionListFromFile realExclusionList("../data/ES_stopList.txt");
    NewsReader newsReader("../data/news", realExclusionList);
    EXPECT_THAT(newsReader.getNews().size(), ::testing::Eq(48));
+}
+
+TEST_F(NewsReaderTestSuite, directoryWithRealJsonNews)
+{
+   ExclusionListFromFile realExclusionList("../data/ES_stopList.txt");
+   NewsReader newsReader("../data/news_json", realExclusionList);
+   EXPECT_THAT(newsReader.getNews().size(), ::testing::Eq(3));
 }

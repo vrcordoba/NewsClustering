@@ -26,6 +26,8 @@ set(HEADER_FILES
    TuitReader.h
    NewsDiscriminator.h
    NewsVisitor.h
+   NewsReaderFromPlainText.h
+   NewsReaderFromJson.h
 
    JsonCpp/json/json-forwards.h
    JsonCpp/json/json.h
@@ -50,6 +52,8 @@ set(SOURCE_FILES
    TwitterNews.cpp
    TuitReader.cpp
    NewsDiscriminator.cpp
+   NewsReaderFromPlainText.cpp
+   NewsReaderFromJson.cpp
 
    JsonCpp/jsoncpp.cpp
 )

@@ -20,13 +20,13 @@ TEST_F(TuitReaderTestSuite, wrongFile)
 
 TEST_F(TuitReaderTestSuite, emptyFile)
 {
-   TuitReader newsReader("dummyData/dummyJsonNews/empty.json", exclusionList);
+   TuitReader newsReader("dummyData/dummyTwitterNews/empty.json", exclusionList);
    EXPECT_THAT(newsReader.getNews().size(), ::testing::Eq(0));
 }
 
 TEST_F(TuitReaderTestSuite, fileWithPhonyNews)
 {
-   TuitReader newsReader("dummyData/dummyJsonNews/dummy.json", exclusionList);
+   TuitReader newsReader("dummyData/dummyTwitterNews/dummy.json", exclusionList);
 
    EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(16)
       .WillOnce(::testing::Return(false))

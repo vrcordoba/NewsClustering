@@ -2,17 +2,12 @@
 #include "NewsReader.h"
 
 #include <dirent.h>
-#include <fstream>
-#include <sstream>
-#include <iterator>
-#include <algorithm>
 #include <cstring>
 #include "InvalidLocationException.h"
-#include "NewspaperNews.h"
 
 NewsReader::NewsReader(const std::string& newsDirectory,
    const ExclusionList& exclusionList) : newsDirectory(newsDirectory),
-   exclusionList(exclusionList)
+   exclusionList(exclusionList), newsReaderFromPlainText(), newsReaderFromJson()
 {
 }
 
@@ -23,16 +18,12 @@ NewsReader::~NewsReader()
 std::vector<std::shared_ptr<News>> NewsReader::getNews() const
 {
    std::vector<std::shared_ptr<News>> newsVector;
-   std::vector<std::string> newsFilesInDirectory = getFilesInDirectory();
-   for (auto& newsFile : newsFilesInDirectory)
-   {
-      std::shared_ptr<News> news = getNewsFromFile(newsDirectory + "/" + newsFile);
-      newsVector.push_back(news);
-   }
+   getNewsFromPlainText(getFilesInDirectory(plainTextExtension), newsVector);
+   getNewsFromJson(getFilesInDirectory(jsonExtension), newsVector);
    return newsVector;
 }
 
-std::vector<std::string> NewsReader::getFilesInDirectory() const
+std::vector<std::string> NewsReader::getFilesInDirectory(const char* extension) const
 {
    std::vector<std::string> files;
    DIR *dir;
@@ -41,7 +32,8 @@ std::vector<std::string> NewsReader::getFilesInDirectory() const
       struct dirent *ent;
       while ((ent = readdir(dir)) != nullptr)
       {
-         if (std::strcmp(".", ent->d_name) and std::strcmp("..", ent->d_name))
+         if (std::strcmp(".", ent->d_name) and std::strcmp("..", ent->d_name)
+            and std::strstr(ent->d_name, extension))
             files.push_back(ent->d_name);
       }
       closedir(dir);
@@ -51,25 +43,19 @@ std::vector<std::string> NewsReader::getFilesInDirectory() const
    return files;
 }
 
-std::shared_ptr<News> NewsReader::getNewsFromFile(const std::string& filename) const
+void NewsReader::getNewsFromPlainText(
+   const std::vector<std::string>& plainTextFiles,
+   std::vector<std::shared_ptr<News>>& newsVector) const
 {
-   std::ifstream file(filename);
-   std::vector<std::string> wordsInNews;
-   std::string subject;
-   for (std::string line; std::getline(file, line); )
-   {
-      if (subject.empty())
-      {
-         line.erase(std::find_if(line.rbegin(), line.rend(),
-            std::not1(std::ptr_fun<int, int>(std::isspace))).base(), line.end());
-         subject = line;
-      }
-      std::istringstream iss(line);
-      std::copy(std::istream_iterator<std::string>(iss), std::istream_iterator<std::string>(),
-         std::back_inserter(wordsInNews));
-   }
-   std::shared_ptr<News> news(new NewspaperNews(exclusionList));
-   news->setSubject(subject);
-   news->setMentionedEntities(wordsInNews);
-   return news;
+   for (auto& file : plainTextFiles)
+      newsVector.push_back(newsReaderFromPlainText.readNews(newsDirectory + "/" + file,
+         exclusionList));
+}
+
+void NewsReader::getNewsFromJson(const std::vector<std::string>& jsonFiles,
+   std::vector<std::shared_ptr<News>>& newsVector) const
+{
+   for (auto& file : jsonFiles)
+      newsVector.push_back(newsReaderFromJson.readNews(newsDirectory + "/" + file,
+         exclusionList));
 }
