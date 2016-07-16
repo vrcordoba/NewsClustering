@@ -38,5 +38,28 @@ TEST(NewsClusterTestSuite, mergeCluster)
 
    EXPECT_THAT(newsCluster1.size(), ::testing::Eq(4));
    EXPECT_THAT(newsCluster2.size(), ::testing::Eq(0));
+}
 
+TEST(NewsClusterTestSuite, getMentionedEntities)
+{
+   NewsMock* newsA = new NewsMock();
+   NewsMock* newsB = new NewsMock();
+   NewsMock* newsC = new NewsMock();
+   std::shared_ptr<News> ptrNewsA(newsA);
+   std::shared_ptr<News> ptrNewsB(newsB);
+   std::shared_ptr<News> ptrNewsC(newsC);
+   NewsCluster newsCluster;
+   newsCluster.addNews(ptrNewsA);
+   newsCluster.addNews(ptrNewsB);
+   newsCluster.addNews(ptrNewsC);
+
+   std::set<std::string> mentionedEntitiesA{"One", "Two", "Three"};
+   std::set<std::string> mentionedEntitiesB{"Four", "Three", "Five", "Six"};
+   std::set<std::string> mentionedEntitiesC{"Seven", "Eight", "One"};
+   EXPECT_CALL(*newsA, getMentionedEntities()).Times(1).WillOnce(::testing::Return(mentionedEntitiesA));
+   EXPECT_CALL(*newsB, getMentionedEntities()).Times(1).WillOnce(::testing::Return(mentionedEntitiesB));
+   EXPECT_CALL(*newsC, getMentionedEntities()).Times(1).WillOnce(::testing::Return(mentionedEntitiesC));
+
+   std::set<std::string> expectedResult{"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight"};
+   EXPECT_THAT(newsCluster.getMentionedEntities(), ::testing::Eq(expectedResult));
 }

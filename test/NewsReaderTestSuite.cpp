@@ -51,13 +51,10 @@ TEST_F(NewsReaderTestSuite, directoryWithPhonyNews)
    std::vector<std::shared_ptr<News>> recoveredNews = newsReader.getNews();
    EXPECT_THAT(recoveredNews.size(), ::testing::Eq(2));
    std::set<std::string> expectedMostMentionedEntities{u8"Titular", u8"Verano"};
+   std::set<std::string> obtainedMostMentionedEntities;
    for (auto& news : recoveredNews)
-   {
-      std::set<std::string>::iterator it = expectedMostMentionedEntities.find(
-         news->getMostMentionedEntity());
-      EXPECT_TRUE(it != expectedMostMentionedEntities.end());
-      expectedMostMentionedEntities.erase(it);
-   }
+      obtainedMostMentionedEntities.insert(news->getMostMentionedEntity());
+   EXPECT_THAT(obtainedMostMentionedEntities, ::testing::Eq(expectedMostMentionedEntities));
 }
 
 TEST_F(NewsReaderTestSuite, directoryWithPhonyJsonNews)
@@ -85,13 +82,10 @@ TEST_F(NewsReaderTestSuite, directoryWithPhonyJsonNews)
    std::vector<std::shared_ptr<News>> recoveredNews = newsReader.getNews();
    EXPECT_THAT(recoveredNews.size(), ::testing::Eq(2));
    std::set<std::string> expectedMostMentionedEntities{u8"Titular", u8"Verano"};
+   std::set<std::string> obtainedMostMentionedEntities;
    for (auto& news : recoveredNews)
-   {
-      std::set<std::string>::iterator it = expectedMostMentionedEntities.find(
-         news->getMostMentionedEntity());
-      EXPECT_TRUE(it != expectedMostMentionedEntities.end());
-      expectedMostMentionedEntities.erase(it);
-   }
+      obtainedMostMentionedEntities.insert(news->getMostMentionedEntity());
+   EXPECT_THAT(obtainedMostMentionedEntities, ::testing::Eq(expectedMostMentionedEntities));
 }
 
 TEST_F(NewsReaderTestSuite, directoryWithRealNews)

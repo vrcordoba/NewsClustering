@@ -19,31 +19,12 @@ protected:
    RealClusterizerTestSuite() : exclusionList("../data/ES_stopList.txt") {}
 
    void checkMostMentionedEntities(const std::vector<NewsCluster>& obtainedResult,
-      std::set<std::string>& expectedMentionedEntities)
+      const std::set<std::string>& expectedMentionedEntities)
    {
+      std::set<std::string> obtainedResultSet;
       for (auto& newsCluster : obtainedResult)
-      {
-         std::string obtainedMostMentionedEntity = (*newsCluster.begin())->getMostMentionedEntity();
-         std::set<std::string>::iterator it = expectedMentionedEntities.find(obtainedMostMentionedEntity);
-         if (expectedMentionedEntities.end() == it)
-         {
-            std::cout << obtainedMostMentionedEntity << " not found" << std::endl;
-            EXPECT_TRUE(false);
-         }
-         else
-         {
-            expectedMentionedEntities.erase(it);
-         }
-      }
-      if (not expectedMentionedEntities.empty())
-      {
-         EXPECT_TRUE(false);
-         for (auto& notObtained : expectedMentionedEntities)
-         {
-            std::cout << notObtained << " ";
-         }
-         std::cout << "not obtained" << std::endl;
-      }
+         obtainedResultSet.insert((*newsCluster.begin())->getMostMentionedEntity());
+      EXPECT_THAT(obtainedResultSet, ::testing::Eq(expectedMentionedEntities));
    }
 
    void checkThematicSimilarity(const std::vector<NewsCluster>& obtainedResult,

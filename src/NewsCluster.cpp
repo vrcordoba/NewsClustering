@@ -51,3 +51,14 @@ std::size_t NewsCluster::size() const
 {
    return newsVector.cend() - newsVector.cbegin();
 }
+
+std::set<std::string> NewsCluster::getMentionedEntities() const
+{
+   std::set<std::string> mentionedEntities;
+   for (auto& news : newsVector)
+   {
+      std::set<std::string> newsMentionedEntities = news->getMentionedEntities();
+      mentionedEntities.insert(std::begin(newsMentionedEntities), std::end(newsMentionedEntities));
+   }
+   return mentionedEntities;
+}

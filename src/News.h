@@ -18,6 +18,7 @@ public:
    virtual void setMentionedEntities(const std::vector<std::string>& wordsInNews) = 0;
 
    virtual std::string getMostMentionedEntity();
+   virtual std::set<std::string> getMentionedEntities() const;
    virtual std::string getSubject() const;
    virtual void setSubject(const std::string& subject);
    virtual bool isContainedInSubject(const std::string& word) const;

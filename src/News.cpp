@@ -1,6 +1,8 @@
 
 #include "News.h"
 
+#include <algorithm>
+
 News::News() : mentionedEntities(), mostMentionedEntity(), subject()
 {
 }
@@ -14,6 +16,15 @@ std::string News::getMostMentionedEntity()
    if (mostMentionedEntity.empty())
       computeMostMentionedEntity();
    return mostMentionedEntity;
+}
+
+std::set<std::string> News::getMentionedEntities() const
+{
+   std::set<std::string> mentionedEntitiesSet;
+   std::transform(std::begin(mentionedEntities), std::end(mentionedEntities), std::inserter(mentionedEntitiesSet,
+      mentionedEntitiesSet.begin()), [](const std::pair<std::string, std::uint32_t>& mapItem) {
+           return mapItem.first;});
+   return mentionedEntitiesSet;
 }
 
 void News::computeMostMentionedEntity()

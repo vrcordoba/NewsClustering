@@ -13,6 +13,7 @@ class NewsMock final : public News
 {
 public:
    MOCK_METHOD0(getMostMentionedEntity, std::string());
+   MOCK_CONST_METHOD0(getMentionedEntities, std::set<std::string>());
    MOCK_CONST_METHOD0(getSubject, std::string());
    MOCK_METHOD1(setMentionedEntities, void(const std::vector<std::string>&));
    MOCK_METHOD1(setSubject, void(const std::string&));

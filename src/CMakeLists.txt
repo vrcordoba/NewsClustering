@@ -28,6 +28,7 @@ set(HEADER_FILES
    NewsVisitor.h
    NewsReaderFromPlainText.h
    NewsReaderFromJson.h
+   JsonClusterWriter.h
 
    JsonCpp/json/json-forwards.h
    JsonCpp/json/json.h
@@ -54,6 +55,7 @@ set(SOURCE_FILES
    NewsDiscriminator.cpp
    NewsReaderFromPlainText.cpp
    NewsReaderFromJson.cpp
+   JsonClusterWriter.cpp
 
    JsonCpp/jsoncpp.cpp
 )

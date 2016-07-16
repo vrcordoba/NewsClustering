@@ -23,6 +23,8 @@ public:
    bool empty() const;
    std::size_t size() const;
 
+   std::set<std::string> getMentionedEntities() const;
+
 private:
    std::vector<std::shared_ptr<News>> newsVector;
 };
