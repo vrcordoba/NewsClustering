@@ -16,6 +16,7 @@ public:
 
    void setCriterion(ClusteringCriterion* clusteringCriterion);
    void setNewsReader(const NewsReader* newsReader);
+   void setTuitsReader(const NewsReader* tuitsReader);
 
    void obtainClusters();
    std::vector<NewsCluster> getClusters() const;
@@ -26,6 +27,7 @@ private:
 
    ClusteringCriterion* clusteringCriterion;
    const NewsReader* newsReader;
+   const NewsReader* tuitsReader;
    std::vector<NewsCluster> newsClusters;
 };
 

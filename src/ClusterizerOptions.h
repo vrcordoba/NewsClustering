@@ -15,12 +15,14 @@ class ClusterizerOptions final
 public:
    ClusterizerOptions() :
       exclusionListFile(),
-      inputDirectory(),
+      newsDirectory(),
+      tuitsFile(),
       outputFile(),
       clusteringCriterionOption(ClusteringCriterionOption::MostMentionedEntity) {}
 
    std::string exclusionListFile;
-   std::string inputDirectory;
+   std::string newsDirectory;
+   std::string tuitsFile;
    std::string outputFile;
    ClusteringCriterionOption clusteringCriterionOption;
 };

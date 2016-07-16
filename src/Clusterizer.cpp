@@ -7,7 +7,7 @@
 #include "ClusteringCriterion.h"
 
 Clusterizer::Clusterizer() : clusteringCriterion(nullptr), newsReader(nullptr),
-   newsClusters()
+   tuitsReader(nullptr), newsClusters()
 {
 }
 
@@ -25,10 +25,20 @@ void Clusterizer::setNewsReader(const NewsReader* newsReader)
    this->newsReader = newsReader;
 }
 
+void Clusterizer::setTuitsReader(const NewsReader* tuitsReader)
+{
+   this->tuitsReader = tuitsReader;
+}
+
 void Clusterizer::obtainClusters()
 {
-   assert(newsReader != nullptr);
-   createClustersFromNews(newsReader->getNews());
+   assert(newsReader != nullptr or tuitsReader != nullptr);
+   std::vector<std::shared_ptr<News>> newsVector;
+   if (newsReader != nullptr)
+      createClustersFromNews(newsReader->getNews());
+   if (tuitsReader != nullptr)
+      createClustersFromNews(tuitsReader->getNews());
+   createClustersFromNews(newsVector);
    analyzeNews();
 }
 

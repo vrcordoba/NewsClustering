@@ -20,15 +20,17 @@ public:
 
    ClusteringCriterion* getClusteringCriterion();
    NewsReader* getNewsReader();
+   NewsReader* getTuitsReader();
    ClusterWriter* getClusterWriter();
 
 private:
    explicit ClusterizerFactory(const ClusterizerOptions& clusterizerOptions);
 
-   ClusterizerOptions clusterizerOptions;
+   const ClusterizerOptions clusterizerOptions;
    ExclusionList* exclusionList;
    ClusteringCriterion* clusteringCriterion;
    NewsReader* newsReader;
+   NewsReader* tuitsReader;
    ClusterWriter* clusterWriter;
 };
 

@@ -69,7 +69,9 @@ add_executable(RealClusterizerTestSuite
    ../src/NewsCluster.cpp
    ../src/News.cpp
    ../src/NewsDiscriminator.cpp
-   ../src/TwitterNews.cpp)
+   ../src/TwitterNews.cpp
+   ../src/NewsReaderFromTuit.cpp
+   ../src/JsonCpp/jsoncpp.cpp)
 target_link_libraries(RealClusterizerTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
 
 add_executable(PlainTextClusterWriterTestSuite

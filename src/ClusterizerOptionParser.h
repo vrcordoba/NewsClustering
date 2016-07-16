@@ -10,9 +10,10 @@ public:
    ~ClusterizerOptionParser();
 
    ClusterizerOptions getClusterizerOptions() const;
-   void showHelp() const;
 
 private:
+   void showHelp() const;
+   void showErrorHelpAndClose(const std::string& error) const;
    void parseOptions(int numArgs, char** args);
    void parseClusteringCriterion(char* option);
    void hasValidArgument(char* arg) const;

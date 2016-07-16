@@ -13,10 +13,12 @@ int main(int argc, char** argv)
       optionsParser.getClusterizerOptions());
    ClusteringCriterion* clusteringCriterion = clusterizerFactory.getClusteringCriterion();
    NewsReader* newsReader = clusterizerFactory.getNewsReader();
+   NewsReader* tuitsReader = clusterizerFactory.getTuitsReader();
 
    Clusterizer clusterizer;
    clusterizer.setCriterion(clusteringCriterion);
    clusterizer.setNewsReader(newsReader);
+   clusterizer.setTuitsReader(tuitsReader);
    clusterizer.obtainClusters();
 
    ClusterWriter* writer = clusterizerFactory.getClusterWriter();
