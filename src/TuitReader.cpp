@@ -33,9 +33,12 @@ void TuitReader::getTuitsFromFile(const Json::Value& rootElement,
    const Json::Value tuits = rootElement["tuits"];
    for (Json::ArrayIndex index = 0; index < tuits.size(); ++index)
    {
-      std::string tuit = tuits[index]["tuit"].asString();
-      std::shared_ptr<News> news(new TwitterNews(exclusionList));
-      news->setSubject(tuit);
+      const Json::Value tuit = tuits[index];
+      TwitterNews* twitterNews = new TwitterNews(exclusionList);
+      twitterNews->setSubject(tuit["tuit"].asString());
+      twitterNews->setId(tuit["id"].asUInt());
+      twitterNews->setUser(tuit["usuario"].asString());
+      std::shared_ptr<News> news(twitterNews);
       tuitsVector.push_back(news);
    }
 }

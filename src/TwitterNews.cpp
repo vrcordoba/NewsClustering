@@ -6,7 +6,8 @@
 #include "NewsDiscriminator.h"
 #include "StringUtilities.h"
 
-TwitterNews::TwitterNews(const ExclusionList& exclusionList) : exclusionList(exclusionList)
+TwitterNews::TwitterNews(const ExclusionList& exclusionList) : exclusionList(exclusionList),
+   id(0), user()
 {
 }
 
@@ -50,4 +51,24 @@ void TwitterNews::setSubject(const std::string& subject)
    std::vector<std::string> wordsInTuit;
    StringUtilities::breakTextIntoWords(subject, wordsInTuit);
    setMentionedEntities(wordsInTuit);
+}
+
+void TwitterNews::setId(unsigned int id)
+{
+   this->id = id;
+}
+
+unsigned int TwitterNews::getId() const
+{
+   return id;
+}
+
+void TwitterNews::setUser(const std::string& user)
+{
+   this->user = user;
+}
+
+std::string TwitterNews::getUser() const
+{
+   return user;
 }

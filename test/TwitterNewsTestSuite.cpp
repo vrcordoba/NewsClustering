@@ -178,3 +178,21 @@ TEST_F(TwitterNewsTestSuite, doNotShareMentionedEntities)
    EXPECT_FALSE(news1.shareMentionedEntities(&news2));
    EXPECT_FALSE(news2.shareMentionedEntities(&news1));
 }
+
+TEST_F(TwitterNewsTestSuite, userHandling)
+{
+   TwitterNews news(exclusionList);
+   std::string user("dummyUser");
+   news.setUser(user);
+
+   EXPECT_THAT(news.getUser(), ::testing::Eq(user));
+}
+
+TEST_F(TwitterNewsTestSuite, idHandling)
+{
+   TwitterNews news(exclusionList);
+   unsigned int id = 56789;
+   news.setId(id);
+
+   EXPECT_THAT(news.getId(), ::testing::Eq(id));
+}
