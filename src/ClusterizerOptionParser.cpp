@@ -7,6 +7,9 @@
 #include <iomanip>
 #include <cstring>
 
+const char* const ClusterizerOptionParser::plainTextExtension = ".txt";
+const char* const ClusterizerOptionParser::jsonExtension = ".json";
+
 ClusterizerOptionParser::ClusterizerOptionParser(int numArgs, char** args)
    : clusterizerOptions()
 {
@@ -53,7 +56,7 @@ void ClusterizerOptionParser::parseOptions(int numArgs, char** args)
          break;
       case 'o':
          hasValidArgument(optarg);
-         clusterizerOptions.outputFile = optarg;
+         parseClusteringOutput(optarg);
          outputFileSet = true;
          break;
       case 'h':
@@ -97,6 +100,17 @@ void ClusterizerOptionParser::parseClusteringCriterion(char* option)
       showErrorHelpAndClose("Invalid clustering criterion option.");
 }
 
+void ClusterizerOptionParser::parseClusteringOutput(char* option)
+{
+   if (std::strstr(option, plainTextExtension))
+      clusterizerOptions.clusteringOutput = ClusteringOutput::PlainFile;
+   else if (std::strstr(option, jsonExtension))
+      clusterizerOptions.clusteringOutput = ClusteringOutput::JsonFile;
+   else
+      showErrorHelpAndClose("Wrong output format.");
+   clusterizerOptions.outputFile = optarg;
+}
+
 void ClusterizerOptionParser::showErrorHelpAndClose(const std::string& error) const
 {
    std::cerr << error << std::endl;
@@ -114,6 +128,8 @@ void ClusterizerOptionParser::showHelp() const
    std::cout << "-n <newsDirectory> -> Directory where the news are located." << std::endl;
    std::cout << "-t <tuitsFile> -> File where the tuits are located." << std::endl;
    std::cout << "-o <outputFile> -> File where the results of the clustering are dumped." << std::endl;
+   std::cout << "      *.txt for results in plain file." << std::endl;
+   std::cout << "      *.json for results in json file." << std::endl;
    std::cout << "-c <clusteringCriterion> - Optional attribute. It should be followed by:" << std::endl;
    std::cout << std::setfill(' ') << std::setw(10) << " "
       << "mostmentioned -> Most mentioned entity criterion." << std::endl;

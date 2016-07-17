@@ -7,6 +7,7 @@
 #include "NewsReader.h"
 #include "TuitReader.h"
 #include "PlainTextClusterWriter.h"
+#include "JsonClusterWriter.h"
 
 ClusterizerFactory::ClusterizerFactory(const ClusterizerOptions& clusterizerOptions)
    : clusterizerOptions(clusterizerOptions), exclusionList(nullptr),
@@ -58,6 +59,11 @@ Reader* ClusterizerFactory::getTuitsReader()
 ClusterWriter* ClusterizerFactory::getClusterWriter()
 {
    if (nullptr == clusterWriter)
-      clusterWriter = new PlainTextClusterWriter(clusterizerOptions.outputFile);
+   {
+      if (ClusteringOutput::PlainFile == clusterizerOptions.clusteringOutput)
+         clusterWriter = new PlainTextClusterWriter(clusterizerOptions.outputFile);
+      else
+         clusterWriter = new JsonClusterWriter(clusterizerOptions.outputFile);
+   }
    return clusterWriter;
 }

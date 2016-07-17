@@ -4,6 +4,7 @@
 #include <dirent.h>
 #include <cstring>
 #include "InvalidLocationException.h"
+#include "ClusterizerOptionParser.h"
 
 NewsReader::NewsReader(const std::string& newsDirectory,
    const ExclusionList& exclusionList) : newsDirectory(newsDirectory),
@@ -18,8 +19,8 @@ NewsReader::~NewsReader()
 std::vector<std::shared_ptr<News>> NewsReader::getNews() const
 {
    std::vector<std::shared_ptr<News>> newsVector;
-   getNewsFromPlainText(getFilesInDirectory(plainTextExtension), newsVector);
-   getNewsFromJson(getFilesInDirectory(jsonExtension), newsVector);
+   getNewsFromPlainText(getFilesInDirectory(ClusterizerOptionParser::plainTextExtension), newsVector);
+   getNewsFromJson(getFilesInDirectory(ClusterizerOptionParser::jsonExtension), newsVector);
    return newsVector;
 }
 

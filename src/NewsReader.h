@@ -29,9 +29,6 @@ private:
    const ExclusionList& exclusionList;
    const NewsReaderFromPlainText newsReaderFromPlainText;
    const NewsReaderFromJson newsReaderFromJson;
-
-   const char* const plainTextExtension = ".txt";
-   const char* const jsonExtension = ".json";
 };
 
 #endif

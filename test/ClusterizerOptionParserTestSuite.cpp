@@ -50,11 +50,29 @@ TEST(ClusterizerOptionParserTestSuite, setTuitsFile)
 
 TEST(ClusterizerOptionParserTestSuite, setOutputFile)
 {
-   char const* input[] = {"./newsClustering", "-e", "exclusionListFile.txt", "-o", "/tmp/OutputFile.txt",
+   char const* input[] = {"./newsClustering", "-e", "exclusionListFile.txt", "-n", "/tmp/inputDir",
       "-t", "tuits.json", "-o", "/tmp/OutputFile.txt"};
    ClusterizerOptionParser optionParser(sizeof(input) / sizeof(char const*), const_cast<char**>(input));
    EXPECT_THAT(optionParser.getClusterizerOptions().outputFile,
       ::testing::Eq("/tmp/OutputFile.txt"));
+}
+
+TEST(ClusterizerOptionParserTestSuite, setOutputPlainTextFile)
+{
+   char const* input[] = {"./newsClustering", "-e", "exclusionListFile.txt", "-n", "/tmp/inputDir",
+      "-t", "tuits.json", "-o", "/tmp/OutputFile.txt"};
+   ClusterizerOptionParser optionParser(sizeof(input) / sizeof(char const*), const_cast<char**>(input));
+   EXPECT_THAT(optionParser.getClusterizerOptions().clusteringOutput,
+      ::testing::Eq(ClusteringOutput::PlainFile));
+}
+
+TEST(ClusterizerOptionParserTestSuite, setOutputJsonFile)
+{
+   char const* input[] = {"./newsClustering", "-e", "exclusionListFile.txt", "-n", "/tmp/inputDir",
+      "-t", "tuits.json", "-o", "/tmp/OutputFile.json"};
+   ClusterizerOptionParser optionParser(sizeof(input) / sizeof(char const*), const_cast<char**>(input));
+   EXPECT_THAT(optionParser.getClusterizerOptions().clusteringOutput,
+      ::testing::Eq(ClusteringOutput::JsonFile));
 }
 
 TEST(ClusterizerOptionParserTestSuite, setAllOptions)
