@@ -6,6 +6,7 @@
 #include "ExclusionListMock.h"
 #include "ExclusionListFromFile.h"
 #include "News.h"
+#include "NewspaperNews.h"
 #include "InvalidLocationException.h"
 
 class NewsReaderTestSuite : public ::testing::Test
@@ -50,11 +51,29 @@ TEST_F(NewsReaderTestSuite, directoryWithPhonyNews)
 
    std::vector<std::shared_ptr<News>> recoveredNews = newsReader.getNews();
    EXPECT_THAT(recoveredNews.size(), ::testing::Eq(2));
+
    std::set<std::string> expectedMostMentionedEntities{u8"Titular", u8"Verano"};
    std::set<std::string> obtainedMostMentionedEntities;
    for (auto& news : recoveredNews)
       obtainedMostMentionedEntities.insert(news->getMostMentionedEntity());
    EXPECT_THAT(obtainedMostMentionedEntities, ::testing::Eq(expectedMostMentionedEntities));
+
+   std::vector<std::vector<std::string>> expectedParagraphs{
+      {
+         u8"Buen Titular para captar tu atención .",
+         u8"Tras el Titular no hay nada más .",
+         u8"La Noticia no dice nada ."
+      },
+      {
+         u8"La canción de este Verano es la Cigüeña come un Entremés"
+      }
+   };
+   std::size_t i = 0;
+   for (auto& news : recoveredNews)
+   {
+      EXPECT_THAT(static_cast<NewspaperNews*>(news.get())->getParagraphs(),
+         ::testing::Eq(expectedParagraphs[i++]));
+   }
 }
 
 TEST_F(NewsReaderTestSuite, directoryWithPhonyJsonNews)
@@ -81,11 +100,29 @@ TEST_F(NewsReaderTestSuite, directoryWithPhonyJsonNews)
 
    std::vector<std::shared_ptr<News>> recoveredNews = newsReader.getNews();
    EXPECT_THAT(recoveredNews.size(), ::testing::Eq(2));
+
    std::set<std::string> expectedMostMentionedEntities{u8"Titular", u8"Verano"};
    std::set<std::string> obtainedMostMentionedEntities;
    for (auto& news : recoveredNews)
       obtainedMostMentionedEntities.insert(news->getMostMentionedEntity());
    EXPECT_THAT(obtainedMostMentionedEntities, ::testing::Eq(expectedMostMentionedEntities));
+
+   std::vector<std::vector<std::string>> expectedParagraphs{
+      {
+         u8"Buen Titular para captar tu atención .",
+         u8"Tras el Titular no hay nada más .",
+         u8"La Noticia no dice nada ."
+      },
+      {
+         u8"La canción de este Verano es la Cigüeña come un Entremés"
+      }
+   };
+   std::size_t i = 0;
+   for (auto& news : recoveredNews)
+   {
+      EXPECT_THAT(static_cast<NewspaperNews*>(news.get())->getParagraphs(),
+         ::testing::Eq(expectedParagraphs[i++]));
+   }
 }
 
 TEST_F(NewsReaderTestSuite, directoryWithRealNews)

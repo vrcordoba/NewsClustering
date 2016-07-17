@@ -23,9 +23,13 @@ public:
 
    void accept(NewsDiscriminator* newsDiscriminator) const;
 
+   void addParagraph(const std::string& paragraph);
+   std::vector<std::string> getParagraphs() const;
+
 private:
    const ExclusionList& exclusionList;
    std::set<std::string> relevantEntities;
+   std::vector<std::string> paragraphs;
 };
 
 #endif

@@ -20,6 +20,7 @@ std::shared_ptr<News> NewsReaderFromPlainText::readNews(const std::string& filen
    std::ifstream file(filename);
    std::vector<std::string> wordsInNews;
    std::string subject;
+   NewspaperNews* newspaperNews = new NewspaperNews(exclusionList);
    for (std::string line; std::getline(file, line); )
    {
       if (subject.empty())
@@ -28,11 +29,13 @@ std::shared_ptr<News> NewsReaderFromPlainText::readNews(const std::string& filen
             std::not1(std::ptr_fun<int, int>(std::isspace))).base(), line.end());
          subject = line;
       }
+      else
+         newspaperNews->addParagraph(line);
       StringUtilities::breakTextIntoWords(line, wordsInNews);
    }
-   std::shared_ptr<News> news(new NewspaperNews(exclusionList));
-   news->setSubject(subject);
-   news->setMentionedEntities(wordsInNews);
+   newspaperNews->setSubject(subject);
+   newspaperNews->setMentionedEntities(wordsInNews);
+   std::shared_ptr<News> news(newspaperNews);
    return news;
 }
 

@@ -212,3 +212,18 @@ TEST_F(NewspaperNewsTestSuite, getMentionedEntities)
       std::end(mentionedEntities));
    EXPECT_THAT(news.getMentionedEntities(), ::testing::Eq(expectedResult));
 }
+
+TEST_F(NewspaperNewsTestSuite, paragraphHandling)
+{
+   std::vector<std::string> paragraphs{
+      "This is the first paragraph.",
+      "This is the second paragraph.",
+      "This is the last but not least paragraph."
+   };
+   NewspaperNews news(exclusionList);
+
+   for (auto& paragraph : paragraphs)
+      news.addParagraph(paragraph);
+
+   EXPECT_THAT(news.getParagraphs(), ::testing::Eq(paragraphs));
+}
