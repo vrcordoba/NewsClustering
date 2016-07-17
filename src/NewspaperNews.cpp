@@ -3,7 +3,7 @@
 
 #include "ExclusionList.h"
 #include "StringUtilities.h"
-#include "NewsDiscriminator.h"
+#include "NewsVisitor.h"
 
 NewspaperNews::NewspaperNews(const ExclusionList& exclusionList) : exclusionList(exclusionList),
    relevantEntities(), paragraphs()
@@ -44,9 +44,9 @@ bool NewspaperNews::isContainedInRelevantEntities(const std::string& word) const
    return (relevantEntities.find(word) != std::end(relevantEntities));
 }
 
-void NewspaperNews::accept(NewsDiscriminator* newsDiscriminator) const
+void NewspaperNews::accept(NewsVisitor* newsVisitor) const
 {
-   newsDiscriminator->visit(this);
+   newsVisitor->visit(this);
 }
 
 void NewspaperNews::addParagraph(const std::string& paragraph)

@@ -5,7 +5,6 @@
 
 #include <vector>
 #include <string>
-#include <fstream>
 #include "NewsCluster.h"
 
 class PlainTextClusterWriter final : public ClusterWriter
@@ -18,8 +17,6 @@ public:
 
 private:
    void writeCluster(const NewsCluster& newsCluster);
-
-   std::ofstream file;
 };
 
 #endif

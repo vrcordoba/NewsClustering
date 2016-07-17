@@ -4,7 +4,7 @@
 #include "News.h"
 
 class ExclusionList;
-class NewsDiscriminator;
+class NewsVisitor;
 
 class TwitterNews final : public News
 {
@@ -15,7 +15,7 @@ public:
    void setMentionedEntities(const std::vector<std::string>& wordsInNews);
    void setSubject(const std::string& subject);
 
-   void accept(NewsDiscriminator* newsDiscriminator) const;
+   void accept(NewsVisitor* newsVisitor) const;
 
    bool shareMentionedEntities(const TwitterNews* otherTwitterNews) const;
 

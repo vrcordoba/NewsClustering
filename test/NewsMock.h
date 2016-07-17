@@ -7,7 +7,7 @@
 #include <string>
 #include <set>
 #include "News.h"
-#include "NewsDiscriminator.h"
+#include "NewsVisitor.h"
 
 class NewsMock final : public News
 {
@@ -21,7 +21,7 @@ public:
    MOCK_CONST_METHOD0(getRelevantEntities, std::set<std::string>());
    MOCK_CONST_METHOD1(isContainedInRelevantEntities, bool(const std::string& word));
 
-   MOCK_CONST_METHOD1(accept, void(NewsDiscriminator* newsDiscriminator));
+   MOCK_CONST_METHOD1(accept, void(NewsVisitor* newsVisitor));
 };
 
 #endif

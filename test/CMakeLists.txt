@@ -83,6 +83,7 @@ target_link_libraries(RealClusterizerTestSuite ${GTEST_LIBRARIES} pthread gmock_
 add_executable(PlainTextClusterWriterTestSuite
    PlainTextClusterWriterTestSuite.cpp
    ../src/PlainTextClusterWriter.cpp
+   ../src/ClusterWriter.cpp
    ../src/NewsCluster.cpp
    ../src/InvalidLocationException.cpp
    ../src/News.cpp)
@@ -133,3 +134,16 @@ add_executable(NewsDiscriminatorTestSuite
    ../src/StringUtilities.cpp
    ../src/News.cpp)
 target_link_libraries(NewsDiscriminatorTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)
+
+add_executable(JsonClusterWriterTestSuite
+   JsonClusterWriterTestSuite.cpp
+   ../src/JsonClusterWriter.cpp
+   ../src/ClusterWriter.cpp
+   ../src/JsonCpp/jsoncpp.cpp
+   ../src/NewsCluster.cpp
+   ../src/InvalidLocationException.cpp
+   ../src/News.cpp
+   ../src/NewspaperNews.cpp
+   ../src/TwitterNews.cpp
+   ../src/StringUtilities.cpp)
+target_link_libraries(JsonClusterWriterTestSuite ${GTEST_LIBRARIES} pthread gmock_main gmock)

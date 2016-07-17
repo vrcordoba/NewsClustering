@@ -29,6 +29,7 @@ set(HEADER_FILES
    NewsReaderFromPlainText.h
    NewsReaderFromJson.h
    JsonClusterWriter.h
+   TypeOfNews.h
 
    JsonCpp/json/json-forwards.h
    JsonCpp/json/json.h
@@ -47,6 +48,7 @@ set(SOURCE_FILES
    MostMentionedEntityClusteringCriterion.cpp
    ThematicSimilarityClusteringCriterion.cpp
    Clusterizer.cpp
+   ClusterWriter.cpp
    PlainTextClusterWriter.cpp
    ClusterizerOptionParser.cpp
    ClusterizerFactory.cpp

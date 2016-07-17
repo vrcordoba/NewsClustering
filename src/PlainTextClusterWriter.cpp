@@ -3,21 +3,13 @@
 
 #include <ostream>
 #include <iomanip>
-#include "InvalidLocationException.h"
 
-PlainTextClusterWriter::PlainTextClusterWriter(const std::string& destination)
+PlainTextClusterWriter::PlainTextClusterWriter(const std::string& destination) : ClusterWriter(destination)
 {
-   file.open(destination);
-   if (!file.is_open())
-   {
-      file.clear();
-      throw InvalidLocationException(destination);
-   }
 }
 
 PlainTextClusterWriter::~PlainTextClusterWriter()
 {
-   file.close();
 }
 
 void PlainTextClusterWriter::write(const std::vector<NewsCluster>& newsClusters)

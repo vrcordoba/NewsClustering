@@ -7,7 +7,7 @@
 #include <map>
 #include <cstdint>
 
-class NewsDiscriminator;
+class NewsVisitor;
 
 class News
 {
@@ -26,7 +26,7 @@ public:
    virtual std::set<std::string> getRelevantEntities() const;
    virtual bool isContainedInRelevantEntities(const std::string& word) const;
 
-   virtual void accept(NewsDiscriminator* newsDiscriminator) const = 0;
+   virtual void accept(NewsVisitor* newsVisitor) const = 0;
 
 protected:
    std::map<std::string, std::uint32_t> mentionedEntities;

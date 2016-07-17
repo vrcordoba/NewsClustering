@@ -4,6 +4,7 @@
 #include <memory>
 #include "NewsVisitor.h"
 #include "News.h"
+#include "TypeOfNews.h"
 
 class NewsDiscriminator final : public NewsVisitor
 {
@@ -26,12 +27,6 @@ public:
    void visit(const TwitterNews* news);
 
 private:
-   enum TypeOfNews
-   {
-      notDetermined,
-      newspaperNews,
-      twitterNews
-   };
    TypeOfNews firstReceived;
    TypeOfNews secondReceived;
 };

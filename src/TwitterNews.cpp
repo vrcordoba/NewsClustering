@@ -3,7 +3,7 @@
 
 #include "ExclusionList.h"
 #include "StringUtilities.h"
-#include "NewsDiscriminator.h"
+#include "NewsVisitor.h"
 #include "StringUtilities.h"
 
 TwitterNews::TwitterNews(const ExclusionList& exclusionList) : exclusionList(exclusionList),
@@ -29,9 +29,9 @@ void TwitterNews::setMentionedEntities(const std::vector<std::string>& wordsInNe
    }
 }
 
-void TwitterNews::accept(NewsDiscriminator* newsDiscriminator) const
+void TwitterNews::accept(NewsVisitor* newsVisitor) const
 {
-   newsDiscriminator->visit(this);
+   newsVisitor->visit(this);
 }
 
 bool TwitterNews::shareMentionedEntities(const TwitterNews* otherTwitterNews) const
