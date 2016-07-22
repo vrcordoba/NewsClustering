@@ -9,8 +9,6 @@ Makefile
 newsClustering
 test/*TestSuite
 
-data
-
 CMakeFiles/
 proj/
 
