@@ -33,12 +33,10 @@ void Clusterizer::setTuitsReader(const Reader* tuitsReader)
 void Clusterizer::obtainClusters()
 {
    assert(newsReader != nullptr or tuitsReader != nullptr);
-   std::vector<std::shared_ptr<News>> newsVector;
    if (newsReader != nullptr)
       createClustersFromNews(newsReader->getNews());
    if (tuitsReader != nullptr)
       createClustersFromNews(tuitsReader->getNews());
-   createClustersFromNews(newsVector);
    analyzeNews();
 }
 
