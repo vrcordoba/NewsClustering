@@ -29,28 +29,13 @@ TEST_F(TuitReaderTestSuite, fileWithPhonyNews)
 {
    TuitReader newsReader("dummyData/dummyTwitterNews/dummy.json", exclusionList);
 
-   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(16)
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(true))
-      .WillOnce(::testing::Return(true))
-      .WillOnce(::testing::Return(true))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(true))
-      .WillOnce(::testing::Return(true));
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(15)
+      .WillRepeatedly(::testing::Return(false));
 
    std::vector<std::shared_ptr<News>> recoveredNews = newsReader.getNews();
    EXPECT_THAT(recoveredNews.size(), ::testing::Eq(2));
 
-   std::set<std::string> expectedMostMentionedEntities{u8"Titular", u8"Verano"};
+   std::set<std::string> expectedMostMentionedEntities{u8"Repelús", u8"Verano"};
    std::set<std::string> obtainedMostMentionedEntities;
    for (auto& news : recoveredNews)
       obtainedMostMentionedEntities.insert(news->getMostMentionedEntity());

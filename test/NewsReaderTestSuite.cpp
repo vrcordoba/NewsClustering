@@ -21,58 +21,45 @@ TEST_F(NewsReaderTestSuite, wrongDirectory)
    EXPECT_THROW(newsReader.getNews(), InvalidLocationException);
 }
 
-TEST_F(NewsReaderTestSuite, emptyDirectory)
-{
-   NewsReader newsReader("dummyData/emptyDir", exclusionList);
-   EXPECT_THAT(newsReader.getNews().size(), ::testing::Eq(0));
-}
-
 TEST_P(NewsReaderTestSuite, directoryWithPhonyNews)
 {
    NewsReader newsReader(GetParam(), exclusionList);
 
-   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(16)
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(true))
-      .WillOnce(::testing::Return(true))
-      .WillOnce(::testing::Return(true))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(false))
-      .WillOnce(::testing::Return(true))
-      .WillOnce(::testing::Return(true));
+   EXPECT_CALL(exclusionList, isWordInExclusionList(::testing::_)).Times(15)
+      .WillRepeatedly(::testing::Return(false));
 
    std::vector<std::shared_ptr<News>> recoveredNews = newsReader.getNews();
    EXPECT_THAT(recoveredNews.size(), ::testing::Eq(2));
 
-   std::set<std::string> expectedMostMentionedEntities{u8"Titular", u8"Verano"};
+   std::set<std::string> expectedMostMentionedEntities{u8"Repelús", u8"Verano"};
    std::set<std::string> obtainedMostMentionedEntities;
    for (auto& news : recoveredNews)
       obtainedMostMentionedEntities.insert(news->getMostMentionedEntity());
    EXPECT_THAT(obtainedMostMentionedEntities, ::testing::Eq(expectedMostMentionedEntities));
 
-   std::vector<std::vector<std::string>> expectedParagraphs{
+   std::set<std::vector<std::string>> expectedParagraphs{
       {
          u8"Buen Titular para captar tu atención .",
-         u8"Tras el Titular no hay nada más .",
+         u8"Tras él no hay nada más .",
          u8"La Noticia no dice nada ."
       },
       {
          u8"La canción de este Verano es la Cigüeña come un Entremés"
       }
    };
-   std::size_t i = 0;
+   EXPECT_THAT(recoveredNews.size(), ::testing::Eq(expectedParagraphs.size()));
    for (auto& news : recoveredNews)
    {
-      EXPECT_THAT(static_cast<NewspaperNews*>(news.get())->getParagraphs(),
-         ::testing::Eq(expectedParagraphs[i++]));
+      std::vector<std::string> recoveredParagraph = static_cast<NewspaperNews*>(news.get())->getParagraphs();
+      std::set<std::vector<std::string>>::iterator it = expectedParagraphs.find(recoveredParagraph);
+      if (it == std::end(expectedParagraphs))
+         FAIL() << "Paragraph not expected";
+      else
+         expectedParagraphs.erase(it);
+   }
+   if (not expectedParagraphs.empty())
+   {
+      FAIL() << "Result contains more news than expected";
    }
 }
 
