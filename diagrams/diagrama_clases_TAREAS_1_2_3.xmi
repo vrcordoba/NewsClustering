@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<XMI verified="false" xmi.version="1.2" timestamp="2016-07-23T16:49:00" xmlns:UML="http://schema.omg.org/spec/UML/1.3">
+<XMI verified="false" xmi.version="1.2" timestamp="2016-07-23T17:09:18" xmlns:UML="http://schema.omg.org/spec/UML/1.3">
  <XMI.header>
   <XMI.documentation>
    <XMI.exporter>umbrello uml modeller http://umbrello.kde.org</XMI.exporter>
@@ -118,11 +118,7 @@
         <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="true" isLeaf="false" isRoot="false" xmi.id="B8RDfCEQHHEc" name="getRelevantEntities"/>
         <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="true" isLeaf="false" isRoot="false" xmi.id="Xp6skRTN2FL7" name="setMentionedEntities"/>
         <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="true" isLeaf="false" isRoot="false" xmi.id="ETeEixKblw70" name="setHeadline"/>
-        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="true" isLeaf="false" isRoot="false" xmi.id="PlByYDEkgsyM" name="isContainedInHeadline">
-         <UML:BehavioralFeature.parameter>
-          <UML:Parameter kind="return" xmi.id="1mdPShPrQZoy" type="pYAHi1EDNkJo"/>
-         </UML:BehavioralFeature.parameter>
-        </UML:Operation>
+        <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="true" isLeaf="false" isRoot="false" xmi.id="PlByYDEkgsyM" name="isContainedInHeadline"/>
         <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="true" isLeaf="false" isRoot="false" xmi.id="k2gOsdkgtfD4" name="isContainedInRelevantEntities"/>
        </UML:Classifier.feature>
       </UML:Class>
@@ -183,6 +179,8 @@
        <UML:Namespace.ownedElement>
         <UML:Dependency visibility="public" isSpecification="false" namespace="Logical View" supplier="1p50KD3AjKVG" xmi.id="sO16IwKitQUC" client="MFl20aEQTYnI" name=""/>
         <UML:Dependency visibility="public" isSpecification="false" namespace="Logical View" supplier="1p50KD3AjKVG" xmi.id="r2XwTZrxCq6N" client="HPyRYMicg5ul" name=""/>
+        <UML:Dependency visibility="public" isSpecification="false" namespace="1p50KD3AjKVG" supplier="1p50KD3AjKVG" xmi.id="sO16IwKitQUC" client="MFl20aEQTYnI" name=""/>
+        <UML:Dependency visibility="public" isSpecification="false" namespace="1p50KD3AjKVG" supplier="1p50KD3AjKVG" xmi.id="r2XwTZrxCq6N" client="HPyRYMicg5ul" name=""/>
         <UML:Dependency visibility="public" isSpecification="false" namespace="1p50KD3AjKVG" supplier="1p50KD3AjKVG" xmi.id="sO16IwKitQUC" client="MFl20aEQTYnI" name=""/>
         <UML:Dependency visibility="public" isSpecification="false" namespace="1p50KD3AjKVG" supplier="1p50KD3AjKVG" xmi.id="r2XwTZrxCq6N" client="HPyRYMicg5ul" name=""/>
         <UML:Dependency visibility="public" isSpecification="false" namespace="Logical View" supplier="1p50KD3AjKVG" xmi.id="sO16IwKitQUC" client="MFl20aEQTYnI" name=""/>
