@@ -5,6 +5,7 @@ Makefile
 *.odt
 *.pdf
 *~
+*.png
 
 newsClustering
 test/*TestSuite
